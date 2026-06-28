@@ -59,6 +59,15 @@ Selectivity metrics enter the Phase 2 Pareto objective (ADR-001).
 - **OFF-target interface (1TCO, FKBP12↔calcineurin):** 23 residues. Beyond the pocket, it additionally uses the **"40s loop" patch (Thr27, Asp32, Lys34/35, Ser38, Arg40, Asn43, Lys44, Pro45)**. This patch is **absent** from the receptor interface.
 - **➡ Design rule (non-immunosuppressive):** fill the hydrophobic pocket (Pocket 1) but use a **small molecule that does not touch or reorganize the calcineurin-recruiting 40s loop (residues 32–45)**. FK506 is immunosuppressive because its out-of-pocket effector portion recruits calcineurin → removing that portion is the key to selectivity. Impose "confined to pocket interior + avoid 40s loop" as a geometric constraint on the generative model.
 
+## 5.2 Known chemical matter (ChEMBL, 2026-06-28)
+`src/data/collect_chembl_ligands.py` → `data/processed/fkbp12_ligands.csv`
+
+725 unique ligands with pChEMBL values (human FKBP1A, CHEMBL1902).
+- pChEMBL range 3.1–11.0 (median 6.71 ≈ 200 nM). Some sub-nanomolar binders.
+- **Chemical space skews to macrocycles:** median MW 556, 243 ligands >700 Da (FK506/rapamycin class), QED median 0.284. These are NOT oral-small-molecule-like.
+- **But 68 drug-like + potent anchors exist** (MW≤500, QED≥0.5, pChEMBL≥6) → `fkbp12_druglike_anchors.csv`. Top: CHEMBL4090599 (pKi 9.35, MW 498, QED 0.61); CHEMBL33094 (pKi 9.0, MW 358).
+- **Implication:** potent *drug-like* FKBP12 binders are achievable (de-risks the moderate-druggability concern in §4). These anchors serve as (a) docking validation set, (b) generative-model seeds/reference, (c) affinity-model training data. The de novo task remains genuinely novel because none combine drug-likeness with the **calcineurin-avoidance selectivity** of §5.1.
+
 ## 6. Differentiation (vs competing drugs)
 - **Sotatercept (approved 2024):** ActRIIA ligand trap, injectable. → This project: **different node (FKBP12) + oral small molecule**.
 - **FK506 (clinical):** non-selective, immunosuppressive. → This project: **calcineurin-avoidance selectivity** is the key advance.
@@ -66,5 +75,6 @@ Selectivity metrics enter the Phase 2 Pareto objective (ADR-001).
 ## Open / next
 - [x] Quantify pocket with fpocket (1FKF)
 - [x] Map ON-target interface (1B6C) and OFF-target surface (1TCO)
-- [ ] Collect FKBP12-binding ligands from ChEMBL (training set for the affinity model)
+- [x] Collect FKBP12-binding ligands from ChEMBL (725 ligands; 68 drug-like anchors)
+- [ ] Docking benchmark of known ligands (smina/vina) to validate the scoring pipeline
 - [ ] Convert pocket to generative-model input format (DiffSBDD conditioning)
