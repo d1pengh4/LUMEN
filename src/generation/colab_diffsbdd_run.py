@@ -29,9 +29,18 @@ WORK = Path("/content/lumen") if Path("/content").exists() else Path.cwd() / "lu
 WORK.mkdir(parents=True, exist_ok=True)
 
 
-def sh(cmd, **kw):
+def sh(cmd, check=True):
+    # Capture child output explicitly: ipykernel does NOT forward an OS-level
+    # subprocess's stdout/stderr, so we must print it ourselves to see errors.
     print(f"$ {cmd}", flush=True)
-    return subprocess.run(cmd, shell=True, check=True, **kw)
+    r = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+    if r.stdout:
+        print(r.stdout, flush=True)
+    if r.stderr:
+        print("[stderr]", r.stderr, flush=True)
+    if check and r.returncode:
+        raise RuntimeError(f"command failed (rc={r.returncode}): {cmd}")
+    return r
 
 
 def build_pocket() -> Path:
@@ -47,24 +56,41 @@ def build_pocket() -> Path:
 
 def setup():
     sh("nvidia-smi -L")
+    import torch
+    print(f"TORCH {torch.__version__} CUDA {torch.version.cuda} avail {torch.cuda.is_available()}", flush=True)
     repo = WORK / "DiffSBDD"
     if not repo.exists():
         sh(f"git clone --depth 1 https://github.com/arneschneuing/DiffSBDD {repo}")
-    # best-effort deps matched to the VM's torch/CUDA (not DiffSBDD's pinned old ones)
-    sh(f'{sys.executable} -m pip -q install "rdkit>=2022.03" biopython scipy networkx')
+    # Patch DiffSBDD for modern Biopython (three_to_one removed in 1.80+; 1.79 has
+    # no py3.12 wheel). Keep current biopython, shim three_to_one via protein_letters_3to1.
+    shim = ('from Bio.PDB.Polypeptide import protein_letters_3to1 as _P3; '
+            'three_to_one = lambda r: _P3.get(r.upper(), "X")')
+    sh(f"cd {repo} && grep -rl 'from Bio.PDB.Polypeptide import three_to_one' --include='*.py' . | "
+       f'xargs -r sed -i "s|from Bio.PDB.Polypeptide import three_to_one|{shim}|g"')
+    # deps matched to the VM's torch/CUDA (not DiffSBDD's pinned old ones)
+    sh(f'{sys.executable} -m pip -q install "rdkit>=2022.03" biopython scipy networkx pytorch-lightning openbabel-wheel')
+    tv = torch.__version__.split("+")[0]
+    cu = torch.version.cuda.replace(".", "")
     sh(f'{sys.executable} -m pip -q install torch-scatter '
-       f'-f https://data.pyg.org/whl/torch-$(python -c "import torch;print(torch.__version__.split(\'+\')[0])")'
-       f'+cu$(python -c "import torch;print(torch.version.cuda.replace(\'.\',\'\'))").html || true')
+       f'-f https://data.pyg.org/whl/torch-{tv}+cu{cu}.html')
+    # torch>=2.6 defaults torch.load(weights_only=True), which rejects the
+    # checkpoint's argparse.Namespace. We trust the Zenodo checkpoint -> force
+    # weights_only=False via an auto-imported sitecustomize (no DiffSBDD edits).
+    (WORK / "sitecustomize.py").write_text(
+        "import torch as _t\n"
+        "_orig = _t.load\n"
+        "_t.load = lambda *a, **k: _orig(*a, **{**k, 'weights_only': False})\n")
     ckpt = repo / "crossdocked_fullatom_cond.ckpt"
     if not ckpt.exists():
         sh(f'wget -q -O {ckpt} '
            f'"https://zenodo.org/record/8183747/files/crossdocked_fullatom_cond.ckpt?download=1"')
+        sh(f'ls -lh {ckpt}')
     return repo, ckpt
 
 
 def generate(repo: Path, ckpt: Path, pocket: Path) -> Path:
     out = WORK / "fkbp12_generated.sdf"
-    sh(f'cd {repo} && {sys.executable} generate_ligands.py {ckpt} '
+    sh(f'cd {repo} && PYTHONPATH={WORK}:$PYTHONPATH {sys.executable} generate_ligands.py {ckpt} '
        f'--pdbfile {pocket} --ref_ligand A:108 --outfile {out} '
        f'--n_samples {N} --sanitize')
     return out

@@ -1,0 +1,129 @@
+[colab] Creating session 'run-091f63'...
+[colab] Session READY (run-091f63). Executing src/generation/colab_diffsbdd_run.py...
+pocket pdb: 832 protein + 57 FK506 atoms
+$ nvidia-smi -L
+GPU 0: Tesla T4 (UUID: GPU-8bb961b7-1cf0-b620-86ac-68ca12dcb63f)
+
+TORCH 2.11.0+cu128 CUDA 12.8 avail True
+$ git clone --depth 1 https://github.com/arneschneuing/DiffSBDD /content/lumen/DiffSBDD
+[stderr] Cloning into '/content/lumen/DiffSBDD'...
+
+$ cd /content/lumen/DiffSBDD && grep -rl 'from Bio.PDB.Polypeptide import three_to_one' --include='*.py' . | xargs -r sed -i "s|from Bio.PDB.Polypeptide import three_to_one|from Bio.PDB.Polypeptide import protein_letters_3to1 as _P3; three_to_one = lambda r: _P3.get(r.upper(), "X")|g"
+$ /usr/bin/python3 -m pip -q install "rdkit>=2022.03" biopython scipy networkx pytorch-lightning openbabel-wheel
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.2/37.2 MB 20.2 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 107.2 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 852.4/852.4 kB 62.8 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.1/16.1 MB 97.6 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 983.4/983.4 kB 69.8 MB/s eta 0:00:00
+
+$ /usr/bin/python3 -m pip -q install torch-scatter -f https://data.pyg.org/whl/torch-2.11.0+cu128.html
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.9/10.9 MB 27.4 MB/s eta 0:00:00
+
+$ wget -q -O /content/lumen/DiffSBDD/crossdocked_fullatom_cond.ckpt "https://zenodo.org/record/8183747/files/crossdocked_fullatom_cond.ckpt?download=1"
+$ ls -lh /content/lumen/DiffSBDD/crossdocked_fullatom_cond.ckpt
+-rw-r--r-- 1 root root 18M Jun 28 12:04 /content/lumen/DiffSBDD/crossdocked_fullatom_cond.ckpt
+
+$ cd /content/lumen/DiffSBDD && PYTHONPATH=/content/lumen:$PYTHONPATH /usr/bin/python3 generate_ligands.py /content/lumen/DiffSBDD/crossdocked_fullatom_cond.ckpt --pdbfile /content/lumen/fkbp12_fk506.pdb --ref_ligand A:108 --outfile /content/lumen/fkbp12_generated.sdf --n_samples 50 --sanitize
+Entropy of n_nodes: H[N] 9.266729354858398
+
+[stderr] /content/lumen/DiffSBDD/analysis/metrics.py:214: SyntaxWarning: invalid escape sequence '\p'
+  print(f"QED: {np.mean(qed_flattened):.3f} \pm {np.std(qed_flattened):.2f}")
+/content/lumen/DiffSBDD/analysis/metrics.py:217: SyntaxWarning: invalid escape sequence '\p'
+  print(f"SA: {np.mean(sa_flattened):.3f} \pm {np.std(sa_flattened):.2f}")
+/content/lumen/DiffSBDD/analysis/metrics.py:220: SyntaxWarning: invalid escape sequence '\p'
+  print(f"LogP: {np.mean(logp_flattened):.3f} \pm {np.std(logp_flattened):.2f}")
+/content/lumen/DiffSBDD/analysis/metrics.py:223: SyntaxWarning: invalid escape sequence '\p'
+  print(f"Lipinski: {np.mean(lipinski_flattened):.3f} \pm {np.std(lipinski_flattened):.2f}")
+/content/lumen/DiffSBDD/analysis/metrics.py:225: SyntaxWarning: invalid escape sequence '\p'
+  print(f"Diversity: {np.mean(per_pocket_diversity):.3f} \pm {np.std(per_pocket_diversity):.2f}")
+Lightning automatically upgraded your loaded checkpoint from v1.8.1 to v2.6.5. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint crossdocked_fullatom_cond.ckpt`
+/usr/local/lib/python3.12/dist-packages/openbabel/__init__.py:26: UserWarning: "import openbabel" is deprecated, instead use "from openbabel import openbabel"
+  warnings.warn('"import openbabel" is deprecated, instead use "from openbabel import openbabel"')
+[12:08:34] Explicit valence for atom # 14 N, 4, is greater than permitted
+/content/lumen/DiffSBDD/analysis/molecule_builder.py:184: UserWarning: Sanitization failed. Returning None.
+  warnings.warn('Sanitization failed. Returning None.')
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 18 9
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 22 9
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 4 18
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 2 10
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 20 12
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 22 14
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 24 22
+[12:08:34] The 2 defining bonds for an atropisomer are co-planar - atoms are: 11 15
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 6 15
+[12:08:34] The 2 defining bonds for an atropisomer are co-planar - atoms are: 27 16
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 26 6
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 4 2
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 20 25
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 1 11
+[12:08:34] The 2 defining bonds for an atropisomer are co-planar - atoms are: 1 19
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 6 16
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 5 1
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 13 4
+[12:08:34] The 2 defining bonds for an atropisomer are co-planar - atoms are: 13 19
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 5 4
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 1 9
+[12:08:34] The 2 defining bonds for an atropisomer are co-planar - atoms are: 3 9
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 1 2
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 1 3
+[12:08:34] The 2 defining bonds for an atropisomer are co-planar - atoms are: 7 20
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 20 15
+[12:08:34] Both bonds on one end of an atropisomer are on the same side - atoms are: 8 19
+[12:08:34] The 2 defining bonds for an atropisomer are co-planar - atoms are: 21 18
+[12:08:34] The 2 defining bonds for an atropisomer are co-planar - atoms are: 9 32
+[12:08:34] The 2 defining bonds for an atropisomer are co-planar - atoms are: 32 8
+
+
+===LUMEN_SMILES_BEGIN=== (49 molecules)
+CC(C)NN1S[C@H](CCC(=O)O)[C@@H](O)[C@](C)(C=N)C1=O
+CC(F)(F)[C@@H]1C[C@@H](N2C=C[C@@H](COCOCCC(=O)C(F)(F)OC[C@@H]3CCCS3)CC2)O1
+O=[P@]1(O)OC[C@@H]2CC[C@@H](O)CO[C@@H]2O1
+CC1SC(C(N)=O)C(F)N1C(=O)[C@H](F)C(=O)F
+CC1([C@H](Cc2cccc(Cl)c2)OCCNC(=O)O)CCC1
+CC[S@@](O)([C@H]1CC=C(CCO)CN1)N1[C@@H](OCCCC(C)C)[C@@]1(C)O
+CCCC=C1[C@@H](O)[C@H](O)C[C@@H]2C[C@@H](C(N)=O)C3CCCC(Cl)CC[C@@H]3[C@@H](OCC)C(=O)N12
+COC[C@@H](O)N[C@H]1[C@@H]2[C@@H]1N(C)CC[C@H]2O
+CC1=CN=C2C1=NN=C2[C@@]12CC[C@@]3(F)C[C@@H]1[C@@H]2C[C@@H]3F
+CC[C@H](C)[C@@H](OC[C@@H](O)CNC(=O)CC(O)O)[C@](C)(O)COCC(C)(C)O
+CCO[C@]1(O)[C@@]2(C)c3cc(F)ccc3[C@H](C)[C@@]12Cl
+O=C(O)N1C[C@H]2[C@@H]3N2CCC[C@]3(c2cccnc2)C1
+C=CCCC[C@@H]1CN1[C@@H](C=C)CC
+CCOC(=O)NC(=O)[C@@H](C)[C@H]1CCCC[C@]12COC(=O)C2
+CCC[C@H](C)CN(C)C[C@@H]1CO[C@@H](NC(=O)[C@@]2(C)CC(=O)CO2)[C@H]2O[C@@H](O)[C@@]23C[C@@H]13
+OS(O)(O)N1[C@H]2[C@H]3C[C@H](O[C@H]32)[C@H]1c1ccc(Cl)cc1
+CO[C@H](C(=O)NC(=O)O)[C@@H](O)OCCC(C)(C)O
+CC[C@H](NC(=O)NC(=O)O[C@@H]1C[C@H]2[C@@H](CO)C=C[C@@]2(O)[C@H](C[C@@H](O)[C@H](O)CO)[C@@H]1O)OC
+O=C(O)OC[C@H]1CO[C@@H]2C[C@]2(CC(F)F)COO1
+COC(=O)CC[C@H]1CC[C@@H](N2C[C@H]([C@@H]3NCCS3)C(F)[C@@H]3C[C@@H]3[C@@H]2C)CC1
+CC1=C[C@@H](Cl)CCN1S(O)(O)OOC(=O)O
+CO[C@@H](C(=O)O)[C@@H](C)N[C@@]1(OCCCCO)CCC[C@@H]2CCCC(=O)[C@@H]21
+C[C@@H](O)C=CCCC[C@@H](c1cccc([C@H]2CC2(O)O)c1)C(C)(C)CC=N
+CCCC[C@H]1O[C@@H]1[C@H](C)[C@]12O[C@H]1[C@@H](F)C(=NOCCCNCCN)S2
+CCC[C@@H]1CC(=O)N[C@@]2(C)[C@H](C1)[C@@H](Cc1ccc(F)cc1N)CC[C@@H]2O
+C=C1OCCC2=CC[C@H]([C@@H]3C[C@@H]4CCC(C)=C[C@@H]4[C@@H]3CCCO)CC[C@H]12
+CN[C@](CO)(CCO)N1[C@@H]2[C@@H](NCCO)[C@@]21C
+CO[C@@H](CC[C@@H](C(=O)O)C(C)C)[C@@H](O)CC(=O)OF
+CCN[C@@H]1CC[C@H](O)N[C@@H](CO)C1
+OC1=CCC[C@@H]2[C@]3(CCC4CC4)C[C@@H]3[C@H]3C[C@]132
+Cc1cccc(C(=O)O)c1Cl
+CN1O[C@@H](C[C@@H](N)CO)[C@@H](NNC2=NCCCC2)[C@@H]1O
+CC[C@@H](C)C1CS(=O)(=O)[C@@H](O)[C@H](Cl)CCN2CC[C@@H](C2)N1
+FC(F)(F)CCO[C@H]1CCOC1
+CCC(=O)O[C@H](C(=O)O)[C@@H]1C[C@@H]1CO
+CCCc1ccc2nccc(C)c2c1
+CCCC[C@]1(CN(C)C)CO1
+CC(=O)N[C@H](C)[C@](F)(CO)[C@H](CO)COC(=O)O[C@H](C)[C@@H]1C[C@@]1(C)[SH]1CC1
+CNC1=N[C@H]2CCC[C@H](O[C@H]2CO)[C@H](CC=C[C@H](O)[C@@H]2CNCN2)[C@H]2OC[C@@H](C(O)O)O[C@@H]12
+C#C[C@@H]1[C@@H]([C@H]2[C@H]3[C@H](CC[C@@H]4O[C@@H](CCO)[C@@]5(C6(C=C)OO6)O[C@@]345)[C@H]3C[C@@]23O)C12OO2
+C=C(N[C@H]1O[C@@H]2[C@@H](CN[C@H](CC#N)C[C@H]2O)C[C@H]1C)NC(F)(F)F
+CN1[C@H]2C[C@@H]3C[C@H](O)S[C@]2(C[C@@H]3O)N[C@@H]1N
+C[C@H]1CCCN(c2ccc(F)cc2)[C@@H]1CCCCC(=O)O
+CC(C)[C@H]([C@@H]1CCNC(=O)CC1)[C@H]1CCN(C)C(=O)[C@@H]1O
+OCCCC[C@H]1CCCC[C@H](CC2c3ccccc32)N1
+C[C@H](CC(=CC(C)(C)O)[C@@H]1C[C@H]1CCC1CC1)[C@H]1CC[C@H](C)[C@@H]1O
+COC[C@H](SCC1CCCCC1)[C@@H](O)CCCC(C)=O
+C=C(C(C)=O)[C@@H]1N[C@H]1C(=O)N(C)CC[C@@H]1C[C@@H]2[C@@H](C)[C@@]2(SCN(C)C(C)=O)C1
+COC(=O)CCc1ccc2n1N1CCCC[C@H]1C2
+===LUMEN_SMILES_END===
+[colab] Stopping session 'run-091f63'...
+[colab] Session terminated.

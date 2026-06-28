@@ -47,3 +47,43 @@ python src/generation/score_colab_output.py results/phase2b/colab.log
 - scaffold diversity clearly > 11% (A) and novelty ≥ ~0.46;
 - then apply tightened physchem filters (logP ≤ 5, rot ≤ 10) and the FKBP12Scorer.
 B output, like A, remains HYPOTHESES TO TEST, not drug candidates.
+
+---
+
+## RESULT — B works (2026-06-28). Dependency fixes + first generation.
+
+### Fixes required (each found by reading the real error; honest record)
+1. **macOS SSL** — Colab kernel WebSocket failed `CERTIFICATE_VERIFY_FAILED`.
+   Fix: `SSL_CERT_FILE=$(certifi.where())` → wrapper `src/generation/colabx.sh`.
+2. **ipykernel doesn't forward subprocess stdout/stderr** — errors were invisible.
+   Fix: `sh()` captures and prints child output.
+3. `ModuleNotFoundError: openbabel` → `pip install openbabel-wheel`.
+4. `three_to_one` removed in Biopython ≥1.80 (1.79 has no py3.12 wheel) → source
+   shim via `protein_letters_3to1` (no downgrade).
+5. torch ≥2.6 `weights_only=True` rejects the checkpoint's argparse.Namespace →
+   `sitecustomize.py` forcing `torch.load(weights_only=False)` (trusted Zenodo ckpt).
+
+VM: Tesla T4, Python 3.12, torch 2.11+cu128. Checkpoint: crossdocked_fullatom_cond (18 MB).
+
+### A (BRICS) vs B (DiffSBDD), N≈50, scored with the same FKBP12Scorer
+| Metric | A (BRICS) | B (DiffSBDD) |
+|---|---|---|
+| scaffold diversity | 11% | **96%** |
+| median logP | 5.3 | **1.7** |
+| novelty (median max Tanimoto to known) | 0.46 | **0.17** |
+| QED median | ~0.6 | 0.57 |
+| MW median | ~450 | 296 |
+| in-domain & binder_prob≥0.5 | 346 | **0** |
+
+### Honest interpretation (key scientific point)
+B generates **diverse, novel, drug-like, pocket-conditioned** scaffolds — exactly
+what A could not. BUT all 49 are **out of the ligand-ML scorer's applicability
+domain** (Tanimoto ≤ 0.29), so the scorer cannot vouch for them. This is NOT
+evidence they don't bind — it means the ligand-based scorer is the wrong tool for
+novel scaffolds. The exploitation (A) vs exploration (B) tension is real:
+- A: high predicted-binder rate, low novelty (rearranged known binders).
+- B: high novelty/diversity, unverifiable by ligand-ML.
+
+**Correct validation for B = structure-based** (docking pose/score vs known
+binders; ultimately experiment). Docking of B follows in `dock_generated.py`.
+B remains HYPOTHESES TO TEST.
