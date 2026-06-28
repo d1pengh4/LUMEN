@@ -86,7 +86,9 @@ Selectivity metrics enter the Phase 2 Pareto objective (ADR-001).
 - [x] Collect FKBP12-binding ligands from ChEMBL (725 ligands; 68 drug-like anchors)
 - [x] Docking benchmark of known ligands (smina) — geometry validated (redock RMSD 0.81 Å)
 - [x] Decoy enrichment test — **docking score has NO ranking power (ROC-AUC 0.455)**; use docking for poses only, not selection
-- [ ] Build ML affinity scorer on the 725 ChEMBL ligands; gate on ROC-AUC ≥ 0.7 via the enrichment protocol
+- [x] Build ML affinity scorer — PASS (triage scaffold-CV 0.993; potency scaffold ρ 0.76). See ml-scorer log
+- [ ] Selectivity models (calcineurin + FKBP12.6) — the real differentiator, not yet started
+- [ ] Applicability-domain (Tanimoto) gate for de novo molecules
 - [ ] Convert pocket to generative-model input format (DiffSBDD conditioning)
 
-**Scoring strategy (locked by enrichment result):** docking = pose/steric only. Affinity & selectivity ranking = ML model (+ MM-GBSA/FEP for finalists). Any scorer must pass ROC-AUC ≥ 0.7 on the enrichment set before use.
+**Scoring strategy (locked):** docking = pose/steric only (enrichment ROC-AUC 0.455). Affinity = ML model (classifier triage + potency regressor), gated by the enrichment protocol. Selectivity ranking still TODO. ML predictions require an applicability-domain gate; MM-GBSA/FEP reserved for finalists.

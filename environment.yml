@@ -10,4 +10,7 @@ dependencies:
   - numpy
   - pandas
   - fpocket
+  - scikit-learn
+  - scipy
+  - joblib
   - pip

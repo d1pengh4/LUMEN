@@ -17,3 +17,6 @@ results/*
 
 # OS
 .DS_Store
+
+# Trained model binaries (reproducible via src/scoring/train_affinity_model.py)
+models/*.joblib
