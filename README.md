@@ -31,8 +31,18 @@ conda env create -f environment-dock.yml   # docking env: smina, openbabel (sepa
 python src/structure/fetch_structures.py     # download FKBP12 PDB structures
 python src/structure/map_interfaces.py       # map ON/OFF-target interfaces
 python src/data/collect_chembl_ligands.py    # collect FKBP12 ligands from ChEMBL
-python src/scoring/dock_benchmark.py          # validate docking against known binders
+python src/scoring/dock_benchmark.py          # docking pose validation (redock RMSD)
+python src/scoring/run_enrichment.py          # docking enrichment (fails: ROC-AUC 0.455)
+python src/scoring/train_affinity_model.py    # ML scorers (triage 0.99, potency rho 0.76)
+python src/scoring/selectivity_panel.py       # selectivity (ML cannot solve it; see log)
+echo '{"smiles":"CC(C)Cc1ccc(C(C)C(=O)O)cc1"}' >/dev/null  # score novel molecules:
+python src/scoring/score_molecules.py candidates.csv > scored.csv
 ```
+
+## Scoring (what works, honestly)
+- **Docking**: correct poses (redock RMSD 0.81 Å) but **no affinity ranking** (enrichment ROC-AUC 0.455) → poses only.
+- **ML potency**: triage scaffold-CV 0.993, potency Spearman 0.76 → use for ranking, with a Tanimoto applicability-domain gate.
+- **Selectivity**: ligand-based ML **cannot** predict it (FKBP5 ρ≈0; FKBP12.6 83% identical) → structural constraints (calcineurin) + experimental counter-screens.
 
 ## Compute note
 This repo is developed on macOS without a GPU. AlphaFold3 inference, diffusion-based
