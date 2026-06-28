@@ -1,0 +1,13 @@
+name: lumen
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11
+  - rdkit>=2024.03
+  - biopython>=1.83
+  - requests
+  - numpy
+  - pandas
+  - fpocket
+  - pip

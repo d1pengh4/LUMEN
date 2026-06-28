@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 기반 폐동맥 고혈압 치료제 de novo 설계 연구 기획서</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink:       #0f1117;
+    --ink-2:     #2c2f3a;
+    --ink-3:     #5a5f72;
+    --ink-4:     #9298aa;
+    --paper:     #fafaf8;
+    --paper-2:   #f2f1ed;
+    --paper-3:   #e8e6df;
+    --accent:    #1a4fd6;
+    --accent-2:  #e8effc;
+    --accent-3:  #0d3baa;
+    --danger:    #b91c1c;
+    --danger-2:  #fef2f2;
+    --success:   #166534;
+    --success-2: #f0fdf4;
+    --amber:     #92400e;
+    --amber-2:   #fffbeb;
+    --rule:      #ddd9cf;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,250,248,0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .nav-logo {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 13px; font-weight: 600;
+    color: var(--accent); letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    font-size: 12px; color: var(--ink-3); text-decoration: none;
+    letter-spacing: 0.04em; text-transform: uppercase; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 100px 48px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 80% 30%, rgba(26,79,214,0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 20% 80%, rgba(26,79,214,0.04) 0%, transparent 70%);
+  }
+  .hero-eyebrow {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); font-weight: 500; margin-bottom: 28px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+  .hero-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(32px, 5vw, 62px); font-weight: 700; line-height: 1.15;
+    color: var(--ink); max-width: 820px; margin-bottom: 16px;
+  }
+  .hero-title em { font-style: normal; color: var(--accent); }
+  .hero-subtitle {
+    font-size: 16px; color: var(--ink-3); max-width: 600px;
+    line-height: 1.7; margin-bottom: 52px;
+  }
+  .hero-meta { display: grid; grid-template-columns: repeat(4, auto); max-width: 680px; }
+  .meta-item { padding: 20px 28px; border-left: 1px solid var(--rule); }
+  .meta-item:first-child { border-left: none; padding-left: 0; }
+  .meta-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 26px; font-weight: 500; color: var(--ink); display: block; line-height: 1;
+  }
+  .meta-label { font-size: 11px; color: var(--ink-4); margin-top: 4px; display: block; }
+
+  section { padding: 96px 48px; border-top: 1px solid var(--rule); }
+  .section-inner { max-width: 900px; margin: 0 auto; }
+
+  .sec-label {
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--accent); font-weight: 500; margin-bottom: 12px;
+  }
+  .sec-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(22px, 3vw, 34px); font-weight: 700;
+    color: var(--ink); line-height: 1.3; margin-bottom: 36px;
+  }
+  .sec-title span { color: var(--accent); }
+
+  .hypothesis {
+    border: 1.5px solid var(--accent); border-radius: 3px;
+    padding: 32px 36px; margin: 36px 0; position: relative;
+  }
+  .hypothesis::before {
+    content: '"'; font-family: 'Noto Serif KR', serif;
+    font-size: 80px; color: var(--accent-2);
+    position: absolute; top: -16px; left: 24px; line-height: 1;
+  }
+  .hypothesis p {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 18px; line-height: 1.75; color: var(--ink-2); font-weight: 400;
+    position: relative; z-index: 1;
+  }
+
+  .prose p { color: var(--ink-2); margin-bottom: 18px; line-height: 1.85; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose strong { color: var(--ink); font-weight: 700; }
+
+  .tag {
+    display: inline-block; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 2px; margin-right: 6px;
+  }
+  .tag-blue  { background: var(--accent-2); color: var(--accent-3); }
+  .tag-green { background: var(--success-2); color: var(--success); }
+  .tag-red   { background: var(--danger-2); color: var(--danger); }
+  .tag-amber { background: var(--amber-2); color: var(--amber); }
+
+  .problem-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    margin: 36px 0; background: var(--rule);
+  }
+  .problem-card { background: var(--paper); padding: 28px 30px; }
+  .problem-card .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 40px; font-weight: 500; color: var(--paper-3); line-height: 1; margin-bottom: 8px;
+  }
+  .problem-card h3 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+  .problem-card p  { font-size: 13px; color: var(--ink-3); line-height: 1.7; }
+  .problem-card.highlight .num { color: var(--accent-2); }
+  .problem-card.highlight h3   { color: var(--accent); }
+
+  .disease-flow {
+    display: flex; align-items: center; gap: 0;
+    margin: 40px 0; overflow-x: auto; padding-bottom: 8px;
+  }
+  .flow-step {
+    flex: 1; min-width: 120px; padding: 18px 12px;
+    border: 1px solid var(--rule); border-right: none; text-align: center;
+  }
+  .flow-step:last-child { border-right: 1px solid var(--rule); }
+  .flow-step.bad      { background: #fff5f5; border-color: #fca5a5; }
+  .flow-step.warn     { background: #fffbeb; border-color: #fcd34d; }
+  .flow-step.critical { background: #fef2f2; border-color: var(--danger); }
+  .flow-icon { font-size: 22px; margin-bottom: 6px; }
+  .flow-step h4 { font-size: 11px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .flow-step p  { font-size: 10px; color: var(--ink-3); line-height: 1.5; }
+  .flow-arrow   { font-size: 18px; color: var(--ink-4); flex-shrink: 0; padding: 0 4px; }
+
+  .pipeline { margin: 40px 0; }
+  .pipe-step {
+    display: grid; grid-template-columns: 48px 1fr; gap: 0;
+    border-left: 2px solid var(--rule); margin-left: 23px;
+  }
+  .pipe-step:last-child { border-left: 2px solid transparent; }
+  .pipe-dot {
+    width: 48px; height: 48px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 500;
+    margin-left: -25px; flex-shrink: 0; position: relative; z-index: 1;
+  }
+  .dot-blue  { background: var(--accent); color: #fff; }
+  .dot-teal  { background: #0d9488; color: #fff; }
+  .dot-amber { background: #d97706; color: #fff; }
+  .dot-coral { background: #dc2626; color: #fff; }
+  .pipe-content { padding: 4px 0 40px 24px; }
+  .pipe-content h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+  .pipe-content .duration {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--ink-4); margin-bottom: 10px; display: block;
+  }
+  .pipe-content p { font-size: 14px; color: var(--ink-3); line-height: 1.75; }
+  .tech-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .tech {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; padding: 3px 10px;
+    background: var(--paper-2); border: 1px solid var(--rule);
+    border-radius: 2px; color: var(--ink-3);
+  }
+
+  .ai-arch { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; background: var(--rule); margin: 36px 0; }
+  .arch-block { background: var(--paper); padding: 28px 24px; }
+  .arch-block h3 { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+  .arch-block .arch-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--accent);
+    display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .arch-block p { font-size: 13px; color: var(--ink-3); line-height: 1.65; }
+
+  .timeline { margin: 40px 0; }
+  .tl-row {
+    display: grid; grid-template-columns: 120px 1fr; gap: 24px;
+    background: var(--paper); border: 1px solid var(--rule);
+    border-bottom: none; padding: 20px 24px;
+  }
+  .tl-row:last-child { border-bottom: 1px solid var(--rule); }
+  .tl-row.active { background: var(--accent-2); border-color: var(--accent); }
+  .tl-phase { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-4); padding-top: 3px; }
+  .tl-row.active .tl-phase { color: var(--accent); font-weight: 500; }
+  .tl-content h4 { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .tl-content p  { font-size: 13px; color: var(--ink-3); line-height: 1.6; }
+
+  .pub-track { margin: 36px 0; }
+  .pub-item {
+    display: grid; grid-template-columns: 80px 1fr; gap: 20px;
+    padding: 20px 0; border-bottom: 1px solid var(--rule);
+  }
+  .pub-item:last-child { border-bottom: none; }
+  .pub-year { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-4); padding-top: 2px; }
+  .pub-content h4 { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .pub-content p  { font-size: 13px; color: var(--ink-3); }
+  .pub-journal { font-size: 11px; color: var(--accent); font-weight: 500; margin-top: 4px; display: block; }
+
+  .gap-table { width: 100%; border-collapse: collapse; margin: 36px 0; }
+  .gap-table th {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-4); font-weight: 500;
+    padding: 10px 16px; border-bottom: 2px solid var(--ink); text-align: left;
+  }
+  .gap-table td {
+    padding: 14px 16px; border-bottom: 1px solid var(--rule);
+    font-size: 13px; color: var(--ink-3); vertical-align: top;
+  }
+  .gap-table tr:hover td { background: var(--paper-2); }
+  .gap-table td:first-child { color: var(--ink); font-weight: 500; }
+
+  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--rule); margin: 36px 0; }
+  .team-card { background: var(--paper); padding: 24px; }
+  .team-card h4 { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .team-card .role { font-size: 11px; color: var(--accent); margin-bottom: 10px; display: block; }
+  .team-card p { font-size: 12px; color: var(--ink-3); line-height: 1.6; }
+
+  .risk-list { margin: 36px 0; }
+  .risk-item {
+    display: grid; grid-template-columns: 24px 1fr 1fr; gap: 20px;
+    padding: 16px 0; border-bottom: 1px solid var(--rule); align-items: start;
+  }
+  .risk-item:last-child { border-bottom: none; }
+  .risk-sev { width: 10px; height: 10px; border-radius: 50%; margin-top: 6px; }
+  .sev-high { background: var(--danger); }
+  .sev-mid  { background: #f59e0b; }
+  .sev-low  { background: #22c55e; }
+  .risk-item h4 { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .risk-item .risk-desc { font-size: 12px; color: var(--ink-3); }
+  .risk-item .risk-mit  { font-size: 12px; color: var(--success); line-height: 1.6; }
+
+  .impact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--rule); margin: 36px 0; }
+  .impact-card { background: var(--paper); padding: 28px 20px; text-align: center; }
+  .impact-num {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 36px; font-weight: 700; color: var(--ink); display: block; line-height: 1;
+  }
+  .impact-unit { font-size: 14px; color: var(--ink-3); }
+  .impact-label { font-size: 11px; color: var(--ink-4); margin-top: 8px; display: block; line-height: 1.5; }
+
+  .rule { border: none; border-top: 1px solid var(--rule); margin: 36px 0; }
+
+  .callout {
+    border-left: 3px solid var(--accent); padding: 16px 20px;
+    background: var(--accent-2); margin: 24px 0; border-radius: 0 3px 3px 0;
+  }
+  .callout p { font-size: 14px; color: var(--ink-2); margin: 0; line-height: 1.7; }
+  .callout strong { color: var(--accent-3); }
+
+  footer {
+    background: var(--ink); color: var(--ink-4);
+    padding: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  }
+  footer h4 { font-size: 12px; color: #fff; font-weight: 700; margin-bottom: 12px; }
+  footer p, footer li { font-size: 12px; line-height: 1.8; }
+  footer ul { padding-left: 16px; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 80px 20px 60px; }
+    section { padding: 60px 20px; }
+    .hero-meta { grid-template-columns: 1fr 1fr; }
+    .meta-item { border-top: 1px solid var(--rule); border-left: none; padding: 16px 0; }
+    .meta-item:nth-child(odd) { border-right: 1px solid var(--rule); padding-right: 16px; }
+    .problem-grid, .ai-arch, .team-grid { grid-template-columns: 1fr; }
+    .impact-grid { grid-template-columns: 1fr 1fr; }
+    footer { grid-template-columns: 1fr; padding: 36px 20px; }
+    .risk-item { grid-template-columns: 20px 1fr; }
+    .risk-item .risk-mit { grid-column: 2; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">PAH · AI Drug Design · 2025</div>
+  <div class="nav-links">
+    <a href="#problem">문제</a>
+    <a href="#hypothesis">가설</a>
+    <a href="#pipeline">연구 설계</a>
+    <a href="#ai">AI 구조</a>
+    <a href="#roadmap">로드맵</a>
+    <a href="#impact">임팩트</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">연구 기획서 · Research Proposal · 2025</div>
+  <h1 class="hero-title">
+    AI de novo 분자 설계를 통한<br>
+    <em>폐혈관 리모델링 억제제</em><br>
+    최초 개발
+  </h1>
+  <p class="hero-subtitle">
+    아이젠멩거 증후군·폐동맥 고혈압의 근본 원인인 BMPR2 신호축 붕괴를
+    타깃으로, AlphaFold3 + 확산 모델 + 강화학습으로 세계 최초의
+    리모델링 역전 약물 후보를 설계한다.
+  </p>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="meta-num">48</span>
+      <span class="meta-label">개월 전임상 목표</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-num">2500만</span>
+      <span class="meta-label">전 세계 PAH 환자</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-num">0</span>
+      <span class="meta-label">리모델링 역전 약물 현존</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-num">4</span>
+      <span class="meta-label">예상 SCI 논문 수</span>
+    </div>
+  </div>
+</section>
+
+<!-- 01 문제 -->
+<section id="problem">
+  <div class="section-inner fade-in">
+    <div class="sec-label">01 — Problem Statement</div>
+    <h2 class="sec-title">치료제가 없는 이유,<br><span>병의 원인을 건드리지 않아서다</span></h2>
+
+    <div class="prose">
+      <p>아이젠멩거 증후군은 선천성 심장 결손(심실중격결손·심방중격결손·동맥관개존 등)이 교정되지 않을 때 발생하는 최종 합병증이다. 장기적인 좌→우 단락으로 폐혈류가 폭증하고, 폐혈관 내피에 만성 전단 응력이 가해지면서 <strong>내막 과형성·중막 비대·섬유화</strong>가 진행된다. 이 과정이 임계점을 넘으면 폐혈관 저항이 체혈관 저항을 초과해 단락이 역전(우→좌)되고, 청색증·저산소혈증이 발생하는 비가역적 상태에 이른다.</p>
+      <p>현재 승인된 치료제(엔도텔린 수용체 길항제, PDE-5 억제제, 프로스타사이클린 유사체)는 <strong>혈관 수축을 완화</strong>하는 증상 치료제다. 리모델링 자체를 역전시키는 약물은 전 세계에 단 한 개도 존재하지 않는다. 최종 완치는 심폐이식뿐이며, 이식 없이는 30~40대에 사망에 이른다.</p>
+    </div>
+
+    <div class="disease-flow">
+      <div class="flow-step">
+        <div class="flow-icon">🫀</div>
+        <h4>심장 결손</h4>
+        <p>VSD·ASD·PDA<br>태어날 때부터</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step warn">
+        <div class="flow-icon">💨</div>
+        <h4>폐혈류 폭증</h4>
+        <p>3배 이상 혈류<br>혈관 내피 손상</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step bad">
+        <div class="flow-icon">🔴</div>
+        <h4>혈관 리모델링</h4>
+        <p>벽 두꺼워짐<br>BMPR2 고장</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step bad">
+        <div class="flow-icon">📈</div>
+        <h4>폐동맥 고혈압</h4>
+        <p>PVR 급상승<br>비가역 변화</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step critical">
+        <div class="flow-icon">🔵</div>
+        <h4>아이젠멩거</h4>
+        <p>역류·청색증<br>수술 불가</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step critical">
+        <div class="flow-icon">⚠️</div>
+        <h4>사망</h4>
+        <p>30~40대<br>이식 없으면</p>
+      </div>
+    </div>
+
+    <div class="problem-grid">
+      <div class="problem-card highlight">
+        <div class="num">01</div>
+        <h3>리모델링 역전 약물 부재</h3>
+        <p>현존하는 모든 약은 혈관 확장제다. 두꺼워진 혈관 벽 자체를 되돌리는 약은 세계에 없다.</p>
+      </div>
+      <div class="problem-card">
+        <div class="num">02</div>
+        <h3>BMPR2 타깃 미개척</h3>
+        <p>PAH 환자 70%에서 BMPR2 기능 이상이 확인됐지만, 이 타깃을 직접 조절하는 소분자 약물이 없다.</p>
+      </div>
+      <div class="problem-card">
+        <div class="num">03</div>
+        <h3>희귀 질환 연구 공백</h3>
+        <p>AI 신약 설계 기술은 암·당뇨에 집중됐다. 상업성이 낮아 PAH·아이젠멩거에 적용한 사례가 없다.</p>
+      </div>
+      <div class="problem-card">
+        <div class="num">04</div>
+        <h3>진단 지연과 치료 창</h3>
+        <p>평균 5.6년 진단 지연. 조기 개입으로 리모델링 진행 전 차단이 가능한 시간이 있음에도 약이 없다.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>핵심 논리:</strong> 기술(AlphaFold3, 확산 모델, GNN)은 이미 존재한다. 암에서 검증된 방법론을 PAH·아이젠멩거의 특이 타깃 BMPR2에 최초로 적용하는 것 — 이것이 이 연구의 독창성이다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 가설 -->
+<section id="hypothesis">
+  <div class="section-inner fade-in">
+    <div class="sec-label">02 — Central Hypothesis</div>
+    <h2 class="sec-title">연구 가설</h2>
+
+    <div class="hypothesis">
+      <p>BMPR2 변이체의 3D 구조를 AlphaFold3로 예측하고, 구조 기반 확산 모델(DiffSBDD)로 결합 포켓에 최적화된 소분자를 de novo 생성하면, 강화학습 기반 반복 최적화를 통해 폐혈관 평활근세포(PASMC)의 과증식을 억제하는 선도 화합물을 발굴할 수 있다. 이 화합물은 기존 혈관 확장제와 달리 리모델링 과정 자체를 차단함으로써 아이젠멩거 증후군의 질병 수정 효과를 가져온다.</p>
+    </div>
+
+    <div class="prose">
+      <p>이 가설을 뒷받침하는 세 가지 근거가 있다. 첫째, BMPR2는 PAH 환자의 70%에서 기능 이상이 확인된 검증된 타깃이다. 둘째, Imperial College London(2022, Communications Biology)은 BMPR2 기능 이상이 SOX17-프로스타사이클린 신호축 붕괴로 이어져 평활근세포 리모델링을 유발함을 organ-on-chip으로 실증했다. 셋째, 확산 모델 기반 구조 기반 약물 설계(SBDD)는 CDK2·KRAS 등 암 타깃에서 이미 검증됐으나, BMPR2에는 적용된 사례가 없다.</p>
+      <p>즉, 타깃 생물학은 확립됐고, AI 방법론은 검증됐고, 두 가지를 연결한 연구가 아직 없다. 이것이 이 연구가 가능하고 필요한 이유다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 연구 설계 -->
+<section id="pipeline">
+  <div class="section-inner fade-in">
+    <div class="sec-label">03 — Research Design</div>
+    <h2 class="sec-title">4단계 연구 파이프라인</h2>
+
+    <div class="pipeline">
+      <div class="pipe-step">
+        <div class="pipe-dot dot-blue">1</div>
+        <div class="pipe-content">
+          <h3>타깃 구조 예측 및 결합 포켓 규명</h3>
+          <span class="duration">Phase 1 · 0–12개월</span>
+          <p>야생형 및 병적 변이체(R899X, W9X, 1750delA 등) BMPR2의 3D 구조를 AlphaFold3로 예측한다. 분자동역학(MD) 시뮬레이션(OpenMM, 100ns)으로 구조 안정성을 검증하고, FPocket 알고리즘으로 약물 결합 가능 포켓을 규명한다. 포켓의 부피, 소수성, 전하 분포 등 물리화학적 특성을 수치화해 분자 생성 AI의 조건 입력값으로 사용한다. 이 단계 결과물로 <strong>논문 1편(BMPR2 변이체 구조 atlas)</strong>을 투고한다.</p>
+          <div class="tech-stack">
+            <span class="tech">AlphaFold3</span>
+            <span class="tech">OpenMM</span>
+            <span class="tech">FPocket</span>
+            <span class="tech">PyMOL</span>
+            <span class="tech">GROMACS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipe-step">
+        <div class="pipe-dot dot-teal">2</div>
+        <div class="pipe-content">
+          <h3>생성 AI 기반 de novo 분자 설계 및 가상 스크리닝</h3>
+          <span class="duration">Phase 2 · 6–20개월</span>
+          <p>BMPR2 포켓 구조를 조건으로 입력하는 3D 등변 확산 모델(DiffSBDD / TargetDiff)로 신규 스캐폴드를 수백만 개 생성한다. GNN 기반 결합 친화도 예측 모델(DeepDTA), ADMET 예측기(ADMETlab 3.0), 독성 분류기(MolFormer)로 각 후보 분자에 다중 점수를 부여한다. 강화학습(REINVENT4)으로 점수를 보상 신호 삼아 반복 최적화하며, Pareto front 분석으로 효능·선택성·약동학을 동시에 최적화한 상위 50개 후보를 선별한다. <strong>논문 2편(방법론: AI 기반 BMPR2 리간드 설계)</strong>을 Nature Machine Intelligence급으로 투고한다.</p>
+          <div class="tech-stack">
+            <span class="tech">DiffSBDD</span>
+            <span class="tech">REINVENT4</span>
+            <span class="tech">GNN (DGL)</span>
+            <span class="tech">ADMETlab 3.0</span>
+            <span class="tech">RDKit</span>
+            <span class="tech">AutoDock Vina</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipe-step">
+        <div class="pipe-dot dot-amber">3</div>
+        <div class="pipe-content">
+          <h3>in vitro 및 동물 모델 효능 검증</h3>
+          <span class="duration">Phase 3 · 12–36개월</span>
+          <p>AiZynthFinder로 AI 합성 경로를 예측하고 상위 후보 20개를 합성한다. PAH 환자 유래 폐동맥 평활근세포(PASMC) 및 내피세포(PAEC)에서 증식 억제 효과(BrdU, Ki-67), BMPR2 신호 복원(pSMAD1/5/8), 세포 이주 억제를 확인한다. MCT 유발 쥐 모델 및 SuHx 모델에서 우심실 수축기압(RVSP), 폐혈관 저항(PVR), 혈관 벽 두께(내강 면적비)를 6주 치료 후 측정한다. 효능 확인 분자 3~5개를 선도 화합물로 선정한다. <strong>논문 3편(Circulation 또는 JACC 목표)</strong>을 투고한다.</p>
+          <div class="tech-stack">
+            <span class="tech">AiZynthFinder</span>
+            <span class="tech">PASMC 배양</span>
+            <span class="tech">MCT 쥐 모델</span>
+            <span class="tech">SuHx 모델</span>
+            <span class="tech">Western Blot</span>
+            <span class="tech">조직병리</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipe-step">
+        <div class="pipe-dot dot-coral">4</div>
+        <div class="pipe-content">
+          <h3>선도 화합물 최적화 및 전임상 IND 패키지</h3>
+          <span class="duration">Phase 4 · 30–48개월</span>
+          <p>AI 반복 최적화로 선도 화합물의 약동학(PK) 프로파일을 개선한다. GLP 독성 시험, 약물 대사 연구(CYP 억제, hERG), 생체 이용률(F%) 측정으로 IND 신청 요건을 충족하는 전임상 패키지를 완성한다. 병렬로 특허 출원(PCT) 및 제약사 기술이전 또는 스핀오프 창업 전략을 수립한다. <strong>논문 4편(Science Translational Medicine 목표)</strong>으로 연구를 마무리한다.</p>
+          <div class="tech-stack">
+            <span class="tech">PK/PD 모델링</span>
+            <span class="tech">GLP 독성 시험</span>
+            <span class="tech">hERG 어세이</span>
+            <span class="tech">마이크로솜 안정성</span>
+            <span class="tech">PCT 특허</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 AI 아키텍처 -->
+<section id="ai">
+  <div class="section-inner fade-in">
+    <div class="sec-label">04 — AI Architecture</div>
+    <h2 class="sec-title">AI 시스템 구조<br><span>세 모델의 협업</span></h2>
+
+    <div class="prose">
+      <p>이 연구의 AI 시스템은 독립된 세 모델이 반복 루프를 형성한다. 단백질 구조 인코더가 BMPR2의 3D 정보를 임베딩으로 변환하면, 분자 생성 모델이 조건부 샘플링으로 신규 분자를 생성하고, 다중 특성 예측 모델이 점수를 부여해 강화학습 에이전트에 보상으로 전달한다. 이 루프가 수천 회 반복되며 파레토 최적 화합물로 수렴한다.</p>
+    </div>
+
+    <div class="ai-arch">
+      <div class="arch-block">
+        <span class="arch-label">Module 01 · 구조 인코더</span>
+        <h3>단백질 3D 임베딩</h3>
+        <p>AlphaFold3로 예측한 BMPR2 구조를 3D 점군으로 변환한다. 등변 GNN(SE(3)-Transformer)이 원자 좌표·원소 종류·결합 타입을 회전·평행이동 불변 임베딩으로 압축한다. 포켓 영역만 클리핑해 생성 모델의 조건 입력으로 제공한다.</p>
+      </div>
+      <div class="arch-block" style="background:var(--accent-2);">
+        <span class="arch-label" style="color:var(--accent-3);">Module 02 · 생성 모델 ★</span>
+        <h3>de novo 분자 확산</h3>
+        <p>3D 등변 확산 모델(DiffSBDD)이 포켓 임베딩을 조건으로 원자 좌표·원소를 동시에 노이즈 제거한다. 각 디노이징 스텝에서 포켓 형상과의 기하학적 정합성을 검증해 충돌 회피를 보장한다. 강화학습(PPO)으로 보상 신호에 따라 생성 분포를 실시간 업데이트한다.</p>
+      </div>
+      <div class="arch-block">
+        <span class="arch-label">Module 03 · 다중 특성 예측</span>
+        <h3>ADMET + 결합 친화도</h3>
+        <p>분자 그래프를 입력받는 GNN(Graph Transformer)이 결합 자유 에너지, 선택성, 구강 흡수율(Caco-2), 간 독성(hERG), 대사 안정성을 동시 예측한다. Pareto front 분석으로 단일 지표가 아닌 다목적 최적화를 수행한다.</p>
+      </div>
+    </div>
+
+    <hr class="rule">
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">학습 데이터 전략</h3>
+    <table class="gap-table">
+      <thead>
+        <tr><th>데이터 소스</th><th>규모</th><th>활용 목적</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>ChEMBL (BMP 리간드)</td><td>~28만 화합물</td><td>결합 친화도 예측 모델 사전학습</td></tr>
+        <tr><td>PDB (BMPR 복합체 구조)</td><td>~140 구조</td><td>포켓 기하학 학습, 검증 세트</td></tr>
+        <tr><td>AlphaFold DB (BMPR 변이체)</td><td>~200 변이체</td><td>병적 구조 스펙트럼 커버리지</td></tr>
+        <tr><td>ZINC20 (drug-like)</td><td>~10억 분자</td><td>확산 모델 생성 분포 사전학습</td></tr>
+        <tr><td>PAH 환자 세포 실험 데이터</td><td>자체 생성</td><td>AI 예측 → 실험 피드백 루프</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 05 연구 현황 -->
+<section>
+  <div class="section-inner fade-in">
+    <div class="sec-label">05 — Research Landscape</div>
+    <h2 class="sec-title">기존 연구와의 차별성<br><span>무엇이 새로운가</span></h2>
+
+    <table class="gap-table">
+      <thead>
+        <tr><th>영역</th><th>기존 연구 현황</th><th>이 연구의 위치</th><th>상태</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>단백질 구조 예측</td>
+          <td>AlphaFold3 (DeepMind, 2024) 완성. 2억 개 구조 공개.</td>
+          <td>BMPR2 변이체 구조 활용 → 약물 포켓 규명</td>
+          <td><span class="tag tag-green">기반 완성</span></td>
+        </tr>
+        <tr>
+          <td>AI 분자 생성 (일반)</td>
+          <td>DiffSBDD, TargetDiff, Pocket2Mol 등 암·당뇨 타깃 검증 완료</td>
+          <td>PAH·BMPR2 특화 적용 — 첫 사례</td>
+          <td><span class="tag tag-amber">기술 전용</span></td>
+        </tr>
+        <tr>
+          <td>PAH AI 연구</td>
+          <td>진단 AI (심초음파, ECG, 멀티모달) 다수. 예후 예측 AI 초기.</td>
+          <td>de novo 신약 설계 — 세계 최초</td>
+          <td><span class="tag tag-red">공백</span></td>
+        </tr>
+        <tr>
+          <td>BMPR2 타깃 실험</td>
+          <td>Imperial College (2022): BMPR2-SOX17 신호축 organ-on-chip 실증</td>
+          <td>해당 신호축에 AI 설계 소분자 적용 — 첫 시도</td>
+          <td><span class="tag tag-red">공백</span></td>
+        </tr>
+        <tr>
+          <td>아이젠멩거 특화 약물</td>
+          <td>PAH 약을 off-label 사용. 아이젠멩거 특화 임상시험 전무.</td>
+          <td>아이젠멩거 병태생리를 타깃으로 한 최초 신약 기획</td>
+          <td><span class="tag tag-red">세계 최초</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p><strong>왜 지금인가:</strong> 재료는 전부 있다. AlphaFold3(2021), 확산 모델 기반 분자 생성(2022~), GPU 컴퓨팅(2022~). 이 세 가지가 동시에 갖춰진 건 2023년이 처음이다. 상업성이 낮은 희귀 질환이라 아무도 먼저 뛰어들지 않았을 뿐이다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 06 로드맵 -->
+<section id="roadmap">
+  <div class="section-inner fade-in">
+    <div class="sec-label">06 — Roadmap</div>
+    <h2 class="sec-title">48개월 연구 로드맵</h2>
+
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="tl-phase">0–6M<br>준비</div>
+        <div class="tl-content">
+          <h4>인프라 구축 및 IRB 승인</h4>
+          <p>GPU 클러스터 설정(A100 × 8), 희귀 질환 지식 베이스 구축, PAH 레지스트리 연계 MOU, IRB 승인 신청. ChEMBL·PDB 데이터 전처리 파이프라인 완성.</p>
+        </div>
+      </div>
+      <div class="tl-row active">
+        <div class="tl-phase">6–12M<br>Phase 1</div>
+        <div class="tl-content">
+          <h4>BMPR2 구조 예측 & 포켓 규명 ★ 논문 1</h4>
+          <p>AlphaFold3 + MD 시뮬레이션으로 BMPR2 변이체 구조 아틀라스 완성. FPocket으로 약물 결합 포켓 규명. Nature Communications 투고.</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-phase">12–20M<br>Phase 2</div>
+        <div class="tl-content">
+          <h4>AI 분자 생성 & 가상 스크리닝 ★ 논문 2</h4>
+          <p>DiffSBDD + REINVENT4로 수백만 후보 생성 및 Pareto 최적화. 상위 50개 선별. Nature Machine Intelligence 투고.</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-phase">20–36M<br>Phase 3</div>
+        <div class="tl-content">
+          <h4>세포·동물 효능 검증 ★ 논문 3</h4>
+          <p>후보 20개 합성, PASMC 세포 실험, MCT·SuHx 쥐 모델 검증. 선도 화합물 3~5개 선정. Circulation 또는 JACC 투고.</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-phase">30–48M<br>Phase 4</div>
+        <div class="tl-content">
+          <h4>리드 최적화 & IND 전임상 ★ 논문 4</h4>
+          <p>GLP 독성 시험 완료, PK/PD 프로파일 확립, PCT 특허 출원, IND 신청 준비. Science Translational Medicine 투고. 기술이전 협상 시작.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:8px;">예상 논문 발표 트랙</h3>
+    <div class="pub-track">
+      <div class="pub-item">
+        <div class="pub-year">12M</div>
+        <div class="pub-content">
+          <h4>BMPR2 변이체 3D 구조 아틀라스 및 약물 결합 포켓 규명</h4>
+          <p>AlphaFold3 예측 정확도 검증, MD 시뮬레이션 안정성 분석, 포켓 특성 정량화</p>
+          <span class="pub-journal">Nature Communications / Journal of Molecular Biology</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">20M</div>
+        <div class="pub-content">
+          <h4>AI 기반 BMPR2 타깃 소분자 de novo 설계 방법론</h4>
+          <p>DiffSBDD + REINVENT4 파이프라인, Pareto 최적화 프레임워크, 100만 분자 가상 스크리닝 결과</p>
+          <span class="pub-journal">Nature Machine Intelligence / Journal of Medicinal Chemistry</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">36M</div>
+        <div class="pub-content">
+          <h4>AI 설계 BMPR2 조절 화합물의 폐혈관 리모델링 억제 효능</h4>
+          <p>PASMC 증식 억제 기전 해석, MCT/SuHx 동물 모델 혈역학 개선, SAR 분석</p>
+          <span class="pub-journal">Circulation / JACC / European Heart Journal</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">48M</div>
+        <div class="pub-content">
+          <h4>PAH·아이젠멩거 질환 수정 약물 전임상 후보 발굴 및 IND 준비</h4>
+          <p>선도 화합물 전임상 안전성·효능 패키지, 임상 번역 가능성 분석, PCT 특허 포함</p>
+          <span class="pub-journal">Science Translational Medicine</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 팀 -->
+<section>
+  <div class="section-inner fade-in">
+    <div class="sec-label">07 — Team & Collaboration</div>
+    <h2 class="sec-title">팀 구성 및 협력 기관</h2>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <h4>계산화학자 × 2</h4>
+        <span class="role">Core / AI & Simulation</span>
+        <p>분자동역학 시뮬레이션, 확산 모델 구현·파인튜닝, 강화학습 파이프라인 개발. Python/PyTorch 전문. PAH 타깃 경험 우대.</p>
+      </div>
+      <div class="team-card">
+        <h4>ML 엔지니어 × 2</h4>
+        <span class="role">Core / Model Development</span>
+        <p>GNN 기반 다중 특성 예측 모델 개발, 학습 인프라(GPU 클러스터) 관리, 데이터 파이프라인 구축. DGL·PyG 경험 필수.</p>
+      </div>
+      <div class="team-card">
+        <h4>합성 화학자 × 1</h4>
+        <span class="role">Core / Wet Lab</span>
+        <p>AI가 제안한 분자의 합성 경로 실현, SAR 분석, 분자 순도·특성 확인. 의약화학 경력 5년 이상 우대.</p>
+      </div>
+      <div class="team-card">
+        <h4>심폐 생물학자 × 1</h4>
+        <span class="role">Core / Biology</span>
+        <p>PAH 세포 모델(PASMC/PAEC) 구축, 동물 모델(MCT/SuHx) 운영, 혈역학 측정. BMPR2 신호 연구 경험 우대.</p>
+      </div>
+      <div class="team-card">
+        <h4>PI / 책임연구자 × 1</h4>
+        <span class="role">Leadership</span>
+        <p>연구 방향 설정, 산학연 네트워크 관리, 논문·특허 전략 수립, 연구비 확보(NRF·NIH). 계산생물학 또는 심혈관 전문가.</p>
+      </div>
+      <div class="team-card">
+        <h4>규제·사업화 담당 × 1</h4>
+        <span class="role">Operations</span>
+        <p>IRB 승인 관리, 식약처 의료 AI 인허가 이해, PCT 특허 출원, 제약사 기술이전 협상 지원.</p>
+      </div>
+    </div>
+
+    <hr class="rule">
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">전략적 협력 기관</h3>
+    <table class="gap-table">
+      <thead>
+        <tr><th>기관</th><th>협력 내용</th><th>우선순위</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>DeepMind / Isomorphic Labs</td><td>AlphaFold3 구조 데이터, IsoDDE 도킹 API 활용</td><td><span class="tag tag-blue">핵심</span></td></tr>
+        <tr><td>Imperial College London</td><td>BMPR2 organ-on-chip 모델, 환자 유래 세포주 공유</td><td><span class="tag tag-blue">핵심</span></td></tr>
+        <tr><td>국내 PAH 레지스트리 (분당서울대·삼성서울병원)</td><td>환자 유래 세포주, 임상 데이터 연계</td><td><span class="tag tag-blue">핵심</span></td></tr>
+        <tr><td>KONOS / 이식외과</td><td>이식 대기 환자 바이오뱅크 접근, 임상 자문</td><td><span class="tag tag-amber">중요</span></td></tr>
+        <tr><td>글로벌 제약사 (Janssen·GSK PAH팀)</td><td>Phase 3 이후 기술이전 또는 공동 임상 파트너</td><td><span class="tag tag-amber">중요</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 08 리스크 -->
+<section>
+  <div class="section-inner fade-in">
+    <div class="sec-label">08 — Risk Management</div>
+    <h2 class="sec-title">리스크 및 대응 전략</h2>
+
+    <div class="risk-list">
+      <div class="risk-item">
+        <div class="risk-sev sev-high"></div>
+        <div>
+          <h4>데이터 희소성</h4>
+          <p class="risk-desc">PAH 관련 공개 결합 데이터가 암 타깃 대비 100분의 1 수준.</p>
+        </div>
+        <div>
+          <p class="risk-mit">✦ 전이학습(암 타깃 사전학습 → PAH 미세조정)<br>✦ 합성 데이터 증강(Enantiomer·Scaffold hopping)<br>✦ 연합학습으로 다기관 데이터 통합</p>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-sev sev-high"></div>
+        <div>
+          <h4>AI 예측 vs 실험 괴리</h4>
+          <p class="risk-desc">가상 스크리닝 적중률이 실제 실험에서 5~10%에 그칠 수 있음.</p>
+        </div>
+        <div>
+          <p class="risk-mit">✦ AI 예측 + 실험 결과 피드백 루프 설계<br>✦ 초기 합성 개수를 50개로 늘려 허수 확보<br>✦ 도킹 외 MM-GBSA 자유 에너지 검증 추가</p>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-sev sev-mid"></div>
+        <div>
+          <h4>BMPR2 선택성 문제</h4>
+          <p class="risk-desc">관련 수용체(BMPR1A/B, ACVR2) 교차 결합으로 부작용 발생 가능.</p>
+        </div>
+        <div>
+          <p class="risk-mit">✦ Pareto 목적 함수에 선택성 지수 포함<br>✦ 단백질 계열 프로파일링 패널 설계</p>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-sev sev-mid"></div>
+        <div>
+          <h4>동물 모델 한계</h4>
+          <p class="risk-desc">MCT 모델이 인간 BMPR2 변이 PAH를 완전 재현 못 함.</p>
+        </div>
+        <div>
+          <p class="risk-mit">✦ SuHx 모델 병행 (더 인간 PAH에 가까운 표현형)<br>✦ BMPR2 유전자 편집 돼지 모델 접근 검토</p>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-sev sev-low"></div>
+        <div>
+          <h4>연구비 지속성</h4>
+          <p class="risk-desc">희귀 질환 특성상 민간 투자 유치 어려움.</p>
+        </div>
+        <div>
+          <p class="risk-mit">✦ NRF 기초연구 + 희귀질환연구지원사업 중복 신청<br>✦ NIH R01 글로벌 공동연구 트랙<br>✦ 12M 논문으로 유럽 희귀의약품(ODD) 지정 신청</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 임팩트 -->
+<section id="impact">
+  <div class="section-inner fade-in">
+    <div class="sec-label">09 — Expected Impact</div>
+    <h2 class="sec-title">이 연구가 만드는 변화</h2>
+
+    <div class="impact-grid">
+      <div class="impact-card">
+        <span class="impact-num">2500<span class="impact-unit">만</span></span>
+        <span class="impact-label">전 세계 PAH 환자 수<br>치료 가능 인구</span>
+      </div>
+      <div class="impact-card">
+        <span class="impact-num">0 → 1</span>
+        <span class="impact-label">세계 최초<br>리모델링 억제 약물</span>
+      </div>
+      <div class="impact-card">
+        <span class="impact-num">30대</span>
+        <span class="impact-label">현재 평균 사망 연령<br>→ 60대 이상으로 연장 목표</span>
+      </div>
+      <div class="impact-card">
+        <span class="impact-num">7000</span>
+        <span class="impact-label">이 방법론이 적용 가능한<br>다른 희귀 질환 수</span>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>이 연구의 영향은 약 하나에 그치지 않는다. AlphaFold3가 단백질 구조 예측의 방법론을 바꾼 것처럼, 이 연구는 <strong>희귀 심폐 질환에 AI 신약 설계를 적용하는 방법론 자체를 정립</strong>한다. 발표될 4편의 논문은 PAH뿐 아니라 약물 타깃이 있음에도 상업성 부재로 방치된 수천 가지 희귀 질환 연구의 플레이북이 된다.</p>
+      <p>환자 입장의 변화는 구체적이다. 지금은 약을 먹어도 병이 진행되고 30~40대에 심폐이식을 기다린다. 이 연구가 성공하면, 청색증이 줄어들고, 계단을 오를 수 있고, 10년 뒤를 계획할 수 있게 된다. 이식 없이 살 수 있는 환자가 생긴다. <strong>그것이 이 연구가 존재하는 이유다.</strong></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <h4>연구 기획서 정보</h4>
+    <p>
+      제목: AI de novo 분자 설계를 통한 폐혈관 리모델링 억제제 최초 개발<br>
+      대상 질환: 아이젠멩거 증후군 / 폐동맥 고혈압 (PAH)<br>
+      핵심 타깃: BMPR2 (Bone Morphogenetic Protein Receptor 2)<br>
+      연구 기간: 48개월 (전임상 완료 목표)<br>
+      예상 논문: 4편 (IF 10 이상 SCI 목표)<br>
+      작성일: 2025년 6월
+    </p>
+  </div>
+  <div>
+    <h4>주요 참고 문헌</h4>
+    <ul>
+      <li>Ainscough et al. (2022). BMPR2-SOX17-prostacyclin signalling. Communications Biology.</li>
+      <li>Abramson et al. (2024). AlphaFold3: Accurate structure prediction. Nature.</li>
+      <li>Schneuing et al. (2023). Structure-based Drug Design with Equivariant Diffusion Models. ICLR.</li>
+      <li>Guan et al. (2023). 3D Equivariant Diffusion for Target-Aware Molecule Generation. ICLR.</li>
+      <li>Wood P. (1958). Eisenmenger Syndrome. British Medical Journal.</li>
+      <li>Arvanitaki et al. (2020). Eisenmenger syndrome: diagnosis and management. Heart.</li>
+      <li>Alakhdar et al. (2024). Diffusion Models in De Novo Drug Design. J Chem Inf Model.</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+[project]
+name = "lumen"
+version = "0.1.0"
+description = "AI de novo design of BMP-axis restoring small molecules for PAH (FKBP12 target)"
+requires-python = ">=3.11"
+dependencies = [
+    "rdkit>=2024.3",
+    "biopython>=1.83",
+    "requests>=2.31",
+    "numpy>=1.26",
+    "pandas>=2.2",
+]
+
+[project.optional-dependencies]
+notebook = ["jupyterlab>=4.0"]

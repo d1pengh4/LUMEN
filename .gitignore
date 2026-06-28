@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+
+# Data (large / external — keep out of git, track provenance in docs)
+data/raw/*
+data/processed/*
+data/external/*
+!data/**/.gitkeep
+
+# Results / notebooks output
+results/*
+!results/.gitkeep
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
