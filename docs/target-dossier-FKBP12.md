@@ -84,6 +84,9 @@ Selectivity metrics enter the Phase 2 Pareto objective (ADR-001).
 - [x] Quantify pocket with fpocket (1FKF)
 - [x] Map ON-target interface (1B6C) and OFF-target surface (1TCO)
 - [x] Collect FKBP12-binding ligands from ChEMBL (725 ligands; 68 drug-like anchors)
-- [x] Docking benchmark of known ligands (smina) — pipeline validated; see docking-benchmark log
-- [ ] Decoy enrichment test (property-matched decoys)
+- [x] Docking benchmark of known ligands (smina) — geometry validated (redock RMSD 0.81 Å)
+- [x] Decoy enrichment test — **docking score has NO ranking power (ROC-AUC 0.455)**; use docking for poses only, not selection
+- [ ] Build ML affinity scorer on the 725 ChEMBL ligands; gate on ROC-AUC ≥ 0.7 via the enrichment protocol
 - [ ] Convert pocket to generative-model input format (DiffSBDD conditioning)
+
+**Scoring strategy (locked by enrichment result):** docking = pose/steric only. Affinity & selectivity ranking = ML model (+ MM-GBSA/FEP for finalists). Any scorer must pass ROC-AUC ≥ 0.7 on the enrichment set before use.
