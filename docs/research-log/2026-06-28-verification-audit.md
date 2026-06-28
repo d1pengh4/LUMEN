@@ -67,6 +67,14 @@ Literature ties **FKBP12.6 (FKBP1B) dissociation from RyR2** to pulmonary hypert
 - Safety plan: FKBP12.6 selectivity is mandatory.
 - New asset: 1F40 template for generation seeding.
 
+## E. Re-verification round 3 — scoring layer (2026-06-28)
+Focused skeptical audit of the ML scoring layer (built after rounds 1–2).
+- **Classifier specificity:** it is an **FKBP-family** binder detector, not FKBP12-specific (mean P: FKBP12 0.99 / FKBP5 0.79 / FKBP4 0.53 / random 0.02). Fine for triage-vs-random; carries no selectivity. Docs/scorer corrected.
+- **Selectivity-unpredictable is real, not a broken model:** standalone FKBP5 regressor is good (scaffold-CV ρ 0.78), yet FKBP12−FKBP5 selectivity prediction ρ≈0 → difference genuinely unlearnable. Conclusion stands.
+- **Bug found & fixed:** scaffold grouping used `set()` (hash-order dependent) → non-deterministic CV folds. Fixed to `sorted(set(...))`. Potency regressor now reproducible: ρ=0.748, R²=0.562 (stable across runs). Saved models were unaffected (final fit uses all data + fixed random_state).
+- **Note:** FKBP4 regressor weak (n=101, ρ 0.30); secondary off-target.
+Net: scoring layer is sound and now precisely characterized; no inflated claims remain.
+
 ## Sources
 - JCI 2013 FK506/BMPR2: jci.org/articles/view/65592, PMC3726153, PubMed 23867624
 - BMPR2 mutation spectrum: PMC2762975; AHA CIRCRESAHA.122.321554

@@ -91,4 +91,4 @@ Selectivity metrics enter the Phase 2 Pareto objective (ADR-001).
 - [ ] Applicability-domain (Tanimoto) gate for de novo molecules
 - [ ] Convert pocket to generative-model input format (DiffSBDD conditioning)
 
-**Scoring strategy (locked):** docking = pose/steric only (enrichment ROC-AUC 0.455). Affinity/potency = ML model (triage 0.993, potency ρ 0.76). **Selectivity is NOT ML-solvable here** → enforce via (a) structural constraints (calcineurin 40s loop), (b) experimental counter-screens (FKBP12.6 mandatory, cardiac safety), not via a generative reward term. ML needs an applicability-domain gate; MM-GBSA/FEP reserved for finalists.
+**Scoring strategy (locked):** docking = pose/steric only (enrichment ROC-AUC 0.455). Affinity/potency = ML model (FKBP-family binder triage 0.993 — NOT FKBP12-specific; potency ρ 0.76). **Selectivity is NOT ML-solvable here** → enforce via (a) structural constraints (calcineurin 40s loop), (b) experimental counter-screens (FKBP12.6 mandatory, cardiac safety), not via a generative reward term. ML needs an applicability-domain gate; MM-GBSA/FEP reserved for finalists.

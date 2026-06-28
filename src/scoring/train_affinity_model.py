@@ -97,7 +97,7 @@ def fetch_negatives(exclude: set[str]) -> pd.DataFrame:
 
 def grp_ids(smiles):
     g = [scaffold(s) for s in smiles]
-    u = {s: i for i, s in enumerate(set(g))}
+    u = {s: i for i, s in enumerate(sorted(set(g)))}  # sorted -> deterministic folds
     return np.array([u[s] for s in g])
 
 

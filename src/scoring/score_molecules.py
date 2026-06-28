@@ -2,8 +2,11 @@
 generation phase will call).
 
 For each molecule returns:
-  binder_prob   : RandomForest triage P(FKBP12 binder)        [classifier]
-  pred_pchembl  : predicted potency (pChEMBL)                 [regressor]
+  binder_prob   : P(FKBP-pocket binder) [classifier]. NOTE: this detects the
+                  FKBP-family pocket-binder chemotype, NOT FKBP12 specificity
+                  (it scores FKBP5 ligands ~0.79). Use for triage vs random
+                  molecules, not as a selectivity signal. (verification 2026-06-28)
+  pred_pchembl  : predicted FKBP12 potency (pChEMBL)          [regressor]
   ad_tanimoto   : max ECFP4 Tanimoto to FKBP12 training actives (applicability domain)
   in_domain     : ad_tanimoto >= AD_THRESHOLD (else predictions are unreliable)
   qed, mw       : RDKit drug-likeness
