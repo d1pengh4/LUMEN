@@ -22,6 +22,7 @@ STRUCTURES = {
     "1B6C": ("on_target_interface", "FKBP12 + TGF-beta type I receptor (GS domain); ON-target interface analogous to BMP type I receptors"),
     "1TCO": ("off_target_interface", "FKBP12 + FK506 + calcineurin; OFF-target interface to AVOID (immunosuppression)"),
     "2PPN": ("apo", "Apo FKBP12, high resolution; ligand-free reference"),
+    "1F40": ("nonimmuno_template", "FKBP12 + GPI-1046; a non-immunosuppressive (calcineurin-sparing) FKBP12 ligand that activates BMP signaling - scaffold template"),
 }
 
 PDB_URL = "https://files.rcsb.org/download/{pdb_id}.pdb"

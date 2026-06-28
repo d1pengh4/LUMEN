@@ -17,7 +17,8 @@ FKBP12 binds BMP/TGF-β type I receptors (ALK1/2/3, etc.) and **keeps them locke
 
 → **Design goal:** a non-immunosuppressive, oral small molecule that binds FKBP12 and displaces it from type I receptors (ON-target → turns BMP signaling on) **without creating the calcineurin-inhibitory surface (OFF-target avoidance)**.
 
-> **Precision caveat (verification audit 2026-06-28):** FK506 activates BMP signaling through BOTH calcineurin-dependent and calcineurin-independent routes (JCI 2013). Sparing calcineurin removes toxicity but may forfeit part of the efficacy — an explicit efficacy–toxicity trade-off, not a free win. Feasibility is supported by rapamycin (a non-calcineurin FKBP12 ligand that still activates some BMP signaling, via ALK2 only). Strategy: capture the displacement arm maximally by disrupting FKBP12 binding across ALK1/2/3, while avoiding both calcineurin and mTOR. Efficacy sufficiency is a Phase 3 (PASMC SMAD1/5) question.
+> **Precision caveat (verification audit 2026-06-28):** FK506 activates BMP signaling through BOTH calcineurin-dependent and calcineurin-independent routes (JCI 2013). Sparing calcineurin removes toxicity but may forfeit part of the efficacy — an explicit efficacy–toxicity trade-off, not a free win.
+> **Feasibility evidence (deep verification):** the non-immunosuppressive FKBP12 ligand **GPI-1046** activates BMP signaling (ALK3) *independent of calcineurin* — direct precedent that the displacement arm alone can work. Strategy: maximize displacement across ALK1/2/3, avoid both calcineurin and mTOR. Efficacy sufficiency is still a Phase 3 (PASMC SMAD1/5) question.
 
 ## 3. Structural basis (PDB structures collected)
 `src/structure/fetch_structures.py` → `data/raw/structures/`
@@ -28,6 +29,7 @@ FKBP12 binds BMP/TGF-β type I receptors (ALK1/2/3, etc.) and **keeps them locke
 | 1B6C | ON-target interface | FKBP12–TGF-β type I receptor (ALK5). Used as a **homologous proxy** for the FKBP12–type I receptor interface (FKBP12 binds the conserved GS domain shared by ALK1/2/3); no experimental FKBP12–ALK1/2/3 complex available |
 | 1TCO | OFF-target interface | FKBP12–FK506–calcineurin. The **surface that must NOT be created** = selectivity criterion |
 | 2PPN | apo | Ligand-free reference |
+| 1F40 | non-immuno template | FKBP12–GPI-1046 (NMR). A non-immunosuppressive, calcineurin-sparing FKBP12 ligand shown to activate BMP signaling (ALK3) — proof-of-concept scaffold/seed |
 
 ## 4. Binding pocket (fpocket quantification complete — 2026-06-28)
 Ran fpocket on 1FKF (FK506 complex) after removing FK506 → **Pocket 1 = the FK506 binding site**.
@@ -49,7 +51,7 @@ Literature key residues (human FKBP12 numbering): Tyr26, Phe36, Asp37, Arg42, Ph
 | Counter-target | UniProt | Reason |
 |---|---|---|
 | Calcineurin (PPP3CA / PPP3R1) | Q08209 / P63098 | Source of FK506's immunosuppressive toxicity. The complex must not create this surface |
-| FKBP1B (FKBP12.6) | P68106 | Regulates cardiac RyR2. Cross-binding risks cardiac side effects |
+| FKBP1B (FKBP12.6) | P68106 | **Safety-critical (verified):** FKBP12.6–RyR2 dissociation is linked to pulmonary hypertension and cardiac arrhythmia. Stripping it from RyR2 = cardiac liability. Selectivity here is mandatory, not optional |
 | Other FKBP family (FKBP51/52, etc.) | - | Selectivity profiling panel |
 
 Selectivity metrics enter the Phase 2 Pareto objective (ADR-001).
@@ -70,9 +72,13 @@ Selectivity metrics enter the Phase 2 Pareto objective (ADR-001).
 - **But 68 drug-like + potent anchors exist** (MW≤500, QED≥0.5, pChEMBL≥6) → `fkbp12_druglike_anchors.csv`. Top: CHEMBL4090599 (pKi 9.35, MW 498, QED 0.61); CHEMBL33094 (pKi 9.0, MW 358).
 - **Implication:** potent *drug-like* FKBP12 binders are achievable (de-risks the moderate-druggability concern in §4). These anchors serve as (a) docking validation set, (b) generative-model seeds/reference, (c) affinity-model training data. The de novo task remains genuinely novel because none combine drug-likeness with the **calcineurin-avoidance selectivity** of §5.1.
 
-## 6. Differentiation (vs competing drugs)
+## 6. Differentiation (vs competing drugs) & honest novelty claim
 - **Sotatercept (approved 2024):** ActRIIA ligand trap, injectable. → This project: **different node (FKBP12) + oral small molecule**.
-- **FK506 (clinical):** non-selective, immunosuppressive. → This project: **calcineurin-avoidance selectivity** is the key advance.
+- **FK506 (clinical):** non-selective, immunosuppressive. → This project: **calcineurin-avoidance selectivity**.
+- **GPI-1046 / neuroimmunophilin class:** non-immunosuppressive FKBP12 ligands ALREADY exist (developed for neuroprotection, with clinical failures + FKBP12-independence controversy). → so "non-immunosuppressive FKBP12 ligand" is **not novel by itself**.
+- **LTP001 (SMURF1 inhibitor):** another oral BMP-enhancer in PAH trials — competitor at the pathway level.
+
+**Defensible novelty claim (use this, not "world-first"):** the first **AI-designed non-immunosuppressive FKBP12 ligand purpose-built for PAH BMP-axis activation**, optimized for multi-receptor (ALK1/2/3) displacement with explicit FKBP12.6/calcineurin selectivity.
 
 ## Open / next
 - [x] Quantify pocket with fpocket (1FKF)
