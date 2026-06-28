@@ -1,0 +1,9 @@
+smiles,valid,binder_prob,pred_pchembl,ad_tanimoto,in_domain,qed,mw,dock_score
+CCC[C@@H]1CC(=O)N[C@@]2(C)[C@H](C1)[C@@H](Cc1ccc(F)cc1N)CC[C@@H]2O,True,0.08,6.93,0.197,False,0.719,362.5,-8.53848267
+CC1=CN=C2C1=NN=C2[C@@]12CC[C@@]3(F)C[C@@H]1[C@@H]2C[C@@H]3F,True,0.028,5.33,0.104,False,0.705,275.3,-8.52607059
+CC1([C@H](Cc2cccc(Cl)c2)OCCNC(=O)O)CCC1,True,0.022,3.96,0.272,False,0.754,311.8,-7.58129215
+OCCCC[C@H]1CCCC[C@H](CC2c3ccccc32)N1,True,0.1,6.37,0.234,False,0.776,273.4,-7.57226753
+CC[C@@H](C)C1CS(=O)(=O)[C@@H](O)[C@H](Cl)CCN2CC[C@@H](C2)N1,True,0.065,7.13,0.169,False,0.729,338.9,-7.34572697
+C[C@H]1CCCN(c2ccc(F)cc2)[C@@H]1CCCCC(=O)O,True,0.185,5.84,0.293,False,0.804,293.4,-7.34491301
+C=C(N[C@H]1O[C@@H]2[C@@H](CN[C@H](CC#N)C[C@H]2O)C[C@H]1C)NC(F)(F)F,True,0.1,6.75,0.127,False,0.57,348.4,-7.18501043
+CCC[C@H](C)CN(C)C[C@@H]1CO[C@@H](NC(=O)[C@@]2(C)CC(=O)CO2)[C@H]2O[C@@H](O)[C@@]23C[C@@H]13,True,0.115,6.99,0.17,False,0.598,424.5,-7.12055779

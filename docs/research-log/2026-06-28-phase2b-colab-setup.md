@@ -87,3 +87,18 @@ novel scaffolds. The exploitation (A) vs exploration (B) tension is real:
 **Correct validation for B = structure-based** (docking pose/score vs known
 binders; ultimately experiment). Docking of B follows in `dock_generated.py`.
 B remains HYPOTHESES TO TEST.
+
+### Structure-based validation of B (docking, 2026-06-28)
+`src/scoring/dock_generated.py` → `results/phase2b/diffsbdd_docked.csv`
+- 41/49 docked (8 fail = odd 3D from de novo, normal).
+- B dock score: median −6.67, min −8.54, max −4.67.
+- References: FK506 −10.3; known drug-like binders −6.7..−7.6; random decoys ~−7.3.
+- 16/41 score ≤ −7.0; 2/41 ≤ −8.0 (better than known drug-like binders).
+- **Honest caveat:** docking score has weak ranking power here (enrichment ROC-AUC
+  0.455) and random decoys also land ~−7.3, so these scores are PRIORITIZATION
+  HINTS, not validation. What the docking DOES show: novel B scaffolds physically
+  fit the FKBP12 pocket with poses and scores overlapping real binders.
+- **Deliverable:** 8 structurally-promising B candidates (dock ≤ −7, QED ≥ 0.5,
+  MW ≤ 450) → `results/phase2b/diffsbdd_promising.csv`. Top: QED 0.72, MW 362,
+  dock −8.54, novel (Tanimoto 0.20 to known). These are the de novo pipeline's
+  testable hypotheses.
