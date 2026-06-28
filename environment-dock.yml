@@ -1,0 +1,8 @@
+# Separate docking env to avoid icu/dependency conflicts with the main `lumen` env.
+# Usage: conda env create -f environment-dock.yml
+name: lumen-dock
+channels:
+  - conda-forge
+dependencies:
+  - smina
+  - openbabel

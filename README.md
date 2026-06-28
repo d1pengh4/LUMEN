@@ -22,14 +22,16 @@ results/             Analysis outputs
 ## Environment
 Conda (conda-forge + bioconda). The compchem stack needs conda, not pip wheels.
 ```bash
-conda env create -f environment.yml
-conda activate lumen
+conda env create -f environment.yml        # main env: rdkit, biopython, fpocket
+conda env create -f environment-dock.yml   # docking env: smina, openbabel (separate, avoids icu conflict)
 ```
 
 ## Reproduce Phase 1
 ```bash
-python src/structure/fetch_structures.py   # download FKBP12 PDB structures
-python src/structure/map_interfaces.py     # map ON/OFF-target interfaces
+python src/structure/fetch_structures.py     # download FKBP12 PDB structures
+python src/structure/map_interfaces.py       # map ON/OFF-target interfaces
+python src/data/collect_chembl_ligands.py    # collect FKBP12 ligands from ChEMBL
+python src/scoring/dock_benchmark.py          # validate docking against known binders
 ```
 
 ## Compute note

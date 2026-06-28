@@ -76,5 +76,6 @@ Selectivity metrics enter the Phase 2 Pareto objective (ADR-001).
 - [x] Quantify pocket with fpocket (1FKF)
 - [x] Map ON-target interface (1B6C) and OFF-target surface (1TCO)
 - [x] Collect FKBP12-binding ligands from ChEMBL (725 ligands; 68 drug-like anchors)
-- [ ] Docking benchmark of known ligands (smina/vina) to validate the scoring pipeline
+- [x] Docking benchmark of known ligands (smina) — pipeline validated; see docking-benchmark log
+- [ ] Decoy enrichment test (property-matched decoys)
 - [ ] Convert pocket to generative-model input format (DiffSBDD conditioning)
