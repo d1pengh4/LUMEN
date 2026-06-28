@@ -17,13 +17,15 @@ FKBP12 binds BMP/TGF-β type I receptors (ALK1/2/3, etc.) and **keeps them locke
 
 → **Design goal:** a non-immunosuppressive, oral small molecule that binds FKBP12 and displaces it from type I receptors (ON-target → turns BMP signaling on) **without creating the calcineurin-inhibitory surface (OFF-target avoidance)**.
 
+> **Precision caveat (verification audit 2026-06-28):** FK506 activates BMP signaling through BOTH calcineurin-dependent and calcineurin-independent routes (JCI 2013). Sparing calcineurin removes toxicity but may forfeit part of the efficacy — an explicit efficacy–toxicity trade-off, not a free win. Feasibility is supported by rapamycin (a non-calcineurin FKBP12 ligand that still activates some BMP signaling, via ALK2 only). Strategy: capture the displacement arm maximally by disrupting FKBP12 binding across ALK1/2/3, while avoiding both calcineurin and mTOR. Efficacy sufficiency is a Phase 3 (PASMC SMAD1/5) question.
+
 ## 3. Structural basis (PDB structures collected)
 `src/structure/fetch_structures.py` → `data/raw/structures/`
 
 | PDB | Role | Design meaning |
 |---|---|---|
 | 1FKF | drug pocket | FKBP12–FK506. Defines the **pocket the molecule binds** |
-| 1B6C | ON-target interface | FKBP12–TGF-β type I receptor. The **signaling interface to disrupt** (homologous to BMP type I) |
+| 1B6C | ON-target interface | FKBP12–TGF-β type I receptor (ALK5). Used as a **homologous proxy** for the FKBP12–type I receptor interface (FKBP12 binds the conserved GS domain shared by ALK1/2/3); no experimental FKBP12–ALK1/2/3 complex available |
 | 1TCO | OFF-target interface | FKBP12–FK506–calcineurin. The **surface that must NOT be created** = selectivity criterion |
 | 2PPN | apo | Ligand-free reference |
 

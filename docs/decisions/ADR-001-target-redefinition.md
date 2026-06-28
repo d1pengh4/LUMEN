@@ -12,6 +12,7 @@ The original hypothesis in `proposal.html` was: "predict the 3D structure of mut
 Redefine the target to **FKBP12 (UniProt P62942, gene FKBP1A)**.
 - Design goal: a small molecule that disrupts the FKBP12–type I BMP receptor interaction (ALK1/ALK2/ALK3, GS domain) to activate downstream BMPR2 signaling (SMAD1/5/8, ID1).
 - Key constraint (= the AI design differentiator): **avoid calcineurin inhibition** → eliminate FK506's immunosuppressive toxicity. Oral-compatible physicochemistry.
+  - **Precision note (verification audit 2026-06-28):** this is an efficacy–toxicity *trade-off*, not a pure win. FK506 activates BMP signaling via BOTH calcineurin-dependent and calcineurin-independent pathways (JCI 2013). A calcineurin-sparing ligand captures the calcineurin-independent (FKBP12-displacement) arm and removes immunosuppression, but may deliver partial efficacy. Mitigation: engage all three ALK receptors (like FK506, unlike rapamycin) and avoid both calcineurin and mTOR liabilities. Efficacy sufficiency is a Phase 3 question.
 - Differentiation: a different molecular node (FKBP12) + oral small molecule, vs sotatercept (ActRIIA ligand trap, injectable).
 
 ## Rationale
