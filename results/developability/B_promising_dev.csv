@@ -1,0 +1,9 @@
+smiles,valid,mw,logp,tpsa,hbd,hba,rot_bonds,aromatic_rings,fraction_csp3,qed,sa_score,lipinski_pass,veber_pass,pains_alert,gi_absorption_ok,bbb_likely,developable
+CCC[C@@H]1CC(=O)N[C@@]2(C)[C@H](C1)[C@@H](Cc1ccc(F)cc1N)CC[C@@H]2O,True,362.5,3.42,75.4,3,3,4,1,0.67,0.719,4.39,True,True,False,True,True,True
+CC1=CN=C2C1=NN=C2[C@@]12CC[C@@]3(F)C[C@@H]1[C@@H]2C[C@@H]3F,True,275.3,3.02,37.1,0,3,1,0,0.67,0.705,6.4,True,True,False,True,True,False
+CC1([C@H](Cc2cccc(Cl)c2)OCCNC(=O)O)CCC1,True,311.8,3.73,58.6,2,2,7,1,0.56,0.754,3.1,True,True,False,True,True,True
+OCCCC[C@H]1CCCC[C@H](CC2c3ccccc32)N1,True,273.4,3.59,32.3,2,2,6,1,0.67,0.776,3.43,True,True,False,True,True,True
+CC[C@@H](C)C1CS(=O)(=O)[C@@H](O)[C@H](Cl)CCN2CC[C@@H](C2)N1,True,338.9,0.81,69.6,2,5,2,0,1.0,0.729,6.08,True,True,False,True,False,False
+C[C@H]1CCCN(c2ccc(F)cc2)[C@@H]1CCCCC(=O)O,True,293.4,4.08,40.5,1,2,6,1,0.59,0.804,2.92,True,True,False,True,False,True
+C=C(N[C@H]1O[C@@H]2[C@@H](CN[C@H](CC#N)C[C@H]2O)C[C@H]1C)NC(F)(F)F,True,348.4,1.16,89.3,4,6,4,0,0.8,0.57,5.37,True,True,False,True,True,False
+CCC[C@H](C)CN(C)C[C@@H]1CO[C@@H](NC(=O)[C@@]2(C)CC(=O)CO2)[C@H]2O[C@@H](O)[C@@]23C[C@@H]13,True,424.5,0.91,97.3,2,7,8,0,0.91,0.598,5.85,True,True,False,True,False,False
