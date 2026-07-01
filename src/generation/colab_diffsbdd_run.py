@@ -88,17 +88,32 @@ def setup():
     return repo, ckpt
 
 
-def generate(repo: Path, ckpt: Path, pocket: Path) -> Path:
-    out = WORK / "fkbp12_generated.sdf"
-    sh(f'cd {repo} && PYTHONPATH={WORK}:$PYTHONPATH {sys.executable} generate_ligands.py {ckpt} '
-       f'--pdbfile {pocket} --ref_ligand A:108 --outfile {out} '
-       f'--n_samples {N} --sanitize')
-    return out
+def generate(repo: Path, ckpt: Path, pocket: Path) -> list[Path]:
+    # DiffSBDD generates all n_samples in one batch -> a T4 (14.5 GB) OOMs above
+    # ~50. Split into batches of BATCH and collect the SDFs.
+    BATCH = 40
+    sdfs = []
+    done = 0
+    while done < N:
+        k = min(BATCH, N - done)
+        out = WORK / f"gen_{done}.sdf"
+        r = sh(f'cd {repo} && PYTHONPATH={WORK}:$PYTHONPATH {sys.executable} generate_ligands.py {ckpt} '
+               f'--pdbfile {pocket} --ref_ligand A:108 --outfile {out} '
+               f'--n_samples {k} --sanitize', check=False)
+        if r.returncode == 0 and out.exists():
+            sdfs.append(out)
+        else:
+            print(f"[warn] batch at {done} failed (rc={r.returncode}); continuing", flush=True)
+        done += k
+    return sdfs
 
 
-def emit_smiles(sdf: Path):
+def emit_smiles(sdfs: list[Path]):
     from rdkit import Chem
-    smis = [Chem.MolToSmiles(m) for m in Chem.SDMolSupplier(str(sdf)) if m is not None]
+    smis = []
+    for sdf in sdfs:
+        smis += [Chem.MolToSmiles(m) for m in Chem.SDMolSupplier(str(sdf)) if m is not None]
+    smis = list(dict.fromkeys(smis))  # dedupe, keep order
     print(f"\n===LUMEN_SMILES_BEGIN=== ({len(smis)} molecules)", flush=True)
     for s in smis:
         print(s, flush=True)
@@ -108,8 +123,8 @@ def emit_smiles(sdf: Path):
 def main() -> int:
     pocket = build_pocket()
     repo, ckpt = setup()
-    sdf = generate(repo, ckpt, pocket)
-    emit_smiles(sdf)
+    sdfs = generate(repo, ckpt, pocket)
+    emit_smiles(sdfs)
     return 0
 
 
