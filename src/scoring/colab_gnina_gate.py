@@ -25,10 +25,10 @@ def main():
     for i,(smi,lab) in enumerate(DATA):
         f=WORK/f"m{i}.smi"; f.write_text(f"{smi} m{i}\n")
         sdf=WORK/f"m{i}.sdf"
-        if sh(f"obabel {f} -O {sdf} --gen3d 2>/dev/null", check=False).returncode or not sdf.exists():
-            results.append((i,lab,None)); continue
+        if sh(f"timeout 90 obabel {f} -O {sdf} --gen3d 2>/dev/null", check=False).returncode or not sdf.exists():
+            results.append((i,lab,None)); print(f"[{i+1}/{len(DATA)}] label={lab} CNNaffinity=None (gen3d timeout/fail)", flush=True); continue
         out=WORK/f"m{i}_d.sdf"
-        sh(f"/content/gnina/gnina -r {WORK}/rec.pdb -l {sdf} --autobox_ligand {WORK}/ref.pdb "
+        sh(f"timeout 240 /content/gnina/gnina -r {WORK}/rec.pdb -l {sdf} --autobox_ligand {WORK}/ref.pdb "
            f"-o {out} --cnn_scoring rescore --num_modes 3 --seed 42 >/dev/null 2>&1", check=False)
         aff=None
         if out.exists():
