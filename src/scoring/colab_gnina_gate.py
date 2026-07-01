@@ -44,10 +44,14 @@ def main():
         m.SetProp("_Name", f"m{i}"); w.write(m); order.append((i,lab))
     w.close()
     print(f"embedded {len(order)}/{len(DATA)} molecules", flush=True)
-    # ONE gnina call on all
+    # ONE gnina call on all. Cheaper settings for speed: low exhaustiveness,
+    # single mode. --cnn_scoring rescore (dock with Vina, rescore top with CNN).
     out=WORK/"docked.sdf"
-    sh(f"timeout 2400 /content/gnina/gnina -r {WORK}/rec.pdb -l {WORK}/ligs.sdf "
-       f"--autobox_ligand {WORK}/ref.pdb -o {out} --cnn_scoring rescore --num_modes 1 --seed 42 2>&1 | tail -5", check=False)
+    print("STEP gnina docking (one batch call)", flush=True)
+    sh(f"timeout 3000 /content/gnina/gnina -r {WORK}/rec.pdb -l {WORK}/ligs.sdf "
+       f"--autobox_ligand {WORK}/ref.pdb -o {out} --cnn_scoring rescore "
+       f"--exhaustiveness 4 --num_modes 1 --seed 42 2>&1 | tail -5", check=False)
+    print("STEP gnina done, parsing", flush=True)
     # parse per-molecule CNNaffinity (best per name)
     best={}
     if out.exists():
