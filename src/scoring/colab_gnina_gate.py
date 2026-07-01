@@ -17,24 +17,27 @@ def sh(cmd, check=True, timeout=None):
     return r
 
 def main():
-    sh("nvidia-smi -L", check=False)
-    sh("pip -q install rdkit 2>/dev/null || true", check=False)
+    print("STEP nvidia-smi", flush=True); sh("nvidia-smi -L", check=False)
+    print("STEP pip install rdkit", flush=True)
+    sh("pip -q install rdkit 2>/dev/null || true", check=False, timeout=300)
     from rdkit import Chem, RDLogger
     from rdkit.Chem import AllChem
     RDLogger.DisableLog("rdApp.*")
-    # receptor + ref ligand
+    print("STEP fetch 1FKF", flush=True)
     raw=urllib.request.urlopen("https://files.rcsb.org/download/1FKF.pdb",timeout=60).read().decode()
     (WORK/"rec.pdb").write_text("\n".join(l for l in raw.splitlines() if l.startswith("ATOM"))+"\n")
     (WORK/"ref.pdb").write_text("\n".join(l for l in raw.splitlines() if l.startswith("HETATM") and l[17:20].strip()=="FK5")+"\n")
-    # gnina binary
-    sh("wget -q https://github.com/gnina/gnina/releases/download/v1.3/gnina -O /content/gnina/gnina && chmod +x /content/gnina/gnina")
+    print("STEP download gnina binary (~hundreds MB)", flush=True)
+    sh("timeout 420 wget -q https://github.com/gnina/gnina/releases/download/v1.3/gnina -O /content/gnina/gnina && chmod +x /content/gnina/gnina", check=False)
+    print(f"STEP gnina size: {sh('ls -la /content/gnina/gnina', check=False).stdout.strip()}", flush=True)
     # RDKit 3D -> one multi-mol SDF
+    print("STEP RDKit 3D embedding", flush=True)
     w=Chem.SDWriter(str(WORK/"ligs.sdf")); order=[]
     for i,(smi,lab) in enumerate(DATA):
         m=Chem.MolFromSmiles(smi)
         if m is None: print(f"m{i} parse-fail", flush=True); continue
         m=Chem.AddHs(m)
-        if AllChem.EmbedMolecule(m, randomSeed=42, maxIterations=200)!=0:
+        if AllChem.EmbedMolecule(m, randomSeed=42, maxAttempts=50, useRandomCoords=True)!=0:
             print(f"m{i} embed-fail", flush=True); continue
         try: AllChem.MMFFOptimizeMolecule(m, maxIters=200)
         except Exception: pass
