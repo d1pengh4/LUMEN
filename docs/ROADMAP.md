@@ -86,10 +86,26 @@ free/cheap tier cannot complete FEP (likely), this step is **explicitly
 resource-gated**: document FKBP12.6 selectivity as an open risk requiring paid
 GPU or a collaborator — NOT silently skipped. This honors "all gates" honestly.
 
-### G8 — Methodology paper
+### DECISION GATE (after G3–G7, before G8) — data decides the endgame
+Purpose stays OPEN until here; the accumulated data picks the path (user decision
+2026-07-02). Concrete branch:
+- **STRONG result** (STOP criterion met: ≥3 developable/novel candidates at
+  CNNaffinity ≥ 7.0, surviving MD stability, synthesizable, selectivity at least
+  not-ruled-out) → pursue **startup / patent** track: prioritize IP (provisional
+  patent on the lead scaffolds), seek a wet-lab collaborator/CRO for experimental
+  validation, then paper. Experimental data is the gate to investment.
+- **LIMITED result** (plateaus below target, or candidates fail MD/selectivity, or
+  scoring-ceiling reached) → wrap up as a **methodology paper**: the honest pipeline
+  + negative findings are themselves the contribution. No overclaiming.
+Either branch is a legitimate outcome by design — the roadmap makes "it didn't
+reach a drug" a publishable finding, not a failure.
+
+### G8 — Methodology paper (both branches converge here)
 Write the paper: honest pipeline + negative findings (docking fails, ML selectivity
 fails, GNINA works) + validated candidate shortlist + all gate results (incl.
-whichever were resource-gated). Deliverable that attracts wet-lab collaboration.
+whichever were resource-gated). In the STRONG branch, this accompanies IP/collab;
+in the LIMITED branch, it is the final deliverable. Attracts wet-lab collaboration
+either way.
 
 ---
 
