@@ -66,8 +66,10 @@ closely related FKBP paralogs (FKBP51/52 precedent).
    no PAINS, hERG/CYP flags) applied; shortlist passes.
 
 4. **Pocket-conditioned generation at scale + tightened filters** (Colab GPU)
-   **GATE:** ≥ N diverse (scaffold diversity > 50%), drug-like (logP ≤ 4),
-   pocket-fitting molecules after ML + docking + AD gate.
+   **GATE (strengthened):** scaffold diversity > 70%, novelty (median Tanimoto to
+   known) < 0.35, ≥ 15 developable (SA ≤ 4.0, QED ≥ 0.6, 1 ≤ logP ≤ 4,
+   Lipinski+Veber, no PAINS), PAINS fraction < 5%. Efficacy is NOT gated here
+   (unreliable for out-of-domain novel mols) — verified later by MM-GBSA.
 
 5. **MD pose-stability of top candidates** (Colab GPU, OpenMM)
    Short explicit-solvent MD of the top complexes.
