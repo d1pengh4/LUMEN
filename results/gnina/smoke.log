@@ -1,0 +1,88 @@
+[colab] Creating session 'run-c8a3c3'...
+[colab] Session READY (run-c8a3c3). Executing src/scoring/colab_gnina_smoke.py...
+$ nvidia-smi -L
+GPU 0: Tesla T4 (UUID: GPU-87fad5c1-9157-3364-f49e-84af3715d1c5)
+
+$ apt-get -qq update >/dev/null 2>&1 || true
+$ apt-get -qq install -y openbabel >/dev/null 2>&1 || true
+$ wget -q https://github.com/gnina/gnina/releases/download/v1.3/gnina -O /content/gnina/gnina && chmod +x /content/gnina/gnina
+$ /content/gnina/gnina --version 2>&1 | head -3
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+
+$ obabel /content/gnina/active1.smi -O /content/gnina/active1.sdf --gen3d 2>/dev/null
+$ /content/gnina/gnina -r /content/gnina/rec.pdb -l /content/gnina/active1.sdf --autobox_ligand /content/gnina/ref.pdb -o /content/gnina/active1_docked.sdf --cnn_scoring rescore --num_modes 3 --seed 42 2>&1 | tail -20
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: /content/gnina/gnina -r /content/gnina/rec.pdb -l /content/gnina/active1.sdf --autobox_ligand /content/gnina/ref.pdb -o /content/gnina/active1_docked.sdf --cnn_scoring rescore --num_modes 3 --seed 42
+Using random seed: 42
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+active1 | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -7.21       -0.31       0.5977      6.389
+    2       -6.58        0.47       0.5484      6.590
+    3       -7.28        0.01       0.5185      6.326
+
+$ obabel /content/gnina/active2.smi -O /content/gnina/active2.sdf --gen3d 2>/dev/null
+$ /content/gnina/gnina -r /content/gnina/rec.pdb -l /content/gnina/active2.sdf --autobox_ligand /content/gnina/ref.pdb -o /content/gnina/active2_docked.sdf --cnn_scoring rescore --num_modes 3 --seed 42 2>&1 | tail -20
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: /content/gnina/gnina -r /content/gnina/rec.pdb -l /content/gnina/active2.sdf --autobox_ligand /content/gnina/ref.pdb -o /content/gnina/active2_docked.sdf --cnn_scoring rescore --num_modes 3 --seed 42
+Using random seed: 42
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+active2 | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -7.51        0.16       0.9720      6.227
+    2       -7.35        0.65       0.9110      5.842
+    3       -5.74       -1.32       0.8613      5.467
+
+$ obabel /content/gnina/aspirin.smi -O /content/gnina/aspirin.sdf --gen3d 2>/dev/null
+$ /content/gnina/gnina -r /content/gnina/rec.pdb -l /content/gnina/aspirin.sdf --autobox_ligand /content/gnina/ref.pdb -o /content/gnina/aspirin_docked.sdf --cnn_scoring rescore --num_modes 3 --seed 42 2>&1 | tail -20
+  |___/                     
+
+gnina v1.3 master:97fa6bc+   Built Oct  3 2024.
+gnina is based on smina and AutoDock Vina.
+Please cite appropriately.
+
+Commandline: /content/gnina/gnina -r /content/gnina/rec.pdb -l /content/gnina/aspirin.sdf --autobox_ligand /content/gnina/ref.pdb -o /content/gnina/aspirin_docked.sdf --cnn_scoring rescore --num_modes 3 --seed 42
+Using random seed: 42
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+aspirin | pose 0 | initial pose not within box
+
+mode |  affinity  |  intramol  |    CNN     |   CNN
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -5.89       -0.42       0.8396      4.515
+    2       -5.70       -0.58       0.6828      4.049
+    3       -6.18        0.42       0.6640      4.405
+
+
+===GNINA_SMOKE_BEGIN===
+active1	binder	CNNaffinity=6.5895180702
+active2	binder	CNNaffinity=6.2266426086
+aspirin	non-binder	CNNaffinity=4.5151076317
+===GNINA_SMOKE_END===
+[colab] Stopping session 'run-c8a3c3'...
+[colab] Session terminated.
