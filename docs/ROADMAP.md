@@ -37,30 +37,56 @@ Key validated methodology facts (the spine of credibility):
 
 Ordered by value. All produce real, publishable methodology.
 
-1. **MM-GBSA / FEP rescoring of B candidates** (Colab GPU)
-   Better-than-docking physics-based affinity estimate for the 8 promising B
-   molecules. Goal: replace weak docking score with a defensible ranking.
-   Verify: rescoring separates known binders from decoys better than ROC-AUC 0.455.
+### STAGE-GATE PRINCIPLE (mandatory — "a weak foundation collapses")
+No step begins until the previous step PASSES its gate. Each gate is a concrete,
+verified numeric/artifact criterion, not a feeling. If a step fails its gate, we
+fix or redesign it (or honestly declare the limit) before advancing. This is why
+we already caught: docking (ROC 0.455 → rejected), ML selectivity (ρ≈0 → rejected).
+Record every gate outcome in a research-log entry.
+
+Order below is the build order. Steps done so far: developability panel (step done),
+scaled generation (in progress). Physics-based steps (1,5,7) are the core of
+overcoming the "computer ≠ reality" and "selectivity" limits — literature confirms
+ABFE/FEP improves enrichment over docking, and MD+FEP resolves selectivity between
+closely related FKBP paralogs (FKBP51/52 precedent).
+
+1. **MM-GBSA rescoring of candidates** (Colab GPU)
+   Physics-based affinity estimate to replace the weak docking score.
+   **GATE:** on our enrichment set (20 actives/40 decoys), MM-GBSA ROC-AUC must
+   beat docking's 0.455 (target ≥ 0.65). If it fails, do NOT use it for ranking —
+   escalate to ABFE/FEP or declare the limit. Only after PASS, rescore candidates.
 
 2. **RL / multi-objective optimization of B scaffolds** (Colab GPU, REINVENT4)
-   Take B's novel scaffolds and optimize for predicted potency + QED + logD,
-   keeping the applicability-domain gate. Fills the proposal's P2 RL/Pareto gap.
-   Verify: optimized set beats current B on potency proxy without leaving domain.
+   Optimize B's novel scaffolds for potency + QED + logD, keeping the AD gate.
+   **GATE:** optimized set beats the current pool on the (validated) scorer without
+   leaving the applicability domain; diversity preserved.
 
 3. **Full ADMET profiling** (local / API)
-   ADMET (absorption, hERG, CYP, clearance) for promising candidates.
-   Verify: candidates pass basic developability filters.
+   **GATE:** a defined developability filter (SA≤4.5, QED≥0.5, Lipinski+Veber,
+   no PAINS, hERG/CYP flags) applied; shortlist passes.
 
 4. **Pocket-conditioned generation at scale + tightened filters** (Colab GPU)
-   Larger DiffSBDD run (1000s), filter logP ≤ 4, then ML + docking + AD gate.
-   Verify: a clean shortlist of ~20 diverse, drug-like, pocket-fitting molecules.
+   **GATE:** ≥ N diverse (scaffold diversity > 50%), drug-like (logP ≤ 4),
+   pocket-fitting molecules after ML + docking + AD gate.
 
-5. **AlphaFold3 / MD where it adds value** (Colab GPU)
-   AF3 of FKBP12–ALK complexes (not just experimental analogs); short MD to check
-   pose stability of top candidates. Closes the proposal's P1 MD gap.
+5. **MD pose-stability of top candidates** (Colab GPU, OpenMM)
+   Short explicit-solvent MD of the top complexes.
+   **GATE:** candidate stays bound (ligand RMSD stable, key contacts retained)
+   over the run; unstable poses are dropped. This is the real test that a novel
+   molecule actually occupies the pocket (vs a lucky docking pose).
 
 6. **Synthetic accessibility + retrosynthesis** (local, AiZynthFinder/SA score)
-   Filter candidates a chemist could actually make. Verify: SA score / routes exist.
+   **GATE:** each final candidate has SA ≤ ~4 AND a plausible retrosynthetic route.
+
+7. **[NEW] Selectivity by relative free energy (FKBP12 vs FKBP12.6)** (Colab GPU, FEP)
+   The limit ML could not solve. Literature precedent: MD+FEP resolves FKBP51/52
+   selectivity (83%-identical paralogs), the same problem class as FKBP12/12.6.
+   **GATE:** FEP reproduces the FKBP12-vs-12.6 selectivity sign/magnitude on a few
+   known reference ligands (retrospective control) BEFORE trusting it on candidates.
+   If the control fails, selectivity stays a wet-lab counter-screen (honest limit).
+
+8. **AlphaFold3 of FKBP12–ALK complexes** (Colab GPU / AF Server)
+   Model the actual ON-target interface (not just the ALK5 proxy). Supporting, not gating.
 
 ---
 
@@ -85,11 +111,14 @@ is what gets a wet lab to say yes.
 
 ---
 
-## Immediate next step (recommended)
-Track A #1 (MM-GBSA rescoring) — it directly attacks our weakest link (no
-trustworthy affinity ranking) and strengthens the case for the 8 B candidates.
+## Immediate next step
+Finish scaled generation (step in progress) and lock its gate (a clean,
+diverse candidate pool). ONLY THEN start Track A #1 (MM-GBSA), which must pass
+its enrichment gate before we trust it on candidates.
 
 ## Standing principles (do not drop)
+- **Stage-gate:** each step must PASS its numeric/artifact gate before the next
+  begins. A weak foundation collapses the whole stack. No skipping ahead.
 - Commit every work unit; English; private repo.
 - Verify before believing; surface limitations; no "world-first" inflation.
 - Every candidate carries its applicability-domain caveat. In-silico = hypothesis.
