@@ -33,8 +33,8 @@ def sh(cmd, check=True, timeout=None):
 
 def main():
     print("STEP nvidia-smi", flush=True); sh("nvidia-smi -L", check=False)
-    print("STEP install deps", flush=True)
-    sh("pip -q install openmm openmmforcefields openff-toolkit pdbfixer mdtraj rdkit 2>&1 | tail -3", check=False, timeout=1200)
+    # deps come from the conda env this script is launched with (see bootstrap);
+    # no pip install here (openff-toolkit / pdbfixer / ambertools are conda-only).
 
     # ---- protein prep ----
     print("STEP fetch+prep protein (1FKF chain A)", flush=True)
