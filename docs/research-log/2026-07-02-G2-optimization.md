@@ -65,3 +65,30 @@ Result (`results/phase2b/ga_optimized.csv`):
 GNINA-score the top ~15 GA-optimized novel molecules. Only if GNINA confirms
 improvement over 6.56 (ideally toward ≥7.0) is G2 a real success; otherwise the
 ML-space gain is an artifact and we document the ceiling honestly.
+
+## DECISIVE GNINA VALIDATION — G2 WORKS (2026-07-02)
+GNINA-scored the top 15 GA-optimized molecules (`results/phase2b/gaopt_full.csv`).
+
+| Metric | Brute-force (G1) | GA-optimized (G2) |
+|---|---|---|
+| Best CNNaffinity | 6.56 | **7.06** |
+| Candidates > 6.56 | — | **7 of 15** |
+| Candidates ≥ 6.3 | 3 (of 33) | **13 of 15** |
+| Candidates ≥ 7.0, novel, developable | 0 | **1** |
+
+**Verdict: goal-directed optimization (GA) genuinely beat brute-force scaling,
+CONFIRMED by the validated tool (GNINA), not just the ML proxy.** Best novel
+candidate: `CC(C)(C)C(=O)C(=O)N1CCCCC1N1CCCC1N1CCC[C@H]1CC(N)=O` — CNNaffinity
+7.06, novel (ad 0.38), developable (QED 0.72, SA 4.05, MW 392).
+- This resolves the earlier regressor/classifier disagreement worry AT THE TOP:
+  GNINA (validated) independently confirms the improvement. Brute-force plateaued
+  at 6.35–6.56; directed optimization reached 7.06.
+- **STOP criterion (≥3 developable/novel at CNNaffinity ≥7.0): 1/3 met.** Close but
+  not fully. One more GA round (seeded with these improved molecules) should push
+  more candidates to ≥7.0; safety-stop if it plateaus.
+
+## Decision
+G2 is a validated success (directed optimization works). Next: one more GA round to
+try to reach ≥3 at ≥7.0 (full STOP), then proceed to G3 (MD pose-stability) on the
+top ≥7.0 novel/developable candidates. If the next round plateaus, carry the current
+strong set (7.06 + 6 more >6.56) to G3.
