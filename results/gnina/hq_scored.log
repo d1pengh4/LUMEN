@@ -1,0 +1,17 @@
+STEP embedding candidates
+embedded 10/10
+STEP gnina docking candidates
+STEP done, parsing
+
+===CAND_BEGIN===
+7.0432286263	hq	CC(C)(C)C(=O)C(=O)N1CCCCC1N1CCCC1N1CCC[C@H]1CC(N)=O
+6.9515490532	hq	C=C[C@H]1CN(c2cccc(NCC)c2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1cccc(C)c1
+7.2065558434	hq	C=C[C@H]1CN(c2cccc(NCC)c2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1ccc(C)cc1
+6.7811455727	hq	C=C[C@H]1CN(CCF)C(=O)[C@@H]2CCC[C@H]1N2Cc1cccc(CC(N)=O)c1
+6.72301054	hq	CC(C)(C)C(=O)C(=O)N1CCC[C@H]1N1CCCC1N1CCC[C@H]1CC(N)=O
+6.9300308228	hq	C=C[C@H]1CN(CCNc2ccc(F)cc2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1cccc(C)c1
+6.651119709	hq	C=C[C@H]1CN(c2cccc(NCC)c2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1ccccc1
+6.6049990654	hq	C=C[C@@H]1CN(CC#N)C(=O)[C@@H]2CCC[C@H]1N2Cc1cccc(CC(N)=O)c1
+6.8834705353	hq	C=C[C@H]1CN(c2cccc(NCC)c2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1ccc(C#N)cc1
+6.5440592766	hq	COC[C@H]1CN(C2(C)CCCC2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1cc(Cl)cc(Cl)c1
+===CAND_END===

@@ -113,3 +113,10 @@ the best set (≥7.06) to G3. Then G4 retrosynthesis, G5 AF3, G7 selectivity FEP
 - Scoring: `results/gnina/gate_bg.log` (GNINA gate), `gaopt_scored.log`, `gar2_scored.log`.
 - Synthesis: `results/synthesis/FINAL_synth_feasibility.csv`.
 - Decisions/logs: `docs/decisions/ADR-001*`, `docs/research-log/2026-*`, `docs/ROADMAP.md`.
+
+## HQ RESCORE (exhaustiveness 8) — legitimate improvement (2026-07-02)
+Re-scored top 10 candidates with thorough GNINA (exh 8, num_modes 5; NOT threshold fudging).
+- Best CNNaffinity: exh4 7.06 → **exh8 7.21** (better sampling raised it).
+- **≥7.0 & novel & developable: 2/3** (up from 1); all 10 ≥6.34 (known-active level), 9 ≥6.56.
+- STOP criterion (≥3 at ≥7.0): 2/3 — strong lead set; 3rd candidate at 6.95 (borderline).
+- Leads: `results/phase2b/FINAL_leads.csv`. Proceeding to G3 (MD) as the decisive test.
