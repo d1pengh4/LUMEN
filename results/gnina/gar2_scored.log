@@ -1,0 +1,22 @@
+STEP embedding candidates
+embedded 15/15
+STEP gnina docking candidates
+STEP done, parsing
+
+===CAND_BEGIN===
+5.6459369659	ga_r2	COC[C@H]1CN(CC#N)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1cccc(C)c1
+6.2126727104	ga_r2	Cc1cccc(S(=O)(=O)N2[C@@H]3CCC[C@H]2C(=O)N(CC#N)C[C@@H]3CN(C)C)c1
+5.7621655464	ga_r2	COC[C@H]1CN(CC#N)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1ccc(C)cc1
+5.5918030739	ga_r2	COC[C@H]1CN(CC#N)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1ccc(C#N)cc1
+5.5650763512	ga_r2	COC[C@H]1CN(CC#N)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1ccccc1
+6.6429066658	ga_r2	C=C[C@H]1CN(CCNc2ccc(F)cc2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1cccc(C)c1
+6.0463337898	ga_r2	CN(C)C[C@H]1CN(CC#N)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1ccc(C#N)cc1
+6.1399292946	ga_r2	Cc1ccc(S(=O)(=O)N2[C@@H]3CCC[C@H]2C(=O)N(CC#N)C[C@@H]3CN(C)C)cc1
+6.1833796501	ga_r2	CN(C)C[C@H]1CN(CC#N)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1ccccc1
+5.8781414032	ga_r2	COC[C@H]1CN(CC#N)C(=O)[C@@H]2CCC[C@H]1N2c1cccc(Cl)c1
+6.1895565987	ga_r2	CCC(C)CN1[C@@H]2CCC[C@H]1C(=O)N(CC(=O)O)C[C@@H]2c1cccc(Cl)c1
+6.3755002022	ga_r2	C=C[C@H]1CN(CC(=O)O)C(=O)[C@@H]2CCC[C@H]1N2Cc1cccc(CC(N)=O)c1
+6.5457386971	ga_r2	COC[C@H]1CN(C2(C)CCCC2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1cc(Cl)cc(Cl)c1
+6.4205155373	ga_r2	COC[C@H]1CN(CC#N)C(=O)[C@@H]2CCC[C@H]1N2c1ccc(F)c(F)c1
+6.4081668854	ga_r2	C=C[C@@H]1CN(CC(N)=O)C(=O)[C@@H]2CCC[C@H]1N2Cc1cccc(CC(N)=O)c1
+===CAND_END===
