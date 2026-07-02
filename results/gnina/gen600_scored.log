@@ -1,0 +1,31 @@
+STEP embedding candidates
+embedded 24/24
+STEP gnina docking candidates
+STEP done, parsing
+
+===CAND_BEGIN===
+4.8942499161	gen600_dev	C=C(S)[C@@H]1[C@@H](CO)CCCN1C(=O)O
+4.9455523491	gen600_dev	NCC=C=CCN1CCCC1c1ccccc1
+5.368888855	gen600_dev	CCn1c(C)c(C(=O)O)c(O)c1Sc1ccccc1
+4.7325482368	gen600_dev	O=C(O)CCO[C@H]1CCC[C@@H]2CCCC(=O)N2C1
+4.5833735466	gen600_dev	OCCCN1CCC[C@@H]2CCC[C@H]21
+5.0829234123	gen600_dev	CCCCC1=C[C@@H](C)CC[C@@H](O)C1
+5.8524651527	gen600_dev	NC(=O)NC(=O)N1CCC(F)(F)[C@@H](Cc2ccccc2)C1
+5.9739336967	gen600_dev	CC(=O)CC[C@@H]1CCCCS[C@@]1(C)O
+5.7700295448	gen600_dev	CCCCN1C[C@H](C)[C@@](C[C@H]2CCNC2)(c2ccccc2)C1
+4.8638138771	gen600_dev	O=C(O)[C@@H]1CC[C@@]2(CCCC[C@H]2Oc2ccccc2)O1
+5.1721959114	gen600_dev	Cc1nc2c(s1)[C@@H](C(=O)O)CC=C2
+5.0251107216	gen600_dev	CC[C@@H]1NC([C@H]2CN2)=N[C@H]1c1ccccc1
+5.648665905	gen600_dev	O[C@@H](CCC1(c2cc(Cl)ccc2F)CC1)C(O)(F)F
+4.3839869499	gen600_dev	OC1=Cc2ccccc2CC=C1
+5.4138565063	gen600_dev	CCNC(=O)CCOC1=CC=CCC(C(=O)NCC)=C1
+6.3515315056	gen600_dev	CCCc1nc2c(s1)N1C[C@]1(F)c1ccc(F)cc1OC2
+5.8357486725	gen600_dev	CC[C@H](C)NCC[C@@H]1[C@H](O)c2c(OCCOC)cccc2[C@@H]1N
+5.3875374794	gen600_dev	O[C@H]1CCCCCc2ncccc21
+4.9192347527	gen600_dev	N[C@H](CSc1cccs1)C(=O)O
+5.6646790504	gen600_dev	CC(=O)[C@H]1CCN(C(=O)[C@@]2(C)CCc3ccccc32)C1
+4.4312381744	gen600_dev	OS(O)(CCF)OCc1ccccc1
+5.4830284119	gen600_dev	NCCC(F)(F)Cc1cnccn1
+3.9903976917	gen600_dev	C[C@@H](CP(=O)(O)O)Nc1ncccc1C(F)(F)F
+5.155228138	gen600_dev	N[C@]1(CCO)SCc2cc(F)c(F)cc21
+===CAND_END===
