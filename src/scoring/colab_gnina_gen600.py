@@ -13,6 +13,7 @@ def sh(cmd, check=False, timeout=None):
     if r.stderr and check: print("[err]",r.stderr[-500:],flush=True)
     return r
 def main():
+    sh("pip -q install rdkit 2>/dev/null || true", timeout=300)  # fresh session needs rdkit
     from rdkit import Chem, RDLogger
     from rdkit.Chem import AllChem
     RDLogger.DisableLog("rdApp.*")
