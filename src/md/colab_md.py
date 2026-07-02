@@ -87,8 +87,20 @@ def main():
     system = sysgen.create_system(modeller.topology, molecules=[lig])
     system.addForce(MonteCarloBarostat(1*unit.bar, 300*unit.kelvin))
     integ = LangevinMiddleIntegrator(300*unit.kelvin, 1/unit.picosecond, 0.004*unit.picoseconds)
-    sim = app.Simulation(modeller.topology, system, integ,
-                         Platform.getPlatformByName("CUDA"))
+    # conda OpenMM CUDA build can mismatch the Colab driver (CUDA_ERROR_UNSUPPORTED_PTX_VERSION);
+    # try CUDA -> OpenCL -> CPU and use the first platform that builds a Context.
+    sim = None
+    for pname in ("CUDA", "OpenCL", "CPU"):
+        try:
+            plat = Platform.getPlatformByName(pname)
+            sim = app.Simulation(modeller.topology, system, integ, plat)
+            print(f"STEP platform = {pname}", flush=True)
+            break
+        except Exception as e:
+            print(f"  platform {pname} failed: {str(e)[:120]}", flush=True)
+            integ = LangevinMiddleIntegrator(300*unit.kelvin, 1/unit.picosecond, 0.004*unit.picoseconds)
+    if sim is None:
+        raise RuntimeError("no usable OpenMM platform")
     sim.context.setPositions(modeller.positions)
 
     print("STEP minimize", flush=True)
