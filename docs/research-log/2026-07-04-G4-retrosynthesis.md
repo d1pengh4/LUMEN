@@ -54,3 +54,23 @@ download_public_data data/external/aizynth
 aizynthcli --config results/synthesis/aizynth/config_deep.yml \
     --smiles leads.smi --output leads_routes_deep.json.gz
 ```
+
+## Addendum — pool synthesizability screen (2026-07-04)
+Motivated by the leads' un-synthesizable cores, screened all 37 GNINA-ranked
+candidates (`FINAL_candidates.csv`) through AiZynthFinder (default search).
+Cross-table: `results/synthesis/aizynth/pool_retro_x_gnina.csv`.
+
+- **7/37 are fully solved** (complete purchasable route). Clear
+  **affinity ↔ synthesizability trade-off**: the top-GNINA candidates (≥6.5,
+  incl. the L1–L3 leads at 6.95–7.21) are the un-synthesizable novel-core ones;
+  the solvable set tops out at GNINA ~6.34 (≈ known-active mean 6.34 ± 0.36).
+- **Best synthesizable candidate — a pragmatic backup lead:**
+  `O=C(O)CCCCN(CCO)c1cccc(F)c1F` — GNINA **6.34**, SA **2.28**, QED 0.71,
+  **1-step** route from 2 catalog precursors. (This is the "practical lead" first
+  flagged in phase2b, now with a confirmed complete route.) Next: MD-test it so we
+  have a lead that is simultaneously affinity-plausible, MD-stable AND synthesizable.
+- Second: `CC1([C@H](Cc2cccc(Cl)c2)OCCNC(=O)O)CCC1` — GNINA 6.34, SA 3.10, 4-step, 4/4 in stock.
+
+Implication for the endgame: two distinct lead classes — (A) high-affinity novel
+scaffolds needing custom synthesis (L1–L3), (B) readily-synthesizable ~known-active-
+level binders. A wet-lab program could de-risk with (B) while pursuing (A)'s potency.
