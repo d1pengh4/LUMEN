@@ -10,8 +10,10 @@
 #         src/generation/colabx.sh exec -s lumen -f <script.py> --timeout 2400
 set -euo pipefail
 
-export PATH="/Library/Frameworks/Python.framework/Versions/3.12/bin:$PATH"
+# Use the uv-installed colab (native arch). The old x86_64 Python.framework on
+# PATH pulls an x86_64 cryptography wheel that fails to dlopen on arm64 Macs.
+COLAB="$(command -v colab || echo "$HOME/.local/bin/colab")"
 CERT="$(uv tool run --from google-colab-cli python -c 'import certifi; print(certifi.where())' 2>/dev/null | tail -1)"
 export SSL_CERT_FILE="$CERT"
 export SSL_CERT_DIR="$(dirname "$CERT")"
-exec colab "$@"
+exec "$COLAB" "$@"

@@ -13,8 +13,13 @@ Pipeline (self-contained on the VM):
 Honest: heavy dependency stack; expect iteration. Every step prints a STEP marker.
 Arg: SMILES of the lead. Env-frugal: single lead, short run.
 """
-import subprocess, sys, urllib.request, json
+import os, subprocess, sys, urllib.request, json
 from pathlib import Path
+
+# The Colab kernel exports MPLBACKEND=module://matplotlib_inline...; the conda
+# env's matplotlib (pulled in transitively by openff) rejects it. Force a headless
+# backend before any import chain touches matplotlib.
+os.environ["MPLBACKEND"] = "Agg"
 
 LIG_SMILES = sys.argv[1] if len(sys.argv) > 1 else "C=C[C@H]1CN(c2cccc(NCC)c2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1ccc(C)cc1"
 NS = float(sys.argv[2]) if len(sys.argv) > 2 else 1.0  # ns
@@ -80,7 +85,9 @@ def main():
                              small_molecule_forcefield="gaff-2.11",
                              molecules=[lig], forcefield_kwargs=ff_kwargs)
     modeller = app.Modeller(protein.topology, protein.positions)
+    n_prot = modeller.topology.getNumAtoms()  # protein atoms are added first
     lig_top = lig.to_topology().to_openmm(); lig_pos = lig.conformers[0].to_openmm()
+    n_lig = lig_top.getNumAtoms()
     modeller.add(lig_top, lig_pos)
     modeller.addSolvent(sysgen.forcefield, model="tip3p", padding=1.0*unit.nanometer,
                         ionicStrength=0.15*unit.molar)
@@ -119,14 +126,16 @@ def main():
     # ---- ligand RMSD ----
     print("STEP RMSD analysis", flush=True)
     t = md.load(dcd, top=top_pdb)
-    lig_atoms = t.topology.select("resname UNK or resname LIG or resname MOL")
-    if len(lig_atoms) == 0:
-        # ligand is the non-protein, non-water/ion residue; pick heavy atoms not protein/water
-        lig_atoms = t.topology.select("not protein and not water and element != Na and element != Cl and element H")
-    prot_ca = t.topology.select("protein and name CA")
-    t.superpose(t, 0, atom_indices=prot_ca)
     import numpy as np
-    lig_heavy = [a for a in lig_atoms if t.topology.atom(a).element.symbol != "H"]
+    # ligand atoms are known by construction: modeller stacks protein, then ligand,
+    # then solvent, so the ligand is the contiguous block [n_prot, n_prot+n_lig).
+    # (Can't use mdtraj "protein" selection here: OpenFF names the ligand residue
+    # "UNK", which mdtraj classifies as a protein residue -> ligand would be missed.)
+    lig_idx = list(range(n_prot, n_prot + n_lig))
+    lig_heavy = [i for i in lig_idx if t.topology.atom(i).element.symbol != "H"]
+    prot_ca = np.array([a.index for a in t.topology.atoms
+                        if a.index < n_prot and a.name == "CA"])
+    t.superpose(t, 0, atom_indices=prot_ca)
     ref = t.xyz[0, lig_heavy]
     rmsd = np.sqrt(((t.xyz[:, lig_heavy] - ref)**2).sum(axis=2).mean(axis=1)) * 10  # nm->A
     print("\n===MD_RESULT_BEGIN===", flush=True)
