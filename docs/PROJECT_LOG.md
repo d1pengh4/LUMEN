@@ -135,3 +135,15 @@ names it "UNK" which mdtraj counts as protein → RMSD was nan).
 - Now: 3 developable+novel leads that are high-GNINA AND MD-stable — strongest
   pipeline result to date. STOP-criterion evidence strengthened. Next gate: G4
   retrosynthesis (mostly CPU), then G5 AF3 / G7 selectivity FEP (resource-gated).
+
+## ROADMAP G4 — retrosynthesis (2026-07-04) — CONDITIONAL
+AiZynthFinder 4.4.1 (local CPU, USPTO models + ZINC 17.4 M stock) on L1/L2/L3, deep
+search (500-iter, ~4 min/lead). **None solved.** Peripheral steps are standard and
+templated (4/5–5/6 precursors are catalog compounds), but the irreducible not-in-stock
+precursor is the **novel de novo core itself** (fused proline-derived diaza-bicyclic
+sulfonamide L1/L3; oligo-pyrrolidine L2). SA moderate (4.05–4.39). So: peripheral
+decoration is routine, the core needs **custom synthesis** — a synthesizability risk
+flagged for the wet-lab/CRO stage, not a silent pass (cf. resource-gated FEP), not a
+hard stop. Also a concrete generator objective: bias toward catalog-reachable scaffolds.
+Files: `results/synthesis/aizynth/leads_retro_summary.csv`, `*_routes*.json.gz`;
+detail in `docs/research-log/2026-07-04-G4-retrosynthesis.md`.

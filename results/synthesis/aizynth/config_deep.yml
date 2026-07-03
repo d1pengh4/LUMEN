@@ -1,0 +1,17 @@
+expansion:
+  uspto:
+    - /Users/choieuro/Documents/PROJECT/LUMEN/data/external/aizynth/uspto_model.onnx
+    - /Users/choieuro/Documents/PROJECT/LUMEN/data/external/aizynth/uspto_templates.csv.gz
+  ringbreaker:
+    - /Users/choieuro/Documents/PROJECT/LUMEN/data/external/aizynth/uspto_ringbreaker_model.onnx
+    - /Users/choieuro/Documents/PROJECT/LUMEN/data/external/aizynth/uspto_ringbreaker_templates.csv.gz
+filter:
+  uspto: /Users/choieuro/Documents/PROJECT/LUMEN/data/external/aizynth/uspto_filter_model.onnx
+stock:
+  zinc: /Users/choieuro/Documents/PROJECT/LUMEN/data/external/aizynth/zinc_stock.hdf5
+search:
+  algorithm: mcts
+  time_limit: 600
+  iteration_limit: 500
+  max_transforms: 8
+  return_first: false

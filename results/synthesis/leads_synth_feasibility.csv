@@ -1,0 +1,4 @@
+smiles,valid,sa_score,n_stereocenters,n_rings,n_aromatic_rings,max_ring_size,has_strained_ring,n_spiro,synthesizable_easy,cnnaffinity
+C=C[C@H]1CN(c2cccc(NCC)c2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1ccc(C)cc1,True,4.34,3,4,2,7,False,0,False,7.21
+CC(C)(C)C(=O)C(=O)N1CCCCC1N1CCCC1N1CCC[C@H]1CC(N)=O,True,4.05,3,3,0,6,False,0,False,7.04
+C=C[C@H]1CN(c2cccc(NCC)c2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1cccc(C)c1,True,4.39,3,4,2,7,False,0,False,6.95
