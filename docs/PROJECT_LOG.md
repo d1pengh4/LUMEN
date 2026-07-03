@@ -120,3 +120,18 @@ Re-scored top 10 candidates with thorough GNINA (exh 8, num_modes 5; NOT thresho
 - **≥7.0 & novel & developable: 2/3** (up from 1); all 10 ≥6.34 (known-active level), 9 ≥6.56.
 - STOP criterion (≥3 at ≥7.0): 2/3 — strong lead set; 3rd candidate at 6.95 (borderline).
 - Leads: `results/phase2b/FINAL_leads.csv`. Proceeding to G3 (MD) as the decisive test.
+
+## ROADMAP G3 — MD pose-stability (2026-07-03) — PASS
+Made the run reproducible first: committed a micromamba conda bootstrap
+(`src/md/colab_md_setup.py`; the "see bootstrap" that never existed — root cause of
+attempt-1 being unsalvageable), fixed the arm64 Colab-CLI wrapper, and fixed two
+`colab_md.py` bugs (MPLBACKEND; ligand selected by known atom block since OpenFF
+names it "UNK" which mdtraj counts as protein → RMSD was nan).
+- 1 ns explicit-solvent MD (ff14SB + GAFF-2.11 + TIP3P, 0.15 M NaCl, ~20.5k atoms,
+  T4/OpenCL) of the top 3 leads. Ligand heavy-atom RMSD (protein-CA aligned):
+  **L1 mean 1.15 / max 1.70; L2 1.70 / 2.91; L3 1.05 / 1.60 Å**.
+- **All 3 stay bound (max ≤ 2.9 Å) → G3 PASS for the whole lead set.** Real binding,
+  not lucky poses. Files: `results/md/g3_md_rmsd.csv`, `results/md/L{1,2,3}_1ns.log`.
+- Now: 3 developable+novel leads that are high-GNINA AND MD-stable — strongest
+  pipeline result to date. STOP-criterion evidence strengthened. Next gate: G4
+  retrosynthesis (mostly CPU), then G5 AF3 / G7 selectivity FEP (resource-gated).
