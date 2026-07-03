@@ -1,0 +1,33 @@
+RUN S1 1.0 ns
+STEP nvidia-smi
+$ nvidia-smi -L
+GPU 0: Tesla T4 (UUID: GPU-321879c1-0587-fbad-36ed-ca24bcb7b27a)
+
+STEP fetch+prep protein (1FKF chain A)
+  protein.pdb written
+STEP dock lead (gnina)
+$ wget -q https://github.com/gnina/gnina/releases/download/v1.3/gnina -O /content/md/gnina && chmod +x /content/md/gnina
+$ cd /content/md && ./gnina -r protein.pdb -l lig_init.sdf --autobox_ligand ref.pdb -o lig_docked.sdf --cnn_scoring rescore --exhaustiveness 8 --num_modes 1 --seed 42 2>&1 | tail -3
+     | (kcal/mol) | (kcal/mol) | pose score | affinity
+-----+------------+------------+------------+----------
+    1       -5.63        0.03       0.8407      5.740
+
+STEP parameterize + solvate (SystemGenerator)
+  platform CUDA failed: Error loading CUDA module: CUDA_ERROR_UNSUPPORTED_PTX_VERSION (222)
+STEP platform = OpenCL
+STEP minimize
+STEP MD 1.0 ns
+  MD done
+STEP RMSD analysis
+
+===MD_RESULT_BEGIN===
+ns=1.0 frames=100 lig_heavy_atoms=19
+ligand_RMSD_A mean=2.93 max=6.04 final=5.45
+smiles=O=C(O)CCCCN(CCO)c1cccc(F)c1F
+===MD_RESULT_END===
+dcdplugin) detected standard 32-bit DCD file of native endianness
+dcdplugin) CHARMM format DCD file (also NAMD 2.1 and later)
+
+[stderr tail] 1 warning generated.
+
+EXITCODE 0

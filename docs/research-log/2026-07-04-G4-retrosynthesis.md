@@ -74,3 +74,16 @@ Cross-table: `results/synthesis/aizynth/pool_retro_x_gnina.csv`.
 Implication for the endgame: two distinct lead classes — (A) high-affinity novel
 scaffolds needing custom synthesis (L1–L3), (B) readily-synthesizable ~known-active-
 level binders. A wet-lab program could de-risk with (B) while pursuing (A)'s potency.
+
+### MD test of the synthesizable backup lead (2026-07-04) — FAIL
+Ran 1 ns MD (same protocol as G3) on `O=C(O)CCCCN(CCO)c1cccc(F)c1F`.
+Ligand heavy-atom RMSD **mean 2.93 / max 6.04 / final 5.45 Å** (vs L1–L3 all ≤ 2.9 max)
+→ **does not hold the docked pose**; the small flexible acyclic ligand drifts out.
+Log: `results/md/S1_synthesizable_1ns.log`; row in `results/md/g3_md_rmsd.csv`.
+
+Sharpened picture (honest): the trade-off is not just affinity↔synthesizability but
+also **rigidity↔synthesizability**. The MD-stable leads (L1–L3) are rigid novel-core
+scaffolds (hard to make); the readily-synthesizable candidate is a floppy small acid
+that does not stay bound. So there is **no clean "synthesizable + stable + high-affinity"
+lead in the current pool** — the de-risk-via-B route is weaker than hoped. L1–L3
+(high-affinity, MD-stable, custom synthesis) remain the real leads.

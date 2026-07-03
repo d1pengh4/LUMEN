@@ -2,3 +2,4 @@ lead,cnnaffinity,ns,frames,lig_heavy_atoms,rmsd_mean_A,rmsd_max_A,rmsd_final_A,p
 L1,7.21,1.0,100,32,1.15,1.70,1.67,OpenCL,PASS,C=C[C@H]1CN(c2cccc(NCC)c2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1ccc(C)cc1
 L2,7.04,1.0,100,28,1.70,2.91,1.52,OpenCL,PASS,CC(C)(C)C(=O)C(=O)N1CCCCC1N1CCCC1N1CCC[C@H]1CC(N)=O
 L3,6.95,1.0,100,32,1.05,1.60,0.59,OpenCL,PASS,C=C[C@H]1CN(c2cccc(NCC)c2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1cccc(C)c1
+S1_synth,6.34,1.0,100,19,2.93,6.04,5.45,OpenCL,FAIL,O=C(O)CCCCN(CCO)c1cccc(F)c1F

@@ -147,3 +147,9 @@ flagged for the wet-lab/CRO stage, not a silent pass (cf. resource-gated FEP), n
 hard stop. Also a concrete generator objective: bias toward catalog-reachable scaffolds.
 Files: `results/synthesis/aizynth/leads_retro_summary.csv`, `*_routes*.json.gz`;
 detail in `docs/research-log/2026-07-04-G4-retrosynthesis.md`.
+- Pool synth screen (37 GNINA-ranked cands): **7/37 fully synthesizable**, but a clear
+  affinity↔synthesizability trade-off — solvable set caps at GNINA ~6.34; top-GNINA
+  leads are the un-synthesizable novel cores. Best synthesizable candidate
+  `O=C(O)CCCCN(CCO)c1cccc(F)c1F` (GNINA 6.34, SA 2.28, 1-step) was **MD-tested → FAIL**
+  (RMSD final 5.45 Å, drifts out). Net: no clean synthesizable+stable+high-affinity
+  lead in the pool; L1–L3 (high-affinity, MD-stable, custom-synthesis) remain the leads.
