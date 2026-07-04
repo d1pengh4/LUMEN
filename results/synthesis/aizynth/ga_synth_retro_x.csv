@@ -1,0 +1,11 @@
+pred_pchembl,binder_prob,qed,mw,smiles,solved,steps,in_stock
+7.09,0.608,0.79,339.4,CC(C)(C)C(=O)C(=O)N1CCCCC1OCc1ccc(F)c(F)c1,False,6,4/5
+7.02,0.323,0.582,370.9,CC(C)(C)C(=O)C(=O)N1CCC[C@H]1c1cccc(-c2ccc(Cl)nc2)c1,True,2,3/3
+6.77,0.695,0.73,353.4,CCC(C)(C)C(=O)C(=O)N1CCCCC1OCc1ccc(F)c(F)c1,False,5,4/5
+6.7,0.27,0.762,390.6,CC1(N2CCC[C@H]2[C@@H]2CCCN(S(=O)(=O)Cc3ccccc3)C2)CCCC1,False,4,2/3
+6.54,0.25,0.734,408.6,CC1(N2CCC[C@H]2[C@@H]2CCCN(S(=O)(=O)Cc3ccc(F)cc3)C2)CCCC1,False,4,2/3
+6.53,0.245,0.64,445.5,CC1(N2CCC[C@H]2[C@@H]2CCCN(S(=O)(=O)c3cc(Cl)cc(Cl)c3)C2)CCCC1,False,5,4/5
+6.53,0.247,0.733,404.6,Cc1ccc(CS(=O)(=O)N2CCC[C@@H]([C@@H]3CCCN3C3(C)CCCC3)C2)cc1,False,4,2/3
+6.53,0.152,0.636,369.6,CC1(N2CCC[C@H]2[C@@H]2CCCN(CCCCc3cccnc3)C2)CCCC1,False,4,3/4
+6.51,0.5,0.571,452.7,CC1(c2ccc(S(=O)(=O)N3CCCC3N3CCCCC3c3ccccc3)cc2)CCCC1,False,2,1/2
+6.51,0.23,0.689,425.0,CC1(N2CCC[C@H]2[C@@H]2CCCN(S(=O)(=O)Cc3ccc(Cl)cc3)C2)CCCC1,False,4,2/3

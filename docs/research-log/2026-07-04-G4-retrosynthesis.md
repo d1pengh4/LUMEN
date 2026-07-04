@@ -87,3 +87,24 @@ scaffolds (hard to make); the readily-synthesizable candidate is a floppy small 
 that does not stay bound. So there is **no clean "synthesizable + stable + high-affinity"
 lead in the current pool** — the de-risk-via-B route is weaker than hoped. L1–L3
 (high-affinity, MD-stable, custom synthesis) remain the real leads.
+
+## Second addendum — can directed optimization escape the trade-off? (2026-07-04) — mostly no
+`src/generation/ga_optimize_synth.py`: the round-2 BRICS-GA with an added hard
+synthesizability gate (SA ≤ 3.5, stereocenters ≤ 2, max ring ≤ 6, no strained ring),
+still maximizing pred_pchembl. Output `results/phase2b/ga_synth_optimized.csv`;
+AiZynthFinder cross-check of the top 10 in `results/synthesis/aizynth/ga_synth_retro_x.csv`.
+
+- Under the synthesizability gate the GA reached **pred_pchembl 7.09** (vs 7.78
+  unconstrained) — only ~0.7 log lower, so the *SA-easy* region is not potency-dead.
+- **But AiZynthFinder solves only 1/10** of those top SA-easy candidates: SA ≤ 3.5 is a
+  **weak proxy** for a real catalog route (9/10 still lack one, usually one non-stock
+  precursor). Methodological point: SA score ≠ retrosynthetic solvability.
+- **The trade-off persists at the top:** the one AiZynthFinder-solved candidate
+  (`CC(C)(C)C(=O)C(=O)N1CCC[C@H]1c1cccc(-c2ccc(Cl)nc2)c1`, pred 7.02, 2-step, 3/3 stock)
+  has **binder_prob 0.32** (regressor/classifier disagree → less trustworthy), while the
+  best models-agree candidate (pred 7.09, binder_prob 0.61, QED 0.79) is **not** solved.
+  No candidate is simultaneously catalog-routable, model-agreed, and high-pred.
+- Caveat: these are ML pred_pchembl, not GNINA; a real lead still needs GNINA + MD. The
+  honest takeaway is that the affinity↔synthesizability tension is robust to directed
+  optimization here, and that retrosynthesis (not SA) must be the in-loop filter to
+  actually break it — a concrete, more expensive next design cycle.
