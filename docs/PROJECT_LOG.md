@@ -153,3 +153,15 @@ detail in `docs/research-log/2026-07-04-G4-retrosynthesis.md`.
   `O=C(O)CCCCN(CCO)c1cccc(F)c1F` (GNINA 6.34, SA 2.28, 1-step) was **MD-tested → FAIL**
   (RMSD final 5.45 Å, drifts out). Net: no clean synthesizable+stable+high-affinity
   lead in the pool; L1–L3 (high-affinity, MD-stable, custom-synthesis) remain the leads.
+
+## ROADMAP G7 (precursor) — FKBP12 vs FKBP12.6 selectivity feasibility (2026-07-04)
+Before expensive FEP, asked the prerequisite: do the pockets even differ? Aligned
+P62942 vs P68106 (both 108 aa): **83.3% identical, 18 diffs; only 2 pocket residues
+differ, both conservative — Trp59→Phe and Ile90→Val** (FKBP12.6 slightly smaller/less
+aromatic at both). This explains the prior negatives (ligand-ML ρ≈0; known ligands
+1/40). Verdict: FKBP12-selectivity is **physically possible but hard** and now
+**specific** — the only handles are Trp59 (extra indole) and Ile90 (extra methyl),
+present in FKBP12 but not 12.6; a selective ligand must gain contact energy there.
+FEP is the right tool for this small-ΔΔG regime but remains resource-gated (free-tier
+can't complete it). Files: `results/selectivity/fkbp12_vs_126_pocket_diff.csv`,
+`docs/research-log/2026-07-04-G7-selectivity-feasibility.md`.
