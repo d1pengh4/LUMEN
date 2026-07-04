@@ -22,6 +22,18 @@ Produce a **defensible, honestly-validated shortlist of de novo FKBP12 candidate
 wet-lab collaborator. "Done" = STOP criterion met AND all gates run (or explicitly
 resource-gated) AND paper draft written.
 
+## GATE STATUS (2026-07-04) — see docs/PROJECT_LOG.md for numbers
+- G1 scale-up: DONE (brute-force plateaus ~6.5). G2 GA optimization: DONE (GNINA 7.06→7.21).
+- **G3 MD pose-stability: PASS** — L1/L2/L3 all stay bound over 1 ns (RMSD max ≤ 2.9 Å).
+- **G4 retrosynthesis: CONDITIONAL** — leads' novel cores need custom synthesis; pool
+  screen: 7/37 synthesizable but only ≤ GNINA 6.34, and the best of those fails MD.
+- **G7 selectivity feasibility: DONE (structural)** — FKBP12 vs FKBP12.6 pockets differ
+  at only 2 conservative residues (Trp59, Ile90); L1–L3 contact them → selectivity is
+  addressable for our leads. Full FEP still **resource-gated** (free-tier can't run it).
+- Pending: G5 AF3 (supporting, interactive), G7 FEP (paid/borrowed GPU), G8 paper.
+- STOP criterion (≥3 developable/novel at GNINA ≥7.0): 2/3 strictly (L3 at 6.95); all 3
+  MD-stable. Decision gate (startup/patent vs paper): approaching — hinges on FEP/wet-lab.
+
 ## STAGE-GATE PRINCIPLE (unchanged, mandatory)
 No step starts until the previous PASSES its concrete numeric/artifact gate.
 A weak foundation collapses the stack. Every gate outcome recorded in a research log.
