@@ -83,6 +83,11 @@ GNINA ~6.34; and the best synthesizable candidate (`O=C(O)CCCCN(CCO)c1cccc(F)c1F
 6.34, SA 2.28, 1-step) **fails MD** (RMSD final 5.45 Å). No single candidate is
 simultaneously synthesizable, MD-stable, and high-affinity.
 
+**Figure 1** (`docs/figures/fig_affinity_synth_tradeoff.png`) plots GNINA CNNaffinity
+vs SA score for the 37 candidates: synthesizable (catalog-routable) points cap at
+CNNaffinity ~6.34, the MD-stable leads sit at high affinity but are un-synthesizable,
+and the desirable high-affinity/low-SA/synthesizable region is empty.
+
 ### 3.5 Selectivity feasibility (G7 precursor) — narrow but real
 FKBP12 vs FKBP12.6: 83.3% identical; the binding pocket differs at only **two
 conservative residues, Trp59→Phe and Ile90→Val** (12.6 smaller/less aromatic at both) —
