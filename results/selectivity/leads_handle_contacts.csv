@@ -1,0 +1,4 @@
+lead,dock_score,trp59_min_dist_A,ile90_min_dist_A,contacts_trp59,contacts_ile90,handle_verdict
+L1,-7.70,3.44,5.16,yes,no,Trp59_only
+L2,-6.90,3.87,3.83,yes,yes,both_handles
+L3,-9.00,3.67,3.59,yes,yes,both_handles

@@ -165,3 +165,8 @@ present in FKBP12 but not 12.6; a selective ligand must gain contact energy ther
 FEP is the right tool for this small-ΔΔG regime but remains resource-gated (free-tier
 can't complete it). Files: `results/selectivity/fkbp12_vs_126_pocket_diff.csv`,
 `docs/research-log/2026-07-04-G7-selectivity-feasibility.md`.
+- Lead-level: re-docked L1–L3 (smina) and measured contact to the 2 differing residues.
+  **All 3 contact Trp59; L2/L3 contact both Trp59 and Ile90** (3.4–3.9 Å). So selectivity
+  is structurally addressable for our actual leads, not just the target. Contact ≠ ΔΔG
+  (still needs FEP/experiment), but the chain holds end-to-end. Files:
+  `results/selectivity/leads_handle_contacts.csv`, `results/selectivity/dock/`.
