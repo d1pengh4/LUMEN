@@ -99,6 +99,14 @@ novel-core leads needing custom synthesis; (B) readily-synthesizable but weaker/
 stable binders — framing a real medicinal-chemistry choice. Selectivity is a specific,
 falsifiable design objective (exploit Trp59/Ile90), not an assumption.
 
+The affinity↔synthesizability tension is **robust to directed optimization**: a GA
+constrained to synthesizable-easy chemistry (SA ≤ 3.5) still reached predicted potency
+7.09, but retrosynthesis solved only 1/10 of those top candidates, and the one solvable
+molecule had disagreeing potency/binder models. Two methodological lessons follow: SA
+score is a **weak surrogate** for a real catalog route (retrosynthesis must be the
+in-loop objective, not SA), and breaking the trade-off is a concrete — more expensive —
+next design cycle rather than a solved problem.
+
 **Limitations.** GNINA is a validated-but-imperfect proxy (ROC 0.80, not measured
 binding); 1 ns single-replica MD is a stability screen, not free energy; the ALK
 interface is a proxy (1B6C); FEP and wet-lab (binding + FKBP12.6/cardiac counter-screen)
