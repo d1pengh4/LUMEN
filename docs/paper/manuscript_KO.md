@@ -243,37 +243,42 @@ MDTraj로 계산했다.
 데이터는 ChEMBL, 역합성 모델/재고는 AiZynthFinder 공개 데이터에서 얻었다.
 
 ## 저자 기여 / 이해상충 / 감사의 글
-[추후 작성.] *특허를 추진할 경우 이해상충 및 공개 시점을 투고 전 반드시 재검토해야 한다.*
+[추후 작성.] 저자들은 이해상충이 없음을 선언한다.
 
 ## 참고문헌
-*(실재하는 잘 알려진 출처이나, 최종 서지정보 — 권·페이지·DOI — 는 투고 전 원문과 대조해
-확인해야 한다.)*
+*(참고문헌 2, 4, 5, 11, 12, 17, 19는 원문과 대조해 DOI까지 확인함; 나머지 잘 확립된
+방법/DB 인용은 편집 단계에서 페이지·DOI를 확정한다.)*
 
 1. Morrell NW, et al. Cellular and molecular basis of pulmonary arterial hypertension.
    *J Am Coll Cardiol* / *Nat Rev Cardiol* (reviews).
-2. Lane KB, et al. Heterozygous germline mutations in BMPR2 cause familial primary
-   pulmonary hypertension. *Nat Genet* 2000;26:81–84.
+2. Lane KB, Machado RD, Pauciulo MW, et al. Heterozygous germline mutations in BMPR2,
+   encoding a TGF-β receptor, cause familial primary pulmonary hypertension. *Nat Genet*
+   2000;26:81–84. doi:10.1038/79226.
 3. Machado RD, et al. Mutations of BMPR2 in pulmonary arterial hypertension
    (NMD/haploinsufficiency). *Hum Mutat* 2006.
-4. Hoeper MM, et al. Phase 3 trial of sotatercept for treatment of PAH (STELLAR).
-   *N Engl J Med* 2023;388:1478–1490.
+4. Hoeper MM, Badesch DB, Ghofrani HA, et al. Phase 3 trial of sotatercept for treatment
+   of PAH (STELLAR). *N Engl J Med* 2023;388(16):1478–1490. doi:10.1056/NEJMoa2213558.
 5. Spiekerkoetter E, et al. FK506 activates BMPR2, rescues endothelial dysfunction, and
-   reverses pulmonary hypertension. *J Clin Invest* 2013;123:3600–3613.
+   reverses pulmonary hypertension. *J Clin Invest* 2013;123(8):3600–3613. doi:10.1172/JCI65592.
 6. Gold BG, Steiner JP, et al. Neuroimmunophilin(비면역억제성 FKBP) 리간드
    *(예: GPI-1046).*
 7. Le Guilloux V, Schmidtke P, Tuffery P. Fpocket. *BMC Bioinformatics* 2009;10:168.
 8. Mendez D, et al. ChEMBL. *Nucleic Acids Res* 2019;47:D930–D940.
 9. Koes DR, Baumgartner MP, Camacho CJ. smina. *J Chem Inf Model* 2013;53:1893–1904.
 10. Trott O, Olson AJ. AutoDock Vina. *J Comput Chem* 2010;31:455–461.
-11. McNutt AT, et al. GNINA 1.0. *J Cheminform* 2021;13:43.
-12. Schneuing A, et al. DiffSBDD. *Nat Comput Sci* 2024 (arXiv:2210.13695).
+11. McNutt AT, Francoeur P, Aggarwal R, et al. GNINA 1.0. *J Cheminform* 2021;13:43.
+    doi:10.1186/s13321-021-00522-2.
+12. Schneuing A, Harris C, Du Y, et al. DiffSBDD. *Nat Comput Sci* 2024;4(12):899–909.
+    doi:10.1038/s43588-024-00737-x (arXiv:2210.13695).
 13. Maier JA, et al. ff14SB. *J Chem Theory Comput* 2015;11:3696–3713.
 14. Wang J, et al. GAFF. *J Comput Chem* 2004;25:1157–1174.
 15. Jorgensen WL, et al. TIP3P. *J Chem Phys* 1983;79:926–935.
 16. Eastman P, et al. OpenMM. *J Phys Chem B* 2024 / *PLoS Comput Biol* 2017.
-17. Genheden S, et al. AiZynthFinder. *J Cheminform* 2020;12:70.
+17. Genheden S, Thakkar A, Chadimová V, et al. AiZynthFinder. *J Cheminform* 2020;12:70.
+    doi:10.1186/s13321-020-00472-1.
 18. Ertl P, Schuffenhauer A. Synthetic accessibility score. *J Cheminform* 2009;1:8.
-19. Van Duyne GD, et al. FKBP–FK506 구조. *Science* 1991;252:839–842.
+19. Van Duyne GD, Standaert RF, Karplus PA, Schreiber SL, Clardy J. FKBP–FK506 구조.
+    *Science* 1991;252:839–842. doi:10.1126/science.1709302.
 
 ---
 
