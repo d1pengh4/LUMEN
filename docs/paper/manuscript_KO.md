@@ -114,13 +114,15 @@ BRICS 기준선은 drug-like하나 다양성이 낮은 분자를 냈다(스캐�
 developability·적용범위 제약 하에서 정체를 돌파했다(GNINA 6.56 → 7.06; 고정밀
 exhaustiveness-8 리스코어 7.06 → 7.21). developable하고 신규한 리드 3종이 도출되었다(표 2).
 
-**표 2. 리드 후보 3종.**
+**표 2. 리드 후보 3종(구조 및 물성).**
 
-| 리드 | GNINA CNNaff. | QED | MW | SA | AD Tanimoto | 신규 |
-|------|--------------|-----|----|----|-------------|------|
-| L1 | 7.21 | 0.67 | 454 | 4.34 | 0.46 | 예 |
-| L2 | 7.04 | 0.72 | 392 | 4.05 | 0.38 | 예 |
-| L3 | 6.95 | 0.67 | 454 | 4.39 | 0.45 | 예 |
+| 리드 | SMILES | GNINA CNNaff. | QED | MW | SA | AD Tanimoto | 신규 |
+|------|--------|--------------|-----|----|----|-------------|------|
+| L1 | `C=C[C@H]1CN(c2cccc(NCC)c2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1ccc(C)cc1` | 7.21 | 0.67 | 454 | 4.34 | 0.46 | 예 |
+| L2 | `CC(C)(C)C(=O)C(=O)N1CCCCC1N1CCCC1N1CCC[C@H]1CC(N)=O` | 7.04 | 0.72 | 392 | 4.05 | 0.38 | 예 |
+| L3 | `C=C[C@H]1CN(c2cccc(NCC)c2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1cccc(C)c1` | 6.95 | 0.67 | 454 | 4.39 | 0.45 | 예 |
+
+§2.5의 합성가능 후보는 `O=C(O)CCCCN(CCO)c1cccc(F)c1F`(S1로 표기; GNINA 6.34, SA 2.28)이다.
 
 ### 2.4 분자동역학 포즈 안정성: 세 리드 모두 결합 유지 (그림 2)
 
@@ -154,6 +156,20 @@ FKBP12(UniProt P62942)와 FKBP12.6(P68106; 둘 다 108 aa)을 정렬하면 83.3%
 Ile90과 접촉(3.6–3.8 Å)한다(그림 3): 선택성은 표적뿐 아니라 리드 수준에서 다룰 수 있다.
 접촉이 유리한 ΔΔG를 뜻하지는 않으며 — 이는 상대 자유에너지 섭동(FEP)이나 실험이 필요하다 —
 그러나 전제 사슬(포켓이 다르다; 리드가 다른 잔기를 접촉한다)은 처음부터 끝까지 성립한다.
+
+### 2.7 종단 간 검증 요약 (표 3)
+
+표 3은 리드별 네 검증 축을 통합한다. 세 리드 모두 친화도가 타당하고 MD 안정적이며 Trp59
+선택성 잔기와 맞물린다; L2와 L3는 추가로 Ile90과 맞물린다. 어느 것도 카탈로그 합성이
+가능하지 않다(각기 맞춤 코어 합성 필요). 이것이 파이프라인이 내놓는 정직한 리드 패키지이다.
+
+**표 3. 리드 3종의 종단 간 검증.**
+
+| 리드 | 친화도(GNINA) | MD 최대 RMSD (Å) | MD 판정 | Trp59 (Å) | Ile90 (Å) | 선택성 핸들 | AiZynth 경로 |
+|------|--------------|-----------------|--------|-----------|-----------|-------------|--------------|
+| L1 | 7.21 | 1.70 | 안정 | 3.44 | 5.16 | Trp59만 | 미해결(5단계, 5/6 카탈로그) |
+| L2 | 7.04 | 2.91 | 안정 | 3.87 | 3.83 | Trp59 + Ile90 | 미해결(6단계, 4/5 카탈로그) |
+| L3 | 6.95 | 1.60 | 안정 | 3.67 | 3.59 | Trp59 + Ile90 | 미해결(4단계, 4/5 카탈로그) |
 
 ## 3. 고찰
 
@@ -231,7 +247,33 @@ MDTraj로 계산했다.
 
 ## 참고문헌
 *(실재하는 잘 알려진 출처이나, 최종 서지정보 — 권·페이지·DOI — 는 투고 전 원문과 대조해
-확인해야 한다.)* 영문본 References 1–19와 동일.
+확인해야 한다.)*
+
+1. Morrell NW, et al. Cellular and molecular basis of pulmonary arterial hypertension.
+   *J Am Coll Cardiol* / *Nat Rev Cardiol* (reviews).
+2. Lane KB, et al. Heterozygous germline mutations in BMPR2 cause familial primary
+   pulmonary hypertension. *Nat Genet* 2000;26:81–84.
+3. Machado RD, et al. Mutations of BMPR2 in pulmonary arterial hypertension
+   (NMD/haploinsufficiency). *Hum Mutat* 2006.
+4. Hoeper MM, et al. Phase 3 trial of sotatercept for treatment of PAH (STELLAR).
+   *N Engl J Med* 2023;388:1478–1490.
+5. Spiekerkoetter E, et al. FK506 activates BMPR2, rescues endothelial dysfunction, and
+   reverses pulmonary hypertension. *J Clin Invest* 2013;123:3600–3613.
+6. Gold BG, Steiner JP, et al. Neuroimmunophilin(비면역억제성 FKBP) 리간드
+   *(예: GPI-1046).*
+7. Le Guilloux V, Schmidtke P, Tuffery P. Fpocket. *BMC Bioinformatics* 2009;10:168.
+8. Mendez D, et al. ChEMBL. *Nucleic Acids Res* 2019;47:D930–D940.
+9. Koes DR, Baumgartner MP, Camacho CJ. smina. *J Chem Inf Model* 2013;53:1893–1904.
+10. Trott O, Olson AJ. AutoDock Vina. *J Comput Chem* 2010;31:455–461.
+11. McNutt AT, et al. GNINA 1.0. *J Cheminform* 2021;13:43.
+12. Schneuing A, et al. DiffSBDD. *Nat Comput Sci* 2024 (arXiv:2210.13695).
+13. Maier JA, et al. ff14SB. *J Chem Theory Comput* 2015;11:3696–3713.
+14. Wang J, et al. GAFF. *J Comput Chem* 2004;25:1157–1174.
+15. Jorgensen WL, et al. TIP3P. *J Chem Phys* 1983;79:926–935.
+16. Eastman P, et al. OpenMM. *J Phys Chem B* 2024 / *PLoS Comput Biol* 2017.
+17. Genheden S, et al. AiZynthFinder. *J Cheminform* 2020;12:70.
+18. Ertl P, Schuffenhauer A. Synthetic accessibility score. *J Cheminform* 2009;1:8.
+19. Van Duyne GD, et al. FKBP–FK506 구조. *Science* 1991;252:839–842.
 
 ---
 

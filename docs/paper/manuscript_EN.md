@@ -127,13 +127,16 @@ algorithm optimization of the validated potency model, under hard developability
 applicability-domain constraints, broke the plateau (GNINA 6.56 → 7.06; high-quality
 exhaustiveness-8 rescoring 7.06 → 7.21). Three developable, novel leads emerged (Table 2).
 
-**Table 2. The three lead candidates.**
+**Table 2. The three lead candidates (structures and properties).**
 
-| Lead | GNINA CNNaff. | QED | MW | SA | AD Tanimoto | novel |
-|------|--------------|-----|----|----|-------------|-------|
-| L1 | 7.21 | 0.67 | 454 | 4.34 | 0.46 | yes |
-| L2 | 7.04 | 0.72 | 392 | 4.05 | 0.38 | yes |
-| L3 | 6.95 | 0.67 | 454 | 4.39 | 0.45 | yes |
+| Lead | SMILES | GNINA CNNaff. | QED | MW | SA | AD Tanimoto | novel |
+|------|--------|--------------|-----|----|----|-------------|-------|
+| L1 | `C=C[C@H]1CN(c2cccc(NCC)c2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1ccc(C)cc1` | 7.21 | 0.67 | 454 | 4.34 | 0.46 | yes |
+| L2 | `CC(C)(C)C(=O)C(=O)N1CCCCC1N1CCCC1N1CCC[C@H]1CC(N)=O` | 7.04 | 0.72 | 392 | 4.05 | 0.38 | yes |
+| L3 | `C=C[C@H]1CN(c2cccc(NCC)c2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1cccc(C)c1` | 6.95 | 0.67 | 454 | 4.39 | 0.45 | yes |
+
+The synthesizable candidate discussed in §2.5 is `O=C(O)CCCCN(CCO)c1cccc(F)c1F` (denoted
+S1; GNINA 6.34, SA 2.28).
 
 ### 2.4 Molecular-dynamics pose stability: all three leads stay bound (Fig. 2)
 
@@ -171,6 +174,21 @@ contact Ile90 (3.6–3.8 Å) (Fig. 3): selectivity is addressable for the leads,
 for the target. Contact does not equal a favorable ΔΔG — that requires relative
 free-energy perturbation (FEP) or experiment — but the prerequisite chain (the pockets
 differ; the leads touch the differing residues) holds end-to-end.
+
+### 2.7 End-to-end validation summary (Table 3)
+
+Table 3 consolidates the four validation axes per lead. All three are affinity-plausible,
+MD-stable, and engage the Trp59 selectivity residue; L2 and L3 additionally engage Ile90.
+None is catalog-synthesizable (each requires custom core synthesis). This is the honest
+lead package the pipeline delivers.
+
+**Table 3. End-to-end validation of the three leads.**
+
+| Lead | Affinity (GNINA) | MD max RMSD (Å) | MD verdict | Trp59 (Å) | Ile90 (Å) | selectivity handles | AiZynth route |
+|------|------------------|-----------------|------------|-----------|-----------|---------------------|---------------|
+| L1 | 7.21 | 1.70 | stable | 3.44 | 5.16 | Trp59 only | not solved (5 steps, 5/6 catalog) |
+| L2 | 7.04 | 2.91 | stable | 3.87 | 3.83 | Trp59 + Ile90 | not solved (6 steps, 4/5 catalog) |
+| L3 | 6.95 | 1.60 | stable | 3.67 | 3.59 | Trp59 + Ile90 | not solved (4 steps, 4/5 catalog) |
 
 ## 3. Discussion
 
