@@ -1,8 +1,8 @@
 # 어려운 표적에서 de novo 설계가 할 수 있는 것과 없는 것: 폐동맥고혈압을 겨냥한 비면역억제성 FKBP12 리간드를 위한 정직하고 재현 가능한 파이프라인
 
-**저자:** [저자 1]¹, [저자 2]², [교신저자]¹*
-**소속:** ¹[기관]; ²[기관]
-**\*교신:** [이메일]
+**저자:** 최율호¹*
+**소속:** ¹무소속(독립연구자)
+**\*교신:** eurochoic@gmail.com
 
 *프리프린트 초안 — LUMEN 프로젝트. 모든 정량 결과는 프로젝트 기록
 (`docs/PROJECT_LOG.md`) 및 일자별 연구로그로 추적 가능하며, 코드·결과표는 저장소에
@@ -52,12 +52,41 @@ GNINA; 정직한 벤치마킹.
 임을 입증했으나[4], 직교적이고 경구 가능한 기전의 여지를 남긴다.
 
 타크로리무스(FK506)는 FKBP12에 결합하여 BMP 1형 수용체에 대한 FKBP12의 억제를 해제함으로써
-BMP 신호를 활성화하고 실험적 폐고혈압을 되돌린다[5]. 그러나 치료적 사용은 면역억제로
-막혀 있다: FK506–FKBP12 복합체는 FKBP12 "40s 루프" 인접 효과기 표면을 통해 칼시뉴린을
-불러들인다. 비면역억제성 FKBP 리간드(예: 신경면역친화단백질 계열)는 포켓 점유가 칼시뉴린
-동원과 분리될 수 있음을 보여준다[6]. 이로부터 구체적 설계 목표가 도출된다: **FKBP12의 FK506
-포켓을 채우되 칼시뉴린을 부르는 40s 루프(32–45번 잔기)를 피하고**, 심장 리아노딘 수용체
-위험을 피하기 위해 83% 동일한 유사체 FKBP12.6(FKBP1B)을 구별한다.
+BMP 신호를 활성화하고 실험적 폐고혈압을 되돌린다[5]. 기전적으로 FKBP12는 1형 BMP/TGF-β
+수용체(ALK1, ALK2, ALK3)가 공유하는 GS 도메인에 결합한 항시적 억제자로 작용한다; FK506이
+이를 밀어내면 수용체 자가인산화와 하류 SMAD1/5(및 MAPK/ID1) 신호가 가능해진다. FK506은
+세 ALK 수용체 모두와 결합하는 반면, 라파마이신은 — 수용체 치환이 아닌 별개의
+FKBP12–mTOR 상호작용을 통해 작용하므로 — 이 축을 ALK2에 결합한 FKBP12를 통해서만,
+더 좁고 기전적으로 다른 방식으로 건드릴 뿐이다[5].
+
+치료적 사용은 면역억제로 막혀 있다: FK506–FKBP12 복합체는 FKBP12 "40s 루프" 인접 효과기
+표면을 통해 칼시뉴린을 불러들인다. 여기서 지나치게 단순화하기 쉬운 미묘한 지점이 있다:
+FK506은 칼시뉴린-의존과 칼시뉴린-비의존(FKBP12-치환) **두 경로 모두**를 통해 BMP 신호를
+활성화한다[5]. 따라서 칼시뉴린 회피는 공짜 이득이 아니다 — 칼시뉴린을 회피하는 리간드는
+치환 경로만 포착하므로 FK506 대비 **부분적** 효능만 낼 수 있다. 이는 순수한 승리가
+아니라 정직한 효능-독성 트레이드오프이며, §3에서 미해결 위험으로 다시 다룬다. 이
+트레이드오프는 완전히 해소되지는 않았지만 직접적 선례로 어느 정도 위험이 낮춰진다:
+신경면역친화단백질 계열의 비면역억제성 FKBP12 리간드 GPI-1046은 칼시뉴린 조절과
+무관하게 ALK3 전사와 BMP 반응성 신호를 상응하는 정도로 유도한다고 보고되었다[6] —
+치환 경로 단독으로도 (적어도 시험된 시스템에서는) 충분할 수 있다는 증거다. 따라서
+비면역억제성 FKBP 리간드 자체는 새로운 화학 개념이 아니다(신경면역친화단백질 프로그램은
+1990년대 후반으로 거슬러 올라가며, 이후 임상 결과가 엇갈리고 FKBP12-비의존적 활성이
+보고된 화합물도 포함되어 있다); 여기서 새로운 것은 이 알려진 설계 원리를 PAH BMP축을
+겨냥해 de novo 생성 설계와 결합하고, 다중-ALK 관여와 FKBP12.6 선택성을 목표로 삼았다는
+점이다 — "최초의 FKBP12 리간드"보다 좁고 방어 가능한 주장이며, 본 논문 전체에서
+견지하는 주장이다.
+
+이로부터 구체적 설계 목표가 도출된다: **FKBP12의 FK506
+포켓을 채우되 칼시뉴린을 부르는 40s 루프(32–45번 잔기)를 피하고**, 83% 동일한 유사체
+FKBP12.6(FKBP1B)을 구별한다. 후자는 단순한 선택성 부가 조건이 아니다: FKBP12.6은 심장
+리아노딘 수용체 RyR2를 물리적으로 붙들어매고 있으며, 그 이탈은 부정맥 및 폐고혈압 관련
+심장 기능장애와 기전적으로 연관되어 있어, FKBP12.6 교차반응성은 막연한 오프타깃 친화도
+우려가 아니라 구체적으로 설계로 막아야 할 안전성 위험이다. 경쟁 구도를 보면: 소타터셉트는
+주사형 리간드 트랩이고, FK506은 면역억제성 기전 비교군이며, 최소 하나의 다른 경구
+소분자 BMP축 강화제 — BMP 수용체와 SMAD를 정상적으로 분해 표적하는 E3 유비퀴틴
+연결효소 SMURF1의 억제제 — 가 이미 PAH 임상시험 중이다(LTP001,
+ClinicalTrials.gov NCT05135000, NCT05764265). 경구 BMP축 회복이 가상의 틈새가 아니라
+서로 경쟁하는 기전들이 활발히 다뤄지는 영역임을 보여준다.
 
 De novo 생성 설계는 흔히 성공 사례로만 보고된다. 본 연구는 대신 FKBP12 — 유사체가 거의
 동일한, 얕고 소수성이며 druggability가 낮은 포켓 — 에서 파이프라인 전체와 **그 검증된
@@ -66,15 +95,34 @@ De novo 생성 설계는 흔히 성공 사례로만 보고된다. 본 연구는 
 도킹·리간드ML·CNN 리스코어링·MD·역합성·구조적 선택성 분석에 대한 명시적 능력 지도, (iii)
 구체적이고 반증 가능한 선택성 근거를 지닌 MD 안정 리드 3종이다.
 
+**선행 연구와의 관계.** 방향성 분자 최적화는 크게 두 계열로 나뉜다: 생성 모델 위에서
+정책 경사(policy-gradient) 강화학습을 수행하는 REINVENT 계열[20], 그리고 분자 그래프
+위에서 직접 진화 탐색을 수행하는 그래프 기반 유전 알고리즘(GB-GA)[21]. 본 연구는 후자를
+채택했는데(§2.3, §4.5), 이는 일반적 우월성 주장이 아니라 보상 평가 횟수가 훨씬 적어도
+수렴한다는 점이 frugal한 GPU 제약 예산에 의도적으로 부합하기 때문이다. Developability
+필터는 확립된 의약화학 휴리스틱 — 정량적 drug-likeness(QED)[22], Lipinski
+rule-of-five[23], Veber 규칙[24] — 을 따르며, 단편 재조합 기준선과 구조 경보 스크린은
+각각 BRICS 단편화 방식[25]과 PAINS 필터[26]를 ECFP4/Morgan 지문[27] 위에서 RDKit[28]으로
+적용한다. 대부분의 생성설계 사례연구가 성공한 단일 스코어링/생성 조합만 보고하는 것과
+달리, 본 연구는 *작동하지 않은* 스택(도킹 점수 순위화, 리간드 기반 선택성)을 작동한 것과
+나란히 보고한다 — 음성 능력 결과가 표적 간에 더 잘 일반화된다고 보기 때문이다.
+
 ## 2. 결과
 
 ### 2.1 표적, 포켓, 그리고 구조적 선택성 규칙
 
-전제 수정(BMPR2 → FKBP12; §4.1) 후, FKBP12–FK506 복합체(PDB 1FKF)에서 포켓을 정의하였다.
-FK506 제거 후 fpocket은 FK506 자리를 최상위 포켓으로 식별했다(druggability 0.517, 부피
-277 Å³, 소수성 61.2, 극성 SASA ≈ 0; 포켓 중심이 천연 FK506로부터 4.35 Å) — 얕고 소수성
-이며 중간 정도 druggable한 자리이다. 인터페이스 매핑(BioPython, 5 Å)을 온타깃 프록시
-(FKBP12–ALK5, 1B6C; 22잔기, 포켓과 중첩)와 오프타깃 칼시뉴린 복합체(1TCO; 23잔기)에 대해
+전제 수정(BMPR2 → FKBP12; §4.1) 후, RCSB에서 각기 다른 역할을 하는 5개 구조로 참조
+세트를 구성했다: **1FKF**(FKBP12–FK506[19])는 약물 포켓 자체를 정의하고; **1B6C**
+(FKBP12–ALK5 GS-도메인 펩타이드)는 실험적 FKBP12–ALK1/2/3 구조가 없기 때문에 사용한
+온타깃 프록시 인터페이스이며; **1TCO**(FKBP12–FK506–칼시뉴린)는 회피가 곧 선택성 규칙을
+정의하는 오프타깃 인터페이스이고; **2PPN**은 리간드 없는 아포 구조(포켓 기하)이며;
+**1F40**(FKBP12–GPI-1046)은 칼시뉴린 동원 없이 포켓을 점유하는 것이 구조적으로 가능함을
+보여주는 비면역억제성 템플릿 선례이다. 각 사슬·잔기 동일성은 사용 전 PDB 헤더로 검증했다.
+
+1FKF에서 FK506을 제거한 후 fpocket은 FK506 자리를 최상위 포켓으로 식별했다(druggability
+0.517, 부피 277 Å³, 소수성 61.2, 극성 SASA ≈ 0; 포켓 중심이 천연 FK506로부터 4.35 Å) —
+얕고 소수성이며 중간 정도 druggable한 자리이다. 인터페이스 매핑(BioPython, 5 Å)을
+온타깃 프록시(1B6C; 22잔기, 포켓과 중첩)와 오프타깃 칼시뉴린 복합체(1TCO; 23잔기)에 대해
 수행한 결과, 칼시뉴린 인터페이스만이 40s 루프 패치(Thr27, Asp32, Lys34/35, Ser38, Arg40,
 Asn43, Lys44, Pro45)를 사용했고 이는 수용체 인터페이스에는 없었다. 이로부터 전체에 걸쳐
 사용한 설계 규칙이 나온다: **포켓을 채우고, 40s 루프를 피하라.**
@@ -98,21 +146,119 @@ ChEMBL(CHEMBL1902)에서 725개의 고유 FKBP12 결합체(821 활성, pChEMBL 3
 | RF/ECFP4 | FKBP12 대 유사체 선택성 | ρ ≈ **−0.01** | **실패**(학습 불가) |
 | GNINA CNNaffinity | 친화도 순위 | enrichment ROC-AUC **0.799** | **채택** |
 
-세 가지 결론이 핵심을 지탱한다. 여기서 도킹 점수는 친화도에 무의미하여(ROC 0.455) 포즈
-생성에만 한정했다. 리간드 기반 ML은 효능을 예측하나(ρ = 0.75) FKBP **계열** 수준의 결합체
-탐지기로서 FKBP5 리간드를 ~0.79로 점수화하며 FKBP12/유사체 선택성은 예측하지 못한다
-(ρ ≈ 0). GNINA CNNaffinity는 활성(6.34 ± 0.36)과 미끼(5.80 ± 0.53)를 ROC-AUC 0.799로
-분리하여 친화도 신호로 채택했고, 적용범위 Tanimoto ≥ 0.30 게이트를 적용했다. 따라서
-선택성은 학습된 보상이 아니라 구조적으로, 그리고 (전향적으로) 실험적으로 다루었다.
+세 가지 결론이 핵심을 지탱하며, 각각을 표면적으로 받아들이기보다 기전적으로 풀어볼
+가치가 있다.
+
+**도킹 점수가 왜 여기서 실패하는가.** 재도킹 대조군은 *포즈* 자체는 옳다는 것을 보여준다
+(천연 고친화도 거대고리 FK506이 −10.3 kcal/mol로 최고점을 얻고 결정구조 기하를 0.81 Å로
+재현한다), 즉 수용체 준비와 탐색 자체는 문제가 아니다. 실패하는 것은 *순위화*다: 가장
+강력한 drug-like 앵커 6개 중 보고된 효능이 가장 높은 화합물(pChEMBL 9.35)이 Vina 점수로는
+최고점을 얻지 **못했다**; 측정된 친화도와 무관하게 점수가 좁게 뭉쳐 있다(−6.7 ~ −7.6
+kcal/mol). 정식 20-활성/40-미끼 enrichment 세트에서 이는 ROC-AUC 0.455로 압축되고 초기
+enrichment도 미미하다(EF@10% = 1.18, EF@20% = 1.07 — 둘 다 우연값 1.0에 가까움); 활성과
+미끼의 평균 점수는 통계적으로 구분되지 않는다(−7.28 대 −7.33 kcal/mol). 기전적 해석은
+이렇다: FKBP12 포켓은 얕고 거의 전적으로 소수성이라(극성 SASA ≈ 0) 소수성 접촉 면적에
+보상을 주는 Vina/smina 스코어링 함수는 진짜 결합체와 같은 기름진 공동을 그저 채우기만
+하는 다른 어떤 분자도 구분하지 못한다. 이것은 구현 오류가 아니라 표적군의 속성(얕은
+비극성 포켓은 접촉-개수 스코어링 함수를 일반적으로 무력화한다)이기 때문에, 이를 다듬어
+숨기지 않고 보고한다.
+
+**리간드 기반 ML 모델이 왜 FKBP12 특이적이 아니라 계열 탐지기인가.** 분류기와 회귀
+모델은 725개 ChEMBL FKBP12 결합체를 1,200개의 무작위 drug-like ChEMBL 미끼에 대해
+학습했고, 60분자 enrichment 세트는 누출을 막기 위해 학습에서 완전히 제외했다.
+Scaffold-split 교차검증이 헤드라인 수치인 이유는, 순진한 외부검증 ROC-AUC 1.000이
+오해를 부를 만큼 쉬운 값이기 때문이다: 유사도 감사 결과 enrichment 활성 물질은 학습
+양성 세트에 대해 중앙값 Tanimoto 0.75인 반면 미끼는 0.21로, 이 수치는 대체로 "FKBP12에
+가까운 화학 공간 대 무작위 공간"을 반영할 뿐 세밀한 판별력을 뜻하지 않는다 — 그래서 본
+논문 전체에서는 더 엄격한 scaffold-split 수치(선별 0.993, 효능 ρ = 0.748)를 인용한다.
+동일 분류기는 알려진 FKBP5 리간드를 평균 P(binder) ≈ 0.79로 점수화하며(FKBP12 활성 물질
+0.99, 무작위 분자 0.02 대비) 독립적인 FKBP5 효능 회귀 모델 자체는 정확하다(scaffold-CV
+ρ = 0.78) — 그러나 두 유사체 간 예측 효능의 *차이*는 학습 불가능하다(§2.2의 FKBP12 대
+FKBP5 선택성 ρ ≈ −0.01, §2.6의 FKBP12 대 FKBP12.6 ρ ≈ 0). 개별적으로는 훌륭한 두 회귀
+모델의 차이가 아무 신호도 담고 있지 않다는 것이, 본 논문 전체에서 사용하는 "리간드-ML로
+풀리지 않는다"의 조작적 정의다. (부차적 오프타깃 점검으로 만든 약한 저-n FKBP4 회귀
+모델, ρ = 0.30·101개 리간드도 있으나 핵심 논지는 아니다.)
+
+**GNINA는 왜 나머지 둘이 실패하는 곳에서 작동하는가.** GNINA CNNaffinity는 활성(6.34 ±
+0.36)과 미끼(5.80 ± 0.53)를 ROC-AUC 0.799로 분리하여 친화도 신호로 채택했고, 적용범위
+Tanimoto ≥ 0.30 게이트를 적용했다. Vina/smina의 수작업 접촉 항과 달리 GNINA의 합성곱
+스코어링 함수는 3차원 구조 데이터로 종단간(end-to-end) 학습되어 친화도를 직접 예측하며,
+이 표적에서는 단순 소수성 접촉 면적을 넘어서는 포켓 충전 품질을 포착하는 것으로 보인다 —
+다만 본 논문 전체에서 강조하듯 ROC-AUC 0.799는 검증된 대리지표이지 실측 결합이 아니다.
+따라서 선택성은 학습된 보상이 아니라 구조적으로, 그리고 (전향적으로) 실험적으로 다루었다.
 
 ### 2.3 생성과 목표 지향 최적화
 
-BRICS 기준선은 drug-like하나 다양성이 낮은 분자를 냈다(스캐폴드 다양성 11%). 포켓 조건부
-확산(DiffSBDD)은 다양하고 신규한 스캐폴드를 냈으나(다양성 89%, 신규성 0.18, PAINS 0%)
-최고 GNINA CNNaffinity가 6.56에 그쳤고, 표본을 두 배로 늘려도 개선되지 않았다(무차별
-생성 정체 ≈ 6.5). 검증된 효능 모델에 대한 목표 지향 유전 알고리즘 최적화가 하드
-developability·적용범위 제약 하에서 정체를 돌파했다(GNINA 6.56 → 7.06; 고정밀
-exhaustiveness-8 리스코어 7.06 → 7.21). developable하고 신규한 리드 3종이 도출되었다(표 2).
+BRICS 기준선은 drug-like하나 다양성이 낮은 분자를 냈다(스캐폴드 다양성 11%). 전체
+게이트 배치 이전 초기 head-to-head 파일럿(경로당 N ≈ 50)이 두 경로 간 활용(exploitation)
+대 탐색(exploration) 긴장을 구체화했다: BRICS 후보는 DiffSBDD 후보보다 중앙값 logP가
+높고(5.3 대 1.7) 중앙값 MW도 더 컸다(450 대 296 Da); 가장 시사적인 것은, BRICS 분자
+346개가 리간드-ML 스코어러의 적용범위 안에서 binder\_prob ≥ 0.5였던 반면 DiffSBDD
+분자는 **0개**였다는 점이다. 이는 DiffSBDD 분자가 결합하지 않는다는 증거가 아니라,
+알려진 화학형으로 학습한 리간드 기반 스코어러가 진정으로 신규한 화학형에 대해 구조적으로
+눈이 멀어있다는 증거다 — 이것이 바로 §2.2에서 그 스코어러를 적용범위 내 후보로만
+제한하고, 신규 스캐폴드에 대한 검증 부담을 구조 기반 도구(도킹 포즈 → GNINA → MD)가
+지도록 한 이유다. 이 파일럿 배치의 구조 기반 스크리닝(49개 중 41개 도킹 성공)은 16/41을
+기존 drug-like 결합체의 전형적 범위(≤ −7.0 kcal/mol) 이상에, 2/41을 우리 세트의 어떤
+기존 drug-like 결합체보다도 우수한 범위(≤ −8.0)에 위치시켰다 — 다만 도킹 점수의 알려진
+순위화 능력 부재(§2.2)를 고려해 이를 검증이 아니라 이후 GNINA로 확인되거나 기각될
+우선순위 힌트로만 취급했다. 이 힌트에 대한 엄밀성 점검으로, 결과 TIER-1 후보 4개(신규,
+developable, 도킹 ≤ −7 kcal/mol)를 추가 무작위 시드 3개로 재도킹했다: 4개 중 3개는
+점수가 안정적이었으나(시드 간 표준편차 0.02–0.48 kcal/mol) 1개는 초기 최고-시드 점수
+(−8.54)가 시드-낙관적이었음이 드러났다(실제 시드-평균 ≈ −7.5) — 이후 파이프라인
+전체에서 최고-단일-시드가 아니라 시드-평균 도킹 점수를 보고하는 관행을 확립했다.
+
+전체 규모의 포켓 조건부 확산(DiffSBDD)은 다양하고 신규한 스캐폴드를 냈으나(다양성 89%,
+신규성 0.18, PAINS 0%) 최고 GNINA CNNaffinity가 6.56에 그쳤다. 세션이 중단되어 살려낸
+두 번째 독립 DiffSBDD
+배치(271개 분자)도 동일한 게이트를 통과했으나(다양성 91%, 신규성 0.17, developable 24개,
+PAINS 3%) 최고 6.35에 그쳤고 7.0 이상은 하나도 없었다 — 이는 단일 배치의 불운이 아니라
+무차별 샘플링이 배치와 무관하게 ≈ 6.5에서 정체함을 확인시켰고, 방향성 최적화의 필요성을
+뒷받침했다.
+
+**기록된 실패 양상: 시드 지배(seed dominance).** 첫 번째 최적화 시도는 유전 알고리즘
+초기 집단을 ChEMBL 앵커(drug-like 결합체) 자체로 시딩하고("좋은" 출발 물질로서) 효능
+회귀 모델을 최대화했다. 보고된 최고 점수(pred\_pchembl 8.39)는 8세대 내내 전혀 움직이지
+않았고, "최적화된" 상위 분자들은 적용범위 Tanimoto = 1.0이었다 — 즉 학습 세트의 결합체를
+그대로 재현한 것으로, 예를 들어
+`COC[C@H]1CN(Cc2ccccn2)C(=O)[C@@H]2CCC[C@H]1N2S(=O)(=O)c1cc(Cl)cc(Cl)c1` 같은 분자였다.
+회귀 모델은 단지 학습 중 암기한 분자를 알아본 것뿐이며, GA는 아무것도 최적화하지 않았다.
+이를 리간드 기반 최적화 루프에 대한 일반적 경고로 기록한다: 학습-세트에서 유도한 보상
+하에서 학습-세트 분자로 집단을 시딩하는 것은 잠재적 보상 해킹(reward-hacking) 양상이며,
+점수가 평평하거나 높다는 사실만으로는 드러나지 않고 오직 승자의 적용범위 감사로만
+드러난다. 이후 적용한 수정: 앵커는 오직 육종 시 단편 **공여체**로만 쓰고 절대 집단
+시드로 쓰지 않으며, 하드 신규성 박스(0.30 ≤ AD Tanimoto ≤ 0.65)로 기존 결합체의 near-
+duplicate가 승리하는 것을 금지한다.
+
+이 수정을 적용한 유전 알고리즘 1라운드(8세대, §4.5)는 진정으로 신규한 분자(AD
+Tanimoto 0.44–0.52) 중에서 효능 대리지표를 5.16에서 7.34로 끌어올렸고, 상위 15개의
+GNINA 검증은 실질적 향상을 확인했다(최고 7.06 대 기준선 6.56; 15개 중 7개가 6.56 초과;
+developable·신규 후보 중 7.0 이상 1개) — 빠른 대리지표뿐 아니라 검증된 랭커에서도
+방향성 최적화가 무차별 확장을 이겼다.
+
+**두 번째, 똑같이 교훈적인 실패: 대리지표의 과최적화.** 라운드 1의 향상폭(GNINA +0.5)이
+사전 등록한 safety-stop 기준(2라운드에 걸쳐 0.1 미만 향상)을 충분히 넘었기 때문에,
+라운드-1 승자로 재시딩한 라운드 2를 진행했다. 빠른 ML 대리지표만 보면 라운드 2는
+명백한 추가 진전처럼 보였다: 효능 대리지표가 다시 상승했고(7.34 → 7.78), 더
+시사적이었던 것은 결합체-분류기와 효능-회귀 모델이 **일치하기 시작**했다는 점이다
+(결합체 확률이 라운드 1의 ≈ 0.37 — 과최적화 외삽에 대한 경고 신호로 표시됨 — 에서
+라운드 2에는 반복되는 니트릴-디케토피페라진-설폰아마이드 모티프를 공유하는 분자들에서
+0.50–0.65로 상승). 대리지표 공간의 모든 신호가 진짜 향상을 가리켰다. 그러나 GNINA
+검증은 정반대를 말했다: 라운드-2 상위 15개의 최고 CNNaffinity는 **6.64 — 라운드 1의
+7.06보다 낮았다.** GA는 빠른 회귀 모델에 과적합되어, 대리지표는 보상하지만 검증된
+도구는 보상하지 않는 영역으로 표류한 것이다 — 전형적인 보상 해킹이며, (시드-지배
+실패에 이은) 서로를 뒷받침하는 것처럼 보이는 대리지표 신호조차 검증된 확인 없이는
+실제 향상의 증거가 되지 않는다는 두 번째 구체적 실증이다. 사전 등록한 safety-stop
+규칙(2라운드에 걸쳐 GNINA가 0.1 이상 향상되지 않고 STOP 기준도 미달이면 중단)이
+설계대로 정확히 발동했고, G2 최적화는 라운드 1의 7.06 후보를 최고 검증 결과로 삼아
+중단됐다; 라운드 2의 분자들은 이후 단계로 넘어가지 않았다.
+
+라운드 2와는 별개로, 기존 라운드-1 시기 숏리스트(7.06 후보 및 더 넓은 ≥ 6.56 그룹)에
+**더 정밀한 재채점**(exhaustiveness 4가 아닌 8, 포즈 1개가 아닌 5개 — 임계값 조정이
+아니라 재샘플링 변경)을 적용했다. 더 철저한 컨포머 샘플링만으로 검증된 최고점이
+7.06에서 7.21로 올라갔고 STOP 기준 후보 수가 3개 중 1개에서 3개 중 2개로 옮겨갔다.
+developable하고 신규한 리드 3종이 도출되었으며(표 2), 전부 라운드-1 시기 최적화와 이
+재샘플링 단계로 거슬러 올라가고 라운드 2와는 무관하다.
 
 **표 2. 리드 후보 3종(구조 및 물성).**
 
@@ -140,7 +286,7 @@ exhaustiveness-8 리스코어 7.06 → 7.21). developable하고 신규한 리드
 전구체는 매번 **신규 코어 스캐폴드**였다(L1/L3는 프롤린 유래 융합 다이아자-바이사이클릭
 설폰아마이드, L2는 올리고-피롤리딘). GNINA 랭킹 후보 37개 전체를 스크리닝하면 7/37만이
 완전 해결되었고, 이들은 GNINA ≈ 6.34(기존 활성 수준)에서 상한을 보였다; 최고 합성가능
-후보(`O=C(O)CCCCN(CCO)c1cccc(F)c1F`; GNINA 6.34, SA 2.28, 1단계)는 **MD에서 실패**했다
+후보(`O=C(O)CCCCN(CCO)c1cccc(F)c1F`; GNINA 6.34, SA[18] 2.28, 1단계)는 **MD에서 실패**했다
 (최종 RMSD 5.45 Å). 고친화도·MD안정·합성가능을 동시에 만족하는 분자는 없었다(그림 1).
 합성용이(SA ≤ 3.5) 화학으로 제약한 유전 알고리즘은 예측 효능 7.09에 도달했으나, 역합성은
 상위 후보 10개 중 1개만 해결했고 그 유일 해결 분자는 효능/결합 모델이 불일치했다 —
@@ -171,6 +317,31 @@ Ile90과 접촉(3.6–3.8 Å)한다(그림 3): 선택성은 표적뿐 아니라 
 | L2 | 7.04 | 2.91 | 안정 | 3.87 | 3.83 | Trp59 + Ile90 | 미해결(6단계, 4/5 카탈로그) |
 | L3 | 6.95 | 1.60 | 안정 | 3.67 | 3.59 | Trp59 + Ile90 | 미해결(4단계, 4/5 카탈로그) |
 
+### 2.8 파이프라인 규모: 생성-리드 전체 퍼널 (표 4)
+
+표 4는 모든 단계의 규모를 처음부터 끝까지 제시하여, 초기 풀에서 최종 보고된 리드 3개
+사이에 얼마나 많은 걸러내기가 있었는지를 명시적으로 보여준다 — 생성·최적화
+파이프라인은 그 퍼널이 투명할 때에만 신뢰할 수 있다.
+
+**표 4. 생성-리드 전체 퍼널.**
+
+| 단계 | 입력 → 출력 | 핵심 지표 |
+|---|---|---|
+| ChEMBL 정제 | 활성 821 → 고유 리간드 725 → drug-like 앵커 68 | pChEMBL 중앙값 6.71 |
+| 경로 A (BRICS, CPU) | 신규 drug-like 후보 400 | 스캐폴드 다양성 11% |
+| 경로 B 배치1 (DiffSBDD) | 생성 272 → GNINA 채점 37(developable 33 + TIER-1 4) | 다양성 89%, 최고 GNINA 6.56 |
+| 경로 B 배치2 (G1 스케일업) | 생성 271(중단 세션에서 살려냄) → developable 24 채점 | 다양성 91%, 최고 GNINA 6.35 |
+| G2 라운드1 (시드지배 수정 후) | GA 8세대 → 상위 15 GNINA 검증 | 최고 GNINA 7.06(3개 중 1개 ≥7.0) |
+| G2 라운드2 (재시딩; 대리지표 7.34→7.78 상승, GNINA로도 검증) | GA 8세대 → 상위 15 GNINA 검증 | 최고 GNINA **6.64(악화)** → safety-stop 발동, 라운드2 폐기 |
+| HQ 리스코어(exhaustiveness 8, 라운드-1 시기 숏리스트만) | 상위 10을 더 깊은 샘플링으로 재순위화 | 최고 GNINA 7.21(3개 중 2개 ≥7.0) |
+| G3 MD 필터 | 후보 3개 시뮬레이션 | 3/3 결합 유지(최대 RMSD ≤ 2.9 Å) |
+| G4 역합성 | 리드 3개 + 후보 풀 37개 스크리닝 | 리드 0/3 해결; 풀 7/37 해결(GNINA 6.34 상한) |
+| **최종 리드** | **3개 (L1, L2, L3)** | GNINA 6.95–7.21, 모두 MD 안정, 모두 신규 |
+
+이 퍼널은 수백 개의 생성 분자가 3개의 리드로 좁혀지는 대략 세 자릿수의 걸러내기를
+보여주며, 이는 친화도 게이트 단독이 아니라 압도적으로 developability와 적용범위
+게이트에 의해 주도된다 — §2.5에서 정식화한 친화도↔합성가능성 긴장과 일치한다.
+
 ## 3. 고찰
 
 유사체가 거의 동일한 얕은 소수성 포켓에서, 두 주력 방법이 교훈적으로 실패한다: 도킹
@@ -179,6 +350,19 @@ Ile90과 접촉(3.6–3.8 Å)한다(그림 3): 선택성은 표적뿐 아니라 
 이며, 이들이 합쳐져 방어 가능하고 시험 가능한 소수 후보를 낸다. 우리는 실패를 포함한 이
 능력 지도를 발표하는 것이, 성공만 보고하는 또 하나의 생성 사례 연구보다 학계에 더
 유용하다고 본다. 실패가 프로젝트 특유의 우연이 아니라 표적군의 성질이기 때문이다.
+
+**이것이 FKBP12를 넘어 일반화되는 이유.** 두 실패는 이 단백질만의 특이 사항이 아니라,
+많은 신약 표적에 걸쳐 반복되는 두 구조적 속성의 예측 가능한 결과다. 얕고 거의 비극성인
+포켓(druggability 0.517, 극성 SASA ≈ 0)은 소수성 접촉 면적이 지배하는 항을 가진 어떤
+스코어링 함수도, 단백질이 무엇이든 상관없이 무력화한다 — 다른 얕은 면역친화단백질,
+샤페론, 단백질-단백질 상호작용 포켓에서도 같은 실패 양상이 예상된다. 마찬가지로 거의
+동일한 유사체(서열 동일성 83%, ~13개 포켓 잔기 중 단 2개만 차이)는 전체 분자 지문으로
+학습한 어떤 리간드 기반 분류기·회귀 모델도 무력화한다. 학습 신호가 2개 잔기의 구조적
+차이를 애초에 인코딩하지 못하기 때문이다 — 이는 가까운 유사체군을 가진 어떤 표적
+(키나아제, 다른 면역친화단백질, 이온채널 아형)에도 일반화된다. 구조적으로 유사한
+표적을 다루는 실무자에게 실행 가능한 시사점은, 파이프라인이 더 쉬운 표적군에서
+검증되었다고 그대로 전이될 것이라 가정하지 말고 도킹-점수 순위화와 리간드-ML 선택성을
+**먼저 벤치마크한 뒤** 신뢰하라는 것이다.
 
 두 개의 트레이드오프가 의약화학 전망을 규정한다. 첫째, **친화도↔합성가능성**(그림 1):
 최고 친화도·MD안정 리드는 맞춤 합성이 필요한 신규 코어 스캐폴드이고, 합성 용이한 후보는
@@ -192,9 +376,64 @@ Ile90과 접촉(3.6–3.8 Å)한다(그림 3): 선택성은 표적뿐 아니라 
 **한계.** GNINA CNNaffinity는 검증됐으나 불완전한 대리(ROC 0.80, 실측 결합 아님)이고;
 1 ns 단일 복제 MD는 자유에너지 계산이 아닌 안정성 스크린이며; 온타깃 인터페이스는 ALK5
 프록시로 모델링했고; FKBP12/FKBP12.6 창에 대한 상대 FEP도, 어떤 습식 결합·면역억제·효능
-분석도 수행하지 않았다. 모든 후보는 실험 검증을 위한 가설이다. 결정적 다음 실험은 (i)
-FKBP12 결합, (ii) 비면역억제 확인을 위한 칼시뉴린/NFAT 카운터스크린, (iii) Trp59/Ile90
-선택성 가설 검증을 위한 FKBP12.6 카운터스크린이다.
+분석도 수행하지 않았다. 모든 후보는 실험 검증을 위한 가설이다.
+
+**실험 검증 로드맵.** 단일 확증 assay가 아니라 단계적 go/no-go 캐스케이드를 제안한다.
+효능만으로는 이 프로그램의 가치를 판단할 수 없기 때문이다. *Tier 1*(FK506-경쟁 형광
+편광 및/또는 PPIase/rotamase 억제 assay, hit에 대한 SPR 또는 ITC로 Kd 측정)은 최소
+질문 — 애초에 FKBP12에 결합하는가 — 을 물으며 이후 모든 단계의 게이트가 된다.
+결정적인 *Tier 2*는 두 카운터스크린을 병행한다: 40s 루프 회피가 칼시뉴린 동원을
+피한다는 핵심 설계 가설을 시험하는 칼시뉴린-포스파타아제/NFAT-루시퍼라아제(또는 IL-2)
+assay, 그리고 Trp59/Ile90 선택성 가설을 직접 시험하는 FKBP12.6 결합 카운터스크린이다.
+*Tier 3*(폐동맥 평활근세포 또는 C2C12에서 BMP/SMAD1/5 인산화 또는 BRE-루시퍼라아제
+리포터)는 기전이 구조적일 뿐 아니라 기능적인지를 묻는다. *Tier 4*(ADMET/PK, 이후
+설치류 PAH 모델)는 Tier 1–3의 양성 결과 이후에 온다. 첫 합성 우선순위는 **L3**로
+정했다 — 최고의 MD 안정성(평균/최대 1.05/1.60 Å)과 두 선택성 핸들(Trp59 + Ile90)을
+가장 짧은 예측 경로(4단계)로 갖췄다. 그 다음은 **L2**(가장 작고 drug-like하며 두
+핸들 모두 보유), **L1**(최고 친화도, 핸들 하나)은 비교군으로 유지한다; 이 순서는
+원시 예측 친화도보다 선택성 논지에 의도적으로 가중치를 둔 것으로, 선택성이야말로 이
+프로그램이 FK506 자체와 구별되는 지점이기 때문이다. 리드 2종의 합성과 Tier 1–2
+캐스케이드에 대한 개략적 견적은 수개월에 걸쳐 수만 달러 수준이다 — 이후의 추가 계산이나
+합성 투자 이전에 비면역억제-선택성이라는 핵심 가설을 지지하거나 반증할 결정적 데이터를
+얻는 비용치고는 크지 않다.
+
+**위험과 미해결 불확실성, 있는 그대로.** 위의 대리지표-대-실측 문제를 넘어, 더 많은
+계산으로는 풀리지 않는 이 프로그램 고유의 위험 네 가지가 있다. (i) FKBP12/FKBP12.6
+선택성 창의 크기는 미지수다 — 보존적 포켓 잔기 단 두 개만 다르므로, 부호가 유리하더라도
+달성 가능한 창이 좁을 수 있다; 상대 FEP가 이 불확실성을 계산적으로 좁힐 수는 있으나
+그 자체가 리소스 게이팅 상태이며, assay(Tier 2)가 더 결정적인 시험이다. (ii) 이
+프로그램에서 아직 합성되거나 측정된 화합물은 하나도 없다; 여기 보고된 모든 수치는 검증된
+*대리지표*이며, 대리지표는 벤치마킹이 완전히 예견할 수 없는 방식으로 틀릴 수 있다.
+(iii) 리드의 신규 코어는 자동화된 역합성으로 풀리지 않는데, 이는 합성 캠페인의
+비용·일정 위험이지 코어가 만들 수 없다는 증거가 아니다 — 숙련된 합성화학자는 템플릿
+기반 역합성 도구가 못 보는 틈을 일상적으로 메우지만, 이는 실제 시간과 비용을 더한다.
+(iv) 포켓의 낮은 druggability 점수(0.517)는 이 화학형군이 낼 수 있는 효능의 상한을
+제약한다; Tier 1에서 약한 결합만 보인다면, 정직한 결론은 설계 방법의 실패가 아니라
+포켓군 자체의 한계다.
+
+**지적재산권에 대한 노트.** 리드 3종은 학습·생성에 사용한 정제된 ChEMBL FKBP12 리간드
+세트 대비 신규하다(그 세트의 어떤 리간드와도 Tanimoto < 0.4) — 이것이 본 논문 전체에서
+"신규"라는 말의 정확하고 좁은 의미다. 이는 특허성의 필요조건이지 충분조건은 아니며,
+예비적인 키워드 수준 특허문헌 검색(Google Patents/USPTO, 구조 기반 전문 FTO 조사는
+아님)을 수행한 결과 리드 3종 중 2종에 대한 평가가 바뀌었다. L1과 L3는 프롤린 유래 융합
+다이아자-바이사이클릭 설폰아마이드 코어를 공유하는데, 이 일반 설계 원리 — 강직한
+바이사이클릭 프롤린/피페콜산 코어에 설폰아마이드 암을 붙여 FKBP 결합 약효단으로 쓰는 것
+— 은 1990년대 Guilford Pharmaceuticals가 개척한 화학형과 거의 일치한다(예: rotamase
+억제 설폰아마이드 화합물을 다룬 US 5,721,256), 그리고 후속 출원에서 더 넓게
+청구되었다(예: 설폰아마이드/설파마이드/우레아/헤테로바이사이클 FKBP 결합 리간드를
+다루는 CA 2,446,795A1). 구조적으로 관련된 diazabicyclo[4.3.1]decane-설폰아마이드
+FKBP-리간드 계열은 2016–2017년에도 유사체 FKBP51/52 대상으로 특허가 났다(EP 3,097,103
+B1). L1/L3의 구체적 예시 분자 자체가 이 선행문헌에 개별적으로 개시돼 있는지는 전문
+구조 기반 검색이 있어야 확정할 수 있지만, 그 코어 화학형에 대한 genus 수준 신규성
+주장은 이제 실제로 의심스럽다. L2의 올리고-피롤리딘 코어는 이번 예비 검색에서는
+비견할 만한 특허가 나오지 않아 상대적으로 더 깨끗한 후보이지만, 이것도 "문제없음이
+확인됐다"는 뜻이 아니라 제한적이고 완전하지 않은 검색에서 걸린 게 없었다는 뜻일
+뿐이다. 어떤 화합물도 합성되거나 assay되지 않았으며, 이는 어떤 출원에도 별개로
+필요한 전제조건으로 남아있다. 앞서보다 더 낙관적이었던 서술 대신 이 발견을 그대로
+보고하는 이유는, 이것이 결정에 직결되고 어떤 독자든 직접 재현·검증할 수 있는
+사실이기 때문이다: 현재 시점의 기여는 방법론과 가설 세트이며, 명시적으로 IP가 정리된
+후보물질이 아니고, L1/L3에 한해서는 화학형 수준의 신규성조차 자신 있게 주장하기
+어렵다.
 
 ## 4. 방법
 
@@ -208,22 +447,36 @@ BioPython으로 5 Å 컷오프에서 매핑했다.
 **4.3 리간드 데이터.** FKBP12 활성을 ChEMBL(CHEMBL1902)[8]에서 수집하고, drug-like 앵커를
 MW ≤ 500, QED ≥ 0.5, pChEMBL ≥ 6으로 필터링했다.
 
-**4.4 스코어링.** 도킹은 smina[9](AutoDock Vina 스코어링[10])를 사용했고, 재도킹 RMSD와
-활성 20/미끼 40 enrichment 세트로 포즈·순위를 평가했다. 2048비트 ECFP4에 대한 RandomForest
-가 결합체 선별, pChEMBL 회귀, 선택성 프로브를 제공했고 scaffold-split 교차검증으로 평가
-했다. GNINA CNNaffinity[11] 리스코어링은 60분자 enrichment 세트에서 검증하여 Tanimoto ≥
-0.30 적용범위 게이트와 함께 채택했다.
+**4.4 스코어링.** 도킹은 smina[9](AutoDock Vina 스코어링[10], exhaustiveness 8, seed 42)
+를 사용했고, 재도킹 RMSD와 활성 20/미끼 40 enrichment 세트로 포즈·순위를 평가했다.
+2048비트 ECFP4 지문[27]에 대해 결합체 선별(RandomForestClassifier, 400 트리, balanced
+class weight), pChEMBL 회귀(RandomForestRegressor, 400 트리), 그리고 유사(FKBP5)
+선택성 프로브를(고정 random\_state 42) 학습하고 5-fold scaffold-그룹 교차검증
+(GroupKFold)으로 평가했다. Developability는 QED[22], Lipinski[23]·Veber[24] 규칙 준수,
+PAINS 구조 경보[26]를 사용했다(SA ≤ 4, QED ≥ 0.6, 1 ≤ logP ≤ 4). GNINA CNNaffinity[11]
+리스코어링은 60분자 enrichment 세트에서 검증하여 Tanimoto ≥ 0.30 적용범위 게이트와 함께
+채택했다.
 
-**4.5 생성·최적화.** BRICS 재조합이 CPU 기준선을, DiffSBDD[12]가 GPU에서 포켓 조건부 확산
-생성을, BRICS 단편 유전 알고리즘이 하드 developability·적용범위 제약 하 검증 효능 모델의
-최적화를 수행했다. exhaustiveness 8의 GNINA 리스코어가 승자를 순위화했다.
+**4.5 생성·최적화.** BRICS 재조합[25]이 CPU 기준선을, DiffSBDD[12]가 GPU에서 포켓 조건부
+확산 생성을 수행했다. 스크리닝 단계 GNINA 리스코어는 처리량을 위해 exhaustiveness 4 /
+포즈 1개를 사용했고, 최적화 승자의 최종 순위화는 의도적으로 더 철저한 exhaustiveness 8 /
+포즈 5개(둘 다 seed 42)를 사용했다 — 이는 재샘플링 변경이지 임계값 조정이 아니다. 유전
+알고리즘은 라운드당 8세대를 돌며, 하드 제약(0.30 ≤ AD Tanimoto ≤ 0.65, QED ≥ 0.55,
+250 ≤ MW ≤ 500 Da, RDKit 유효성) 하에서 효능 회귀 모델(pred\_pchembl)을 최대화했고,
+단편-공여체 풀(developable 생성 후보 + drug-like ChEMBL 앵커)의 BRICS 재조합을 사용했다;
+앵커는 결코 시드 집단 자체에 넣지 않았다(§2.3). 라운드 2는 GNINA로 검증된 라운드-1
+승자와 라운드-1 GA 집단으로부터 재시딩했다; 라운드 1과 동일하게 상위 15개를 GNINA로
+검증했고, 검증 점수가 오르지 않고 떨어지자 사전 등록된 safety-stop 규칙에 의해
+기각되었다(§2.3).
 
-**4.6 분자동역학.** 복합체는 PDBFixer로 준비하고 리간드를 포켓에 도킹(FK506 기준 autobox)
-했다. 시스템(Amber ff14SB[13] + GAFF-2.11[14] + TIP3P[15], 0.15 M NaCl)을
-OpenMM/openmmforcefields[16]로 구축·에너지 최소화하고, 1 ns(LangevinMiddle 적분기, 수소
-질량 재분배로 4 fs, Monte Carlo barostat) 수행했으며 OpenCL을 사용했다(클라우드 GPU의
-CUDA/드라이버 PTX 비호환으로 OpenCL 플랫폼 강제). 리간드 중원자 RMSD는 단백질 Cα 정렬 후
-MDTraj로 계산했다.
+**4.6 분자동역학.** 복합체는 PDBFixer로 준비하고(pH 7.0에서 누락 수소 첨가) 리간드를
+포켓에 도킹(FK506 기준 autobox)했다. 시스템(Amber ff14SB[13] + GAFF-2.11[14] +
+TIP3P[15], 용매 패딩 1.0 nm, 0.15 M NaCl)을 OpenMM/openmmforcefields[16]
+SystemGenerator로 구축·에너지 최소화하고, 1 ns(LangevinMiddleIntegrator, 300 K, 마찰
+1 ps⁻¹, 수소질량재분배로 3 amu하여 가능해진 4 fs 타임스텝, HBonds+강체수 제약, 1 bar/
+300 K Monte Carlo barostat) 수행했으며 OpenCL을 사용했다(클라우드 GPU의 CUDA/드라이버
+PTX 비호환으로 OpenCL 플랫폼 강제; 이기종 하드웨어 재현성을 위해 CUDA→OpenCL→CPU
+폴백을 구현). 리간드 중원자 RMSD는 단백질 Cα 정렬 후 MDTraj로 계산했다.
 
 **4.7 역합성.** AiZynthFinder 4.4.1[17]에 공개 USPTO 확장/링브레이커/필터 모델과 ZINC
 구입가능 재고(1,740만)를 사용해 분자별로(기본 및 500회 반복 심층 탐색) 실행했다; 카탈로그
@@ -237,48 +490,156 @@ MDTraj로 계산했다.
 대용량 모델/재고 파일은 출처를 문서화하고 버전 관리에서 제외했다. GPU 단계는 일시적
 클라우드 GPU에서 자체 완결형 스크립트로 실행했다.
 
+## 보충 방법 (Supplementary Methods)
+
+**S1. 핵심 자원 표.** 사용한 소프트웨어·데이터 자원과 고정 버전.
+
+| 자원 | 버전/식별자 | 역할 |
+|---|---|---|
+| Python (로컬) | 3.11 (conda-forge) | 메인 `lumen` 환경 |
+| RDKit | ≥ 2024.03 | 케모인포매틱스(BRICS, ECFP4, QED, PAINS, SA) |
+| Biopython | ≥ 1.83 | 인터페이스 매핑, 서열 정렬 |
+| fpocket | conda-forge 빌드 | 포켓 탐지/druggability |
+| scikit-learn | conda-forge 빌드 | RandomForest 분류기/회귀 |
+| smina / OpenBabel | conda-forge 빌드(`lumen-dock` 환경, ICU 의존성 충돌 회피 위해 분리) | 도킹, 포맷 변환 |
+| GNINA | v1.0 바이너리(Colab 세션마다 자체 설치) | CNN 친화도 리스코어링 |
+| DiffSBDD | GitHub, full-atom conditional 체크포인트 `crossdocked_fullatom_cond`(Zenodo 레코드 8183747) | 포켓 조건부 생성 |
+| AiZynthFinder | 4.4.1, 공개 USPTO 확장/링브레이커/필터 모델, ZINC 재고(1,740만) | 역합성 |
+| OpenMM + openmmforcefields | Colab 세션 설치(Python 3.12, CUDA 12 빌드) | MD 시스템 구축·적분 |
+| PDBFixer, MDTraj | Colab 세션 설치 | 구조 복구; 궤적 분석 |
+| 구조 | RCSB PDB: 1FKF, 1B6C, 1TCO, 2PPN, 1F40 | §4.1 참조 |
+| 리간드 데이터 | ChEMBL, 표적 CHEMBL1902 | §4.3 참조 |
+
+**S2. GPU 실행 모델.** GPU 의존 단계(DiffSBDD 생성, GNINA 리스코어링, OpenMM MD)는 전부
+자체 완결형 스크립트(`src/generation/`, `src/scoring/`, `src/md/`의 `colab_*.py`)로
+작성되어 일시적 Google Colab T4 GPU 인스턴스에서 CLI 래퍼(`colab run --gpu T4/L4
+--timeout <s> script.py`)를 통해 실행되었다; 각 스크립트는 자체 의존성을 설치하고 자체
+구조/체크포인트를 다운로드하며, 구분자 마커 라인(예: `===LUMEN_SMILES_BEGIN/END===`,
+`STEP ...`)을 출력해 일시적 VM이 종료된 후 `results/` 로그로 파싱된다. 이는 로컬 macOS
+개발 환경에 GPU가 없어서 생긴 우연이 아니라 의도적인 frugal-compute 설계다(상시 GPU
+인프라 없음).
+
+**S3. 주목할 재현성 수정 사항.** 투명성을 위해, 그리고 향후 구현자가 같은 디버깅
+사이클을 반복하지 않도록, 마주치고 고친 자명하지 않은 크로스플랫폼 이슈들: (i) Colab
+커널 WebSocket에 대한 macOS 측 SSL 인증서 검증 실패 — `SSL_CERT_FILE`을 `certifi`
+번들로 지정해 해결; (ii) `ipykernel` 하에서 Colab 측 서브프로세스 stdout/stderr가
+조용히 소실됨 — 명시적 캡처-후-출력 래핑으로 해결; (iii) `torch.load(weights_only=True)`
+기본값(PyTorch ≥ 2.6)이 DiffSBDD 체크포인트의 `argparse.Namespace` 페이로드를
+거부함 — `sitecustomize.py` 오버라이드로 해결(체크포인트가 신뢰할 수 있는 고정 Zenodo
+레코드에서 왔기 때문에 정당화됨); (iv) Biopython ≥ 1.80에서 제거된
+`Bio.SeqUtils.three_to_one` — `protein_letters_3to1`로 교체; (v) MD 단계의 클라우드
+GPU에서 Amber/OpenMM CUDA 드라이버 PTX 비호환 — 명시적 CUDA→OpenCL→CPU 플랫폼 폴백으로
+해결(§4.6); (vi) 효능 회귀 모델의 교차검증에서 scaffold 그룹화 버그(Python `set()`
+순회 순서가 안정적으로 보장되지 않음) — `sorted(set(...))`으로 고치기 전까지 보고된
+Spearman ρ가 실행마다 비결정적이었음; 수정 후에는 ρ = 0.748(R² = 0.562)이 독립 실행
+간에 정확히 재현된다.
+
+**S4. 도킹 점수 재현성 점검.** 도킹 점수의 순위화 능력이 약하다고 알려져 있으므로
+(§2.2), 초기 TIER-1 후보 세트(도킹 ≤ −7 kcal/mol, developable, 신규를 만족하는 분자
+4개)를 기본 시드(42) 외 추가 무작위 시드 3개로 재도킹했다: 시드 간 점수 표준편차는
+0.02–0.48 kcal/mol 범위였고, 한 후보의 기본-시드 점수(−8.54)는 시드-평균값(≈ −7.5)
+대비 시드-낙관적이었음이 드러났다. 이는 이후 파이프라인 전체(§2.3)에서 최고-단일-시드가
+아니라 시드-평균 도킹 점수를 보고하도록 이끌었다.
+
 ## 데이터 및 코드 가용성
 모든 코드(`src/`), 게이트 로그(`docs/research-log/`), 마스터 기록(`docs/PROJECT_LOG.md`),
 결과표(`results/`), 그림(`docs/paper/figures/`)이 저장소에 있다. 구조는 RCSB PDB, 리간드
 데이터는 ChEMBL, 역합성 모델/재고는 AiZynthFinder 공개 데이터에서 얻었다.
+**보충 정보**(표 S1–S7: 37개 후보 전체 순위 풀, 도킹·MD 원자료, 선택성 접촉 기하,
+구조적/합성가능성 세부 심사, developability 패널, 확장 재현성 노트)는
+`docs/paper/manuscript_SI_KO.md`에 있다.
 
 ## 저자 기여 / 이해상충 / 감사의 글
-[추후 작성.] 저자들은 이해상충이 없음을 선언한다.
+최율호: 개념설계, 방법론, 소프트웨어, 분석, 데이터 큐레이션, 초고 작성, 검토·수정 전부
+담당. 파이프라인 스크립팅, 문헌·참고문헌 검증, 원고 작성 전 과정에서 AI 보조 도구
+(Claude Code, Anthropic)를 저자의 지시 하에 사용했으며, 보고된 모든 수치는 저자가 원본
+결과 파일과 대조 검증했고 모든 과학적 주장과 결론에 대한 책임은 저자에게 있다.
+이해상충 없음을 선언한다. 이 연구에 외부 자금 지원은 없었으며, 계산 비용은 무료/저비용
+클라우드 GPU 세션(Google Colab)에 한정됐다(§4.9, Supplementary Methods 참조).
 
 ## 참고문헌
-*(참고문헌 2, 4, 5, 11, 12, 17, 19는 원문과 대조해 DOI까지 확인함; 나머지 잘 확립된
-방법/DB 인용은 편집 단계에서 페이지·DOI를 확정한다.)*
+*(이번 검증 단계에서 아래 참고문헌 전부를 실시간 문헌 검색으로 독립 재확인했다 — 저자
+목록, 저널, 권/페이지, DOI를 원문 또는 PubMed/DOI 등록 색인과 대조. 28개 전부 DOI를
+확보했고 저자/저널/페이지가 일치함을 확인했다. 이전에 기억 기반 재구성으로 표시했던
+1, 3, 6도 이제 원문과 정확히 일치함이 확인되어 flag를 제거한다. 참고문헌 28(RDKit)은
+고정 DOI가 없는 소프트웨어이므로 실제 사용 버전에 맞는 릴리스/Zenodo DOI를 편집 단계에서
+지정해야 한다.)*
 
-1. Morrell NW, et al. Cellular and molecular basis of pulmonary arterial hypertension.
-   *J Am Coll Cardiol* / *Nat Rev Cardiol* (reviews).
+1. Morrell NW, Adnot S, Archer SL, et al. Cellular and molecular basis of pulmonary
+   arterial hypertension. *J Am Coll Cardiol* 2009;54(1 Suppl):S20–S31.
+   doi:10.1016/j.jacc.2009.04.018.
 2. Lane KB, Machado RD, Pauciulo MW, et al. Heterozygous germline mutations in BMPR2,
    encoding a TGF-β receptor, cause familial primary pulmonary hypertension. *Nat Genet*
    2000;26:81–84. doi:10.1038/79226.
-3. Machado RD, et al. Mutations of BMPR2 in pulmonary arterial hypertension
-   (NMD/haploinsufficiency). *Hum Mutat* 2006.
+3. Machado RD, Eickelberg O, Elliott CG, et al. Genetics and genomics of pulmonary
+   arterial hypertension. *J Am Coll Cardiol* 2009;54(1 Suppl):S32–S42.
+   doi:10.1016/j.jacc.2009.04.015 (절단형 BMPR2 변이의 NMD/반수부족 기전).
 4. Hoeper MM, Badesch DB, Ghofrani HA, et al. Phase 3 trial of sotatercept for treatment
    of PAH (STELLAR). *N Engl J Med* 2023;388(16):1478–1490. doi:10.1056/NEJMoa2213558.
 5. Spiekerkoetter E, et al. FK506 activates BMPR2, rescues endothelial dysfunction, and
    reverses pulmonary hypertension. *J Clin Invest* 2013;123(8):3600–3613. doi:10.1172/JCI65592.
-6. Gold BG, Steiner JP, et al. Neuroimmunophilin(비면역억제성 FKBP) 리간드
-   *(예: GPI-1046).*
-7. Le Guilloux V, Schmidtke P, Tuffery P. Fpocket. *BMC Bioinformatics* 2009;10:168.
-8. Mendez D, et al. ChEMBL. *Nucleic Acids Res* 2019;47:D930–D940.
-9. Koes DR, Baumgartner MP, Camacho CJ. smina. *J Chem Inf Model* 2013;53:1893–1904.
-10. Trott O, Olson AJ. AutoDock Vina. *J Comput Chem* 2010;31:455–461.
+6. Gold BG, Zeleny-Pooley M, Wang M-S, Chaturvedi P, Armistead DM. A nonimmunosuppressant
+   FKBP-12 ligand increases nerve regeneration. *Exp Neurol* 1997;147(2):269–278.
+   doi:10.1006/exnr.1997.6630 (칼시뉴린 비동원 포켓 점유의 GPI-1046 신경면역친화단백질
+   선례).
+7. Le Guilloux V, Schmidtke P, Tuffery P. Fpocket: an open source platform for ligand
+   pocket detection. *BMC Bioinformatics* 2009;10:168. doi:10.1186/1471-2105-10-168.
+8. Mendez D, Gaulton A, Bento AP, et al. ChEMBL: towards direct deposition of bioassay
+   data. *Nucleic Acids Res* 2019;47(D1):D930–D940. doi:10.1093/nar/gky1075.
+9. Koes DR, Baumgartner MP, Camacho CJ. Lessons learned in empirical scoring with smina
+   from the CSAR 2011 benchmarking exercise. *J Chem Inf Model* 2013;53(8):1893–1904.
+   doi:10.1021/ci300604z.
+10. Trott O, Olson AJ. AutoDock Vina: improving the speed and accuracy of docking with a
+    new scoring function, efficient optimization, and multithreading. *J Comput Chem*
+    2010;31(2):455–461. doi:10.1002/jcc.21334.
 11. McNutt AT, Francoeur P, Aggarwal R, et al. GNINA 1.0. *J Cheminform* 2021;13:43.
     doi:10.1186/s13321-021-00522-2.
 12. Schneuing A, Harris C, Du Y, et al. DiffSBDD. *Nat Comput Sci* 2024;4(12):899–909.
     doi:10.1038/s43588-024-00737-x (arXiv:2210.13695).
-13. Maier JA, et al. ff14SB. *J Chem Theory Comput* 2015;11:3696–3713.
-14. Wang J, et al. GAFF. *J Comput Chem* 2004;25:1157–1174.
-15. Jorgensen WL, et al. TIP3P. *J Chem Phys* 1983;79:926–935.
-16. Eastman P, et al. OpenMM. *J Phys Chem B* 2024 / *PLoS Comput Biol* 2017.
+13. Maier JA, Martinez C, Kasavajhala K, Wickstrom L, Hauser KE, Simmerling C. ff14SB:
+    improving the accuracy of protein side chain and backbone parameters from ff99SB.
+    *J Chem Theory Comput* 2015;11(8):3696–3713. doi:10.1021/acs.jctc.5b00255.
+14. Wang J, Wolf RM, Caldwell JW, Kollman PA, Case DA. Development and testing of a
+    general Amber force field (GAFF). *J Comput Chem* 2004;25(9):1157–1174.
+    doi:10.1002/jcc.20035.
+15. Jorgensen WL, Chandrasekhar J, Madura JD, Impey RW, Klein ML. Comparison of simple
+    potential functions for simulating liquid water (TIP3P). *J Chem Phys*
+    1983;79(2):926–935. doi:10.1063/1.445869.
+16. Eastman P, Galvelis R, Peláez RP, et al. OpenMM 8: molecular dynamics simulation with
+    machine-learning potentials. *J Phys Chem B* 2024;128(1):109–116.
+    doi:10.1021/acs.jpcb.3c06662.
 17. Genheden S, Thakkar A, Chadimová V, et al. AiZynthFinder. *J Cheminform* 2020;12:70.
     doi:10.1186/s13321-020-00472-1.
-18. Ertl P, Schuffenhauer A. Synthetic accessibility score. *J Cheminform* 2009;1:8.
+18. Ertl P, Schuffenhauer A. Estimation of synthetic accessibility score of drug-like
+    molecules based on molecular complexity and fragment contributions. *J Cheminform*
+    2009;1:8. doi:10.1186/1758-2946-1-8.
 19. Van Duyne GD, Standaert RF, Karplus PA, Schreiber SL, Clardy J. FKBP–FK506 구조.
     *Science* 1991;252:839–842. doi:10.1126/science.1709302.
+20. Olivecrona M, Blaschke T, Engkvist O, Chen H. Molecular de-novo design through deep
+    reinforcement learning (REINVENT). *J Cheminform* 2017;9:48. doi:10.1186/s13321-017-0235-x.
+21. Jensen JH. A graph-based genetic algorithm and generative model/Monte Carlo tree
+    search for the exploration of chemical space (GB-GA). *Chem Sci* 2019;10(12):3567–3572.
+    doi:10.1039/C8SC05372C.
+22. Bickerton GR, Paolini GV, Besnard J, Muresan S, Hopkins AL. Quantifying the chemical
+    beauty of drugs (QED). *Nat Chem* 2012;4(2):90–98. doi:10.1038/nchem.1243.
+23. Lipinski CA, Lombardo F, Dominy BW, Feeney PJ. Experimental and computational
+    approaches to estimate solubility and permeability (Rule of Five). *Adv Drug Deliv
+    Rev* 1997;23(1–3):3–25. doi:10.1016/S0169-409X(96)00423-1.
+24. Veber DF, Johnson SR, Cheng HY, Smith BR, Ward KW, Kopple KD. Molecular properties
+    that influence the oral bioavailability of drug candidates. *J Med Chem*
+    2002;45(12):2615–2623. doi:10.1021/jm020017n.
+25. Degen J, Wegscheid-Gerlach C, Zaliani A, Rarey M. On the art of compiling and using
+    'drug-like' chemical fragment spaces (BRICS). *ChemMedChem* 2008;3(10):1503–1507.
+    doi:10.1002/cmdc.200800178.
+26. Baell JB, Holloway GA. New substructure filters for removal of pan assay interference
+    compounds (PAINS). *J Med Chem* 2010;53(7):2719–2740. doi:10.1021/jm901137j.
+27. Rogers D, Hahn M. Extended-connectivity fingerprints (ECFP). *J Chem Inf Model*
+    2010;50(5):742–754. doi:10.1021/ci100050t.
+28. Landrum G, et al. RDKit: open-source cheminformatics software (본 연구 전반에 사용된
+    버전; 정확한 릴리스와 Zenodo DOI는 편집 단계에서 고정).
+
+*인용 번호는 추가 순서를 반영하며 본문 내 최초 등장 순서가 아니다; 편집 단계에서
+[20]–[28]을 최초 인용 순서에 맞게 재배열해야 한다.*
 
 ---
 

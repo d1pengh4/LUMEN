@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 LUMEN is a computational drug-discovery pipeline, not a conventional software app. Goal: AI de novo design of a **non-immunosuppressive small-molecule activator of the BMP/BMPR2 axis via FKBP12** (UniProt P62942) for pulmonary arterial hypertension. The deliverable is a defensible, honestly-validated candidate shortlist plus a reproducible pipeline — sufficient for a methodology paper and a wet-lab collaborator.
 
-Read these first to get current: `docs/PROJECT_LOG.md` (master numeric record, single source of truth for status), `docs/ROADMAP.md` (locked plan with stage-gates G1–G8), `docs/decisions/ADR-001-target-redefinition.md` (why the target is FKBP12, not BMPR2 as in `proposal.html`), and `docs/target-dossier-FKBP12.md`.
+Read these first to get current: `docs/PROJECT_LOG.md` (master numeric record, single source of truth for status), `docs/ROADMAP.md` (locked plan with stage-gates G1–G8), `docs/decisions/ADR-001-target-redefinition.md` (why the target is FKBP12, not BMPR2 as in `proposal.html`), and `docs/target-dossier-FKBP12.md`. The write-up itself lives in `docs/MANUSCRIPT_DRAFT.md` and `docs/paper/manuscript_{EN,KO}.md` (+ `docs/paper/figures/`) — every number in the paper must trace back to `docs/PROJECT_LOG.md`.
 
 ## Environment & commands
 
@@ -20,7 +20,10 @@ Reproduce Phase 1 (structure → data → scoring), from README:
 python src/structure/fetch_structures.py      # download FKBP12 PDBs (1FKF, 1B6C, 1TCO, 2PPN, 1F40)
 python src/structure/map_interfaces.py        # ON/OFF-target interfaces -> selectivity rule
 python src/data/collect_chembl_ligands.py     # CHEMBL1902 ligands
+python src/scoring/dock_benchmark.py          # smina redock RMSD gate (needs lumen-dock env)
 python src/scoring/train_affinity_model.py    # trains models/*.joblib (gitignored, reproducible)
+python src/scoring/run_enrichment.py          # docking enrichment ROC-AUC (documents the smina negative)
+python src/scoring/selectivity_panel.py       # FKBP12 vs paralog ML selectivity check (documents the ML negative)
 python src/scoring/score_molecules.py cands.csv > scored.csv   # unified scoring interface
 ```
 There is no test suite, linter, or build step. "Verification" here means a numeric/artifact **gate** (e.g. redock RMSD, enrichment ROC-AUC), recorded in a research log — see the stage-gate principle below.
@@ -28,6 +31,16 @@ There is no test suite, linter, or build step. "Verification" here means a numer
 ## Local vs GPU split (important)
 
 This repo is developed on **macOS without a GPU**. The GPU steps — DiffSBDD generation, GNINA rescoring, OpenMM MD — do NOT run locally. They are written as **self-contained `colab_*.py` scripts** (in `src/scoring/`, `src/generation/`, `src/md/`) that are pasted into a Colab T4 session: each installs its own deps, downloads its binary (gnina) or structure (1FKF from RCSB), embeds molecules with RDKit, runs, and prints `STEP`/marker lines that get salvaged back into `results/` logs. Molecule lists are frequently **hardcoded inline** as JSON in these scripts (e.g. the `DATA=[...]` in `colab_gnina_hq.py`) — that is the established pattern, not a smell to fix. GPU budget is deliberately **frugal**: T4, batched, detached, sessions stopped after each run.
+
+## Generation pipeline (the G1–G4 flow across `src/generation/`, `src/scoring/`, `src/md/`)
+
+Two parallel generation routes feed the same downstream optimize/validate loop:
+- **Route A — BRICS baseline** (`src/generation/brics_generate.py`, local CPU): fragments known FKBP12 binders and recombines them with RDKit. The honest CPU stand-in for a diffusion model.
+- **Route B — DiffSBDD** (`src/generation/prep_diffsbdd_input.py` builds the pocket from 1FKF, `colab_diffsbdd_run.py` runs pocket-conditioned 3D diffusion on a Colab GPU, `score_colab_output.py` parses/scores the returned SMILES). Both routes are scored/gated the same way (`score_and_gate.py` applies the diversity/novelty/developability gate from `docs/ROADMAP.md`).
+- **G2 optimization** (`ga_optimize.py`, `_r2.py`, `_synth.py`): a BRICS-recombination genetic algorithm that hill-climbs the fast ML potency scorer under hard developability/applicability-domain constraints (resists reward-hacking), since RL against a GNINA reward is too GPU-expensive.
+- **GNINA rescoring** (`src/scoring/colab_gnina_*.py` — `gate`, `smoke`, `candidates`, `gaopt`, `gaopt_r2`, `gen600`, `hq`): near-identical self-contained Colab scripts, one per generation/round; they differ mainly in which molecule list is hardcoded in and exhaustiveness settings. This is the expensive, validated affinity check that GA-optimized/generated molecules must clear.
+- **G3 MD validation** (`src/md/colab_md_setup.py` bootstraps micromamba on the Colab VM, `colab_md.py` runs short explicit-solvent OpenMM MD): separates real binding (stable ligand RMSD) from lucky docking poses, run only on the top GNINA survivors (frugal-GPU discipline).
+- **G4 synthesis** (`src/scoring/synth_feasibility.py` for SA/screening, AiZynthFinder externally for retrosynthesis): confirms a chemist could plausibly make the finalists; results here can override an otherwise-attractive candidate (see the affinity↔synthesizability trade-off in `docs/PROJECT_LOG.md`).
 
 ## Scoring stack — what works, and what deliberately does not
 
