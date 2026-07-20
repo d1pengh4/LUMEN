@@ -6,7 +6,8 @@ ligands, targeting the BMP/BMPR2 signaling axis in pulmonary arterial hypertensi
 
 Full write-up: [`docs/paper/manuscript_EN.md`](docs/paper/manuscript_EN.md) ([한국어](docs/paper/manuscript_KO.md)) ·
 Supplementary data: [`docs/paper/manuscript_SI_EN.md`](docs/paper/manuscript_SI_EN.md) ·
-Master numeric record: [`docs/PROJECT_LOG.md`](docs/PROJECT_LOG.md)
+Master numeric record: [`docs/PROJECT_LOG.md`](docs/PROJECT_LOG.md) ·
+Blog series (한국어): [velog.io/@eurochoic/series/LUMEN](https://velog.io/@eurochoic/series/LUMEN)
 
 > Candidate molecules reported here are **computational hypotheses for experimental
 > testing** — not validated binders or drugs. Every number below traces to a dated
